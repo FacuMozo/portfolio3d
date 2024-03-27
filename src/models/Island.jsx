@@ -89,7 +89,7 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
       islandRef.current.rotation.y += 0.01 * Math.PI;
     } else {
       // Desplazamiento hacia abajo (scroll hacia abajo)
-      if (!isRotating) setIsRotating(true);
+      if (!isRotating) setIsRotating(false);
       islandRef.current.rotation.y -= 0.01 * Math.PI;
     }
   
@@ -101,13 +101,14 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
   };
 
   useFrame(() => {
-    if (true) {
+    if (!isRotating) {
       rotationSpeed.current *= dampingFactor;
       if (Math.abs(rotationSpeed.current) < 0.001) {
         rotationSpeed.current -= 0.0005;
       }
 
       islandRef.current.rotation.y += rotationSpeed.current
+    }
       const rotation = islandRef.current.rotation.y;
       /**
        * Normalize the rotation value to ensure it stays within the range [0, 2 * Math.PI].
@@ -144,7 +145,7 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
           break;
         default:
           setCurrentStage(null);
-      }
+      
     }
 
 
