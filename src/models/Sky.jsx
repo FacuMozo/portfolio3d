@@ -9,8 +9,8 @@ const Sky = ({isRotating}) => {
   const sky = useGLTF(skyScene);
   const skyRef = useRef();
   useFrame((_,delta)=>{
+    skyRef.current.rotation.y -= 0.05* delta;
     if(isRotating){
-      skyRef.current.rotation.y -= 0.15* delta;
     }
   })
 

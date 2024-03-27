@@ -14,25 +14,25 @@ import { a } from '@react-spring/three'
 import islandScene from '../assets/3d/island.glb'
 
 
-const Island = ({isRotating, setIsRotating, setCurrentStage, ...props}) => {
+const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
   const islandRef = useRef();
-  
-  const { gl,viewport }= useThree();
+
+  const { gl, viewport } = useThree();
   const { nodes, materials } = useGLTF(islandScene);
-  
-  const  lastX = useRef(0);
-  const  rotationSpeed = useRef(0);
-  const  dampingFactor = 0.95;
-  
+
+  const lastX = useRef(0);
+  const rotationSpeed = useRef(0);
+  const dampingFactor = 0.95;
+
   const handlePointerDown = (e) => {
     e.stopPropagation();
     e.preventDefault()
     setIsRotating(true);
-    const clientX = e.touches 
-      ? e.touches[0].clientX 
+    const clientX = e.touches
+      ? e.touches[0].clientX
       : e.clientX;
-     
-      lastX.current=clientX;
+
+    lastX.current = clientX;
   }
   const handlePointerUp = (e) => {
     e.stopPropagation();
@@ -41,47 +41,74 @@ const Island = ({isRotating, setIsRotating, setCurrentStage, ...props}) => {
   }
   const handlePointerMove = (e) => {
     e.stopPropagation();
-    e.preventDefault()
+    // e.preventDefault()
 
-    if( isRotating){
-      const clientX = e.touches 
-      ? e.touches[0].clientX 
-      : e.clientX;
+    if (e.pointerType === 'mouse' && e.buttons === 0) {
+      return;
+    }
+
+    if (isRotating) {
+      const clientX = e.touches
+        ? e.touches[0].clientX
+        : e.clientX;
       const delta = (clientX - lastX.current) / viewport.width;
-      
+
       islandRef.current.rotation.y += delta * 0.01 * Math.PI;
 
-      lastX.current =clientX
+      lastX.current = clientX
 
       rotationSpeed.current = delta * 0.01 * Math.PI;
     }
 
   }
-  const handleKeyDown = (e)=>{
-    if(e.key === 'ArrowLeft'){
-      if(!isRotating) setIsRotating(true);
-      islandRef.current.rotation.y += 0.01* Math.PI;
-    }else if(e.key === 'ArrowRight'){
-      if(!isRotating) setIsRotating(true);
-      islandRef.current.rotation.y -= 0.01* Math.PI;
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowLeft') {
+      if (!isRotating) setIsRotating(true);
+      islandRef.current.rotation.y += 0.01 * Math.PI;
+    } else if (e.key === 'ArrowRight') {
+      if (!isRotating) setIsRotating(true);
+      islandRef.current.rotation.y -= 0.01 * Math.PI;
     }
   }
-  const handleKeyUp = (e)=>{
-    if(e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
+  const handleKeyUp = (e) => {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       setIsRotating(false);
     }
   }
+  const handleMouseScroll = (e) => {
+    e.preventDefault(); // Evitar el comportamiento predeterminado del desplazamiento del navegador
+  
+    // Verificar si el botón izquierdo del ratón está presionado
+    // if (e.buttons === 0) {
+    //   return;
+    // }
+  
+    if (e.deltaY < 0) {
+      // Desplazamiento hacia arriba (scroll hacia arriba)
+      if (!isRotating) setIsRotating(true);
+      islandRef.current.rotation.y += 0.01 * Math.PI;
+    } else {
+      // Desplazamiento hacia abajo (scroll hacia abajo)
+      if (!isRotating) setIsRotating(true);
+      islandRef.current.rotation.y -= 0.01 * Math.PI;
+    }
+  
+    // Establecer isRotating en false después de un breve retraso cuando se detiene el scroll
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      setIsRotating(false);
+    }, 1); // Cambia el valor de 200 según sea necesario
+  };
 
-  useFrame(()=>{
-    if(!isRotating){
-      rotationSpeed.current*=dampingFactor;
-      if( Math.abs(rotationSpeed.current) < 0.001){
-        rotationSpeed.current-= 0.001;
+  useFrame(() => {
+    if (true) {
+      rotationSpeed.current *= dampingFactor;
+      if (Math.abs(rotationSpeed.current) < 0.001) {
+        rotationSpeed.current -= 0.0005;
       }
 
       islandRef.current.rotation.y += rotationSpeed.current
-    }else{
-      const rotation=islandRef.current.rotation.y;
+      const rotation = islandRef.current.rotation.y;
       /**
        * Normalize the rotation value to ensure it stays within the range [0, 2 * Math.PI].
        * The goal is to ensure that the rotation value remains within a specific range to
@@ -103,42 +130,47 @@ const Island = ({isRotating, setIsRotating, setCurrentStage, ...props}) => {
 
       // Set the current stage based on the island's orientation
       switch (true) {
-        case normalizedRotation >= 5.45 && normalizedRotation <= 5.85:
+        case normalizedRotation >= 5.45 && normalizedRotation <= 8.0:
           setCurrentStage(4);
           break;
-        case normalizedRotation >= 0.85 && normalizedRotation <= 1.5:
+        case normalizedRotation >= 0.5 && normalizedRotation <= 1.9:
           setCurrentStage(3);
           break;
-        case normalizedRotation >= 2.0 && normalizedRotation <= 3.0:
+        case normalizedRotation >= 2.1 && normalizedRotation <= 3.5:
           setCurrentStage(2);
           break;
-        case normalizedRotation >= 4.0 && normalizedRotation <= 5.0:
+        case normalizedRotation >= 4.25 && normalizedRotation <= 5.15:
           setCurrentStage(1);
           break;
         default:
           setCurrentStage(null);
       }
     }
-    
+
 
   })
 
-  useEffect(()=> {
+  useEffect(() => {
+    let scrollTimeout;
+
     const canvas = gl.domElement;
     canvas.addEventListener('pointerdown', handlePointerDown);
     canvas.addEventListener('pointerup', handlePointerUp);
     canvas.addEventListener('pointermove', handlePointerMove);
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
-    return () =>{
+    window.addEventListener("wheel", handleMouseScroll);
+
+    return () => {
       canvas.removeEventListener('pointerdown', handlePointerDown);
       canvas.removeEventListener('pointerup', handlePointerUp);
       canvas.removeEventListener('pointermove', handlePointerMove);
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keyup', handleKeyUp);
-      
+      window.removeEventListener("wheel", handleMouseScroll);
+      clearTimeout(scrollTimeout); 
     }
-  },[gl,handlePointerDown,handlePointerMove, handlePointerUp])
+  }, [gl, handlePointerDown, handlePointerMove, handlePointerUp])
 
   return (
     <a.group ref={islandRef}{...props} >
@@ -166,7 +198,7 @@ const Island = ({isRotating, setIsRotating, setCurrentStage, ...props}) => {
         geometry={nodes.polySurface949_tree_body_0.geometry}
         material={materials.PaletteMaterial001}
       />
-      <mesh 
+      <mesh
         geometry={nodes.pCube11_rocks1_0.geometry}
         material={materials.PaletteMaterial001}
       />
