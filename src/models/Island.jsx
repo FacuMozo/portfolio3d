@@ -97,6 +97,7 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       setIsRotating(false);
+      console.log("scrollOff");
     }, 1); // Cambia el valor de 200 según sea necesario
   };
 
@@ -151,8 +152,8 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
 
   })
 
+  let scrollTimeout;
   useEffect(() => {
-    let scrollTimeout;
 
     const canvas = gl.domElement;
     canvas.addEventListener('pointerdown', handlePointerDown);

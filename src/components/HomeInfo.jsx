@@ -30,14 +30,14 @@ const renderContent = {
     3: (
         <InfoBox 
             text="Tengo 25 años y estoy comenzando mi carrera profesional, te presento mis habilidades:"
-            link="/projects"
+            link="/about"
             btnText="Acerca de mi"
         />
     ),
     4: (
         <InfoBox 
             text="Necesitas un programador? Estamos a un par de clicks de distancia!"
-            link="/projects"
+            link="/contact"
             btnText="Hablemos!"
         />
     ),
