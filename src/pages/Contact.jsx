@@ -1,8 +1,12 @@
 import React, { useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
+import Alert from '../components/Alert';
+import useAlert from '../hooks/useAlert';
 
 const Contact = () => {
   const formRef = useRef(null)
+  const { alert, showAlert, hideAlert } = useAlert();
+
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   // form = {name:'', email:'',message:'' }
   const [isLoading, setIsLoading] = useState(false);
@@ -28,15 +32,19 @@ const Contact = () => {
       
     ).then(()=>{
       setIsLoading(false);
-      //TODO: show success message
-      //TODO: hide an alert
-
-      setForm({name:'',email:'',message:''})
+      showAlert({show:true,text:'Mensaje enviado exitosamente!', type:'success'})
+      setTimeout(()=>{
+        setForm({name:'',email:'',message:''})
+        hideAlert();
+      },[3000])
     }).catch((error)=>{
       setIsLoading(false);
       console.log(error);
-      //TODO: show error message
-
+      showAlert({show:true,text:'Mensaje enviado exitosamente!', type:'success'})
+      showAlert({show:true,text:'Fallo al enviar el mensaje!', type:'danger'})
+      setTimeout(()=>{
+        hideAlert();
+      },[4000])
     })
   };
 const handleFocus = () => { }
@@ -45,6 +53,8 @@ const handleBlur = () => { };
 
 return (
   <section className="relative flex lg:flex-row flex-col max-container">
+    {alert.show && <Alert {...alert}/>}
+  
     <div className="flex-1 min-w-[50%] flex flex-col">
       <h1 className='head-text'>Get in touch</h1>
 
