@@ -17,7 +17,7 @@ const About = () => {
         <h3 className='subhead-text'>Mis Habilidades - Skillset</h3>
 
         <div className='mt-16 flex flex-wrap gap-12'>
-          {skills.map((skill)=>{
+          {skills.map((skill)=>(
             <div>
               <div>
                 <img 
@@ -26,7 +26,7 @@ const About = () => {
                   />
               </div>
             </div>
-          })}
+          ))}
         </div>
       </div>
     </section>
