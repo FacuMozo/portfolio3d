@@ -1,5 +1,7 @@
 import React from 'react'
+import { extend   } from '@react-three/fiber'
 import {Html}from '@react-three/drei'
+extend({Html});
 
 const Loader = () => {
   return (
