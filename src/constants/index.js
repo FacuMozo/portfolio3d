@@ -1,4 +1,4 @@
-import { meta, shopify, starbucks, tesla } from "../assets/images";
+import { meta, shopify, sanjose, tesla } from "../assets/images";
 import {
     car,
     contact,
@@ -97,57 +97,19 @@ export const skills = [
 
 export const experiences = [
     {
-        title: "React.js Developer",
-        company_name: "Starbucks",
-        icon: starbucks,
+        title: "Profesor de Informatica",
+        company_name: "Colegio San Jose",
+        icon: sanjose,
         iconBg: "#accbe1",
-        date: "March 2020 - April 2021",
+        date: "Agosto 2023 - Diciembre 2023",
         points: [
-            "Developing and maintaining web applications using React.js and other related technologies.",
-            "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-            "Implementing responsive design and ensuring cross-browser compatibility.",
-            "Participating in code reviews and providing constructive feedback to other developers.",
+            "Como maestro sustituto de informática en una escuela primaria, impartí clases a cinco grupos de 40 estudiantes cada uno, centrándome en conceptos esenciales de programación, conceptos informáticos, comprensión del alcance de la tecnología y aplicaciones prácticas.",
+            " Más allá de la teoría, guié a los estudiantes a través de ejercicios prácticos con herramientas como Office, Gmail, Classroom, Canva y Pilas Bloques (programación), haciendo hincapié en su uso práctico",
+            "Mi objetivo era equipar a las mentes jóvenes no solo con habilidades técnicas, sino también con una comprensión integral del papel de la tecnología en nuestro mundo.",
+            
         ],
-    },
-    {
-        title: "React Native Developer",
-        company_name: "Tesla",
-        icon: tesla,
-        iconBg: "#fbc3bc",
-        date: "Jan 2021 - Feb 2022",
-        points: [
-            "Developing and maintaining web applications using React.js and other related technologies.",
-            "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-            "Implementing responsive design and ensuring cross-browser compatibility.",
-            "Participating in code reviews and providing constructive feedback to other developers.",
-        ],
-    },
-    {
-        title: "Web Developer",
-        company_name: "Shopify",
-        icon: shopify,
-        iconBg: "#b7e4c7",
-        date: "Jan 2022 - Jan 2023",
-        points: [
-            "Developing and maintaining web applications using React.js and other related technologies.",
-            "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-            "Implementing responsive design and ensuring cross-browser compatibility.",
-            "Participating in code reviews and providing constructive feedback to other developers.",
-        ],
-    },
-    {
-        title: "Full stack Developer",
-        company_name: "Meta",
-        icon: meta,
-        iconBg: "#a2d2ff",
-        date: "Jan 2023 - Present",
-        points: [
-            "Developing and maintaining web applications using React.js and other related technologies.",
-            "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-            "Implementing responsive design and ensuring cross-browser compatibility.",
-            "Participating in code reviews and providing constructive feedback to other developers.",
-        ],
-    },
+    },   
+    
 ];
 
 export const socialLinks = [
