@@ -66,9 +66,11 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
     if (e.key === 'ArrowLeft') {
       if (!isRotating) setIsRotating(true);
       islandRef.current.rotation.y += 0.01 * Math.PI;
+      rotationSpeed.current = 0.0075;
     } else if (e.key === 'ArrowRight') {
       if (!isRotating) setIsRotating(true);
       islandRef.current.rotation.y -= 0.01 * Math.PI;
+      rotationSpeed.current = -0.005;
     }
   }
   const handleKeyUp = (e) => {
@@ -86,7 +88,7 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
   
     if (e.deltaY < 0) {
       // Desplazamiento hacia arriba (scroll hacia arriba)
-      if (!isRotating) setIsRotating(true);
+      if (!isRotating) setIsRotating(false);
       islandRef.current.rotation.y += 0.01 * Math.PI;
     } else {
       // Desplazamiento hacia abajo (scroll hacia abajo)
@@ -100,6 +102,33 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
       setIsRotating(false);
       console.log("scrollOff");
     }, 1); // Cambia el valor de 200 según sea necesario
+  };
+  const handleTouchEnd = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+  setIsRotating(false);
+  const clientX = event.touches[0].clientX;
+  lastX.current = clientX;
+  };
+  
+  const handleTouchMove = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    if (isRotating) {
+      const clientX = event.touches[0].clientX;
+      const delta = (clientX - lastX.current) / viewport.width;
+        if (islandRef.current) {
+            islandRef.current.rotation.y += delta * 0.01 * Math.PI;
+  }
+      lastX.current = clientX;
+      rotationSpeed.current = delta * 0.01 * Math.PI;
+    }
+  };
+  
+  const handleTouchStart = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setIsRotating(true);
   };
 
   useFrame(() => {
@@ -162,6 +191,9 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
     canvas.addEventListener('pointermove', handlePointerMove);
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
+    canvas.addEventListener("touchstart", handleTouchStart);
+    canvas.addEventListener("touchend", handleTouchEnd);
+    canvas.addEventListener("touchmove", handleTouchMove);
     window.addEventListener("wheel", handleMouseScroll);
 
     return () => {
@@ -170,6 +202,9 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
       canvas.removeEventListener('pointermove', handlePointerMove);
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keyup', handleKeyUp);
+      canvas.removeEventListener("touchstart", handleTouchStart);
+    canvas.removeEventListener("touchend", handleTouchEnd);
+    canvas.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("wheel", handleMouseScroll);
       clearTimeout(scrollTimeout); 
     }
