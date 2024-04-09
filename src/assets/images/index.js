@@ -6,6 +6,8 @@ import tesla from './tesla.png'
 import logo from './logo.svg'
 import sanjose from './sanjose.png'
 import consigna1 from './consigna1.webp'
+import AgileFlow from './AgileFlow.webp'
+import AgileFlow2 from './AgileFlow2.webp'
 
 export {
     hero,
@@ -15,5 +17,7 @@ export {
     tesla,
     logo,
     sanjose,
-    consigna1
+    consigna1,
+    AgileFlow,
+    AgileFlow2
 }

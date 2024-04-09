@@ -24,12 +24,15 @@ import summiz from './summiz.svg'
 import threads from './threads.svg'
 import arrow from './arrow.svg'
 import contact from './contact.svg'
+import AgileFlowLogo from './AgileFlow-logo.png'
 import soundon from './soundon.png'
 import soundoff from './soundoff.png'
 import faviconOcularVet from './faviconOcularVet.webp'
 
+
 export {
     faviconOcularVet,
+    AgileFlowLogo,
     css,
     express,
     git,

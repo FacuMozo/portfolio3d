@@ -1,6 +1,7 @@
-import { meta, shopify, sanjose, tesla,consigna1 } from "../assets/images";
+import { meta, shopify, sanjose, tesla,consigna1,AgileFlow, AgileFlow2 } from "../assets/images";
 import {
     car,
+    AgileFlowLogo,
     contact,
     css,
     estate,
@@ -141,38 +142,12 @@ export const projects = [
         imageUrl: consigna1
     },
     {
-        iconUrl: threads,
+        iconUrl: AgileFlowLogo,
         theme: 'btn-back-green',
-        name: 'Full Stack Threads Clone',
-        description: 'Created a full-stack replica of the popular discussion platform "Threads," enabling users to post and engage in threaded conversations.',
-        link: 'https://github.com/adrianhajdin/threads',
+        name: 'Agile Flow',
+        description: 'Plataforma web diseñada para simular las funcionalidades clave de TAIGA, facilitando la gestión eficiente de proyectos en entornos de desarrollo ágil. Ofrece la capacidad de descomponer proyectos en unidades incrementales, permitiendo la especificación y facilitando su implementación, además de posibilitar la asignación de tareas a los miembros del equipo.',
+        link: 'https://agile-flow.vercel.app/login',
+        imageUrl: AgileFlow2
     },
-    {
-        iconUrl: car,
-        theme: 'btn-back-blue',
-        name: 'Car Finding App',
-        description: 'Designed and built a mobile app for finding and comparing cars on the market, streamlining the car-buying process.',
-        link: 'https://github.com/adrianhajdin/project_next13_car_showcase',
-    },
-    {
-        iconUrl: snapgram,
-        theme: 'btn-back-pink',
-        name: 'Full Stack Instagram Clone',
-        description: 'Built a complete clone of Instagram, allowing users to share photos and connect with friends in a familiar social media environment.',
-        link: 'https://github.com/adrianhajdin/social_media_app',
-    },
-    {
-        iconUrl: estate,
-        theme: 'btn-back-black',
-        name: 'Real-Estate Application',
-        description: 'Developed a web application for real estate listings, facilitating property searches and connecting buyers with sellers.',
-        link: 'https://github.com/adrianhajdin/projects_realestate',
-    },
-    {
-        iconUrl: summiz,
-        theme: 'btn-back-yellow',
-        name: 'AI Summarizer Application',
-        description: 'App that leverages AI to automatically generate concise & informative summaries from lengthy text content, or blogs.',
-        link: 'https://github.com/adrianhajdin/project_ai_summarizer',
-    }
+    
 ];
