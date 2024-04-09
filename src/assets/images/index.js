@@ -5,6 +5,7 @@ import starbucks from './starbucks.png'
 import tesla from './tesla.png'
 import logo from './logo.svg'
 import sanjose from './sanjose.png'
+import consigna1 from './consigna1.webp'
 
 export {
     hero,
@@ -13,5 +14,6 @@ export {
     starbucks,
     tesla,
     logo,
-    sanjose
+    sanjose,
+    consigna1
 }

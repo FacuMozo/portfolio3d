@@ -1,4 +1,4 @@
-import { meta, shopify, sanjose, tesla } from "../assets/images";
+import { meta, shopify, sanjose, tesla,consigna1 } from "../assets/images";
 import {
     car,
     contact,
@@ -15,6 +15,7 @@ import {
     mui,
     nextjs,
     nodejs,
+    faviconOcularVet,
     pricewise,
     react,
     redux,
@@ -121,22 +122,23 @@ export const socialLinks = [
     {
         name: 'GitHub',
         iconUrl: github,
-        link: 'https://github.com/YourGitHubUsername',
+        link: 'https://github.com/FacuMozo',
     },
     {
         name: 'LinkedIn',
         iconUrl: linkedin,
-        link: 'https://www.linkedin.com/in/YourLinkedInUsername',
+        link: 'https://www.linkedin.com/in/facundo-mozo/',
     }
 ];
 
 export const projects = [
     {
-        iconUrl: pricewise,
-        theme: 'btn-back-red',
-        name: 'Amazon Price Tracker',
-        description: 'Developed a web application that tracks and notifies users of price changes for products on Amazon, helping users find the best deals.',
-        link: 'https://github.com/adrianhajdin/pricewise',
+        iconUrl: faviconOcularVet,
+        theme: 'btn-back-pink',
+        name: 'Ocular Vet',
+        description: 'Aplicación web para el curso de Fisiología de los Sistemas Nervioso y Muscular en la Facultad de Ciencias Veterinarias, donde los estudiantes pueden autoevaluar los reflejos oculares en perros a través de simulaciones basadas en casos de práctica profesional real. La autoevaluación les permite, por un lado, identificar los componentes del arco reflejo al visualizar su funcionamiento normal, y por otro lado, detectar qué estructura está dañada en presencia de un reflejo pupilar alterado.',
+        link: 'https://ocular-vet.exa.unicen.edu.ar/#/auth/login',
+        imageUrl: consigna1
     },
     {
         iconUrl: threads,
