@@ -25,10 +25,26 @@ import {
     summiz,
     tailwindcss,
     threads,
-    typescript
+    typescript,
+    angularIcon
 } from "../assets/icons";
 
 export const skills = [
+    {
+        imageUrl: angularIcon,
+        name: "Angular",
+        type: "Frontend",
+    },
+    {
+        imageUrl: nodejs,
+        name: "Node.js",
+        type: "Backend",
+    },
+    {
+        imageUrl: react,
+        name: "React",
+        type: "Frontend",
+    },
     {
         imageUrl: css,
         name: "CSS",
@@ -69,16 +85,6 @@ export const skills = [
         name: "Next.js",
         type: "Frontend",
     },
-    {
-        imageUrl: nodejs,
-        name: "Node.js",
-        type: "Backend",
-    },
-    {
-        imageUrl: react,
-        name: "React",
-        type: "Frontend",
-    },
     
     {
         imageUrl: sass,
@@ -116,11 +122,6 @@ export const experiences = [
 
 export const socialLinks = [
     {
-        name: 'Contact',
-        iconUrl: contact,
-        link: '/contact',
-    },
-    {
         name: 'GitHub',
         iconUrl: github,
         link: 'https://github.com/FacuMozo',
@@ -137,6 +138,7 @@ export const projects = [
         iconUrl: faviconOcularVet,
         theme: 'btn-back-pink',
         name: 'Ocular Vet',
+        tecnologias: 'MEAN Stack - Mongo - Express - Angular - NodeJS',
         description: 'Aplicación web para el curso de Fisiología de los Sistemas Nervioso y Muscular en la Facultad de Ciencias Veterinarias, donde los estudiantes pueden autoevaluar los reflejos oculares en perros a través de simulaciones basadas en casos de práctica profesional real. La autoevaluación les permite, por un lado, identificar los componentes del arco reflejo al visualizar su funcionamiento normal, y por otro lado, detectar qué estructura está dañada en presencia de un reflejo pupilar alterado.',
         link: 'https://ocular-vet.exa.unicen.edu.ar/#/auth/login',
         imageUrl: consigna1
@@ -145,6 +147,7 @@ export const projects = [
         iconUrl: AgileFlowLogo,
         theme: 'btn-back-green',
         name: 'Agile Flow',
+        tecnologias: 'MEAN Stack - Mongo - Express - Angular - NodeJS',
         description: 'Plataforma web diseñada para simular las funcionalidades clave de TAIGA, facilitando la gestión eficiente de proyectos en entornos de desarrollo ágil. Ofrece la capacidad de descomponer proyectos en unidades incrementales, permitiendo la especificación y facilitando su implementación, además de posibilitar la asignación de tareas a los miembros del equipo.',
         link: 'https://agile-flow.vercel.app/login',
         imageUrl: AgileFlow2

@@ -56,18 +56,18 @@ return (
     {alert.show && <Alert {...alert}/>}
   
     <div className="flex-1 min-w-[50%] flex flex-col">
-      <h1 className='head-text'>Get in touch</h1>
+      <h1 className='head-text'>Ponete en contacto!</h1>
 
       <form className='w-full flex flex-col gap-7 mt-14'
         onSubmit={handleSubmit}
       >
         <label className='text-black-500 font-semibold'>
-          Name
+          Nombre
           <input
             type="text"
             name="name"
             className='input'
-            placeholder='your name'
+            placeholder='Tu nombre'
             required
             value={form.name}
             onChange={handleChange}
@@ -81,7 +81,7 @@ return (
             type="email"
             name="email"
             className='input'
-            placeholder='example@mail.com'
+            placeholder='Ejemplo@mail.com'
             required
             value={form.email}
             onChange={handleChange}
@@ -90,12 +90,12 @@ return (
           />
         </label>
         <label className='text-black-500 font-semibold'>
-          Your Message
+          Tu Mensaje
           <textarea
             name="message"
             rows={4}
             className='input'
-            placeholder='Let me know how i can help you!'
+            placeholder='Decime en que puedo ayudarte!'
             required
             value={form.message}
             onChange={handleChange}

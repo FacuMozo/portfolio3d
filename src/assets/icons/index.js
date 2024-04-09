@@ -24,13 +24,17 @@ import summiz from './summiz.svg'
 import threads from './threads.svg'
 import arrow from './arrow.svg'
 import contact from './contact.svg'
+import Home_logo from './Home_logo.svg'
 import AgileFlowLogo from './AgileFlow-logo.png'
 import soundon from './soundon.png'
 import soundoff from './soundoff.png'
+import angularIcon from './angular-icon.png'
 import faviconOcularVet from './faviconOcularVet.webp'
 
 
 export {
+    Home_logo,
+    angularIcon,
     faviconOcularVet,
     AgileFlowLogo,
     css,

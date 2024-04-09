@@ -13,12 +13,12 @@ const About = () => {
       </h1>
       <div className='mt-5 flex flex-col gap-3 text-slate-700'>
         <p className='text-justify'>
-          Ingeniero de Sistemas, de Argentina, con conociminetos en el desarrollo de aplicaciones WEB (Full-Stack) con predileccion por el FrontEnd.
+          Ingeniero de Sistemas, desarrollador de aplicaciones WEB (Full-Stack) con preferencia en el desarrollo FrontEnd.
         </p>
       </div>
 
       <div className="py-10 flex flex-col">
-        <h3 className='subhead-text'>Mis Habilidades - Skillset</h3>
+        <h3 className='subhead-text'>Mis Habilidades - Conocimientos</h3>
 
         <div className='mt-16 flex flex-wrap gap-12'>
           {skills.map((skill) => (

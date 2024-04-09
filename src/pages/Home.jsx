@@ -56,7 +56,7 @@ const Home = () => {
         <Suspense >
           <directionalLight position={[1,1,1]} intensity={2} />
           <ambientLight intensity={0.5}/>
-          <hemisphereLight skyColor="#b1e1ff" groundColor="#000000" intensity={1} />
+          {/* <hemisphereLight skyColor="#b1e1ff" groundColor="#000000" intensity={1} /> */}
           
           <Bird />
           <Sky isRotating={isRotating}/>
