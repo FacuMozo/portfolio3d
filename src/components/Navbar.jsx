@@ -13,12 +13,13 @@ const Navbar = () => {
             <p className='pl-3 blue-gradient_text'> Inicio</p>
         </NavLink>
             <img src="arrow" alt="" />
-        <nav className='flex tex-lg gap-7 font-medium rounded-lg bg-white w-auto h-10 shadow-md p-5 items-center justify-center flex  font-bold '>
+        <nav className='flex tex-lg gap-2 font-medium rounded-lg bg-white w-auto h-10 shadow-md p-5 items-center justify-center flex  font-bold '>
             <NavLink to="/about" className={({isActive}) => isActive ? 'text-blue-500' : ' text-black'}>
-                About
+                Acerca de
             </NavLink>
+            <div className='w-0.5 h-5 bg-slate-400'></div>
             <NavLink to="/projects" className={({isActive}) => isActive ? 'text-blue-500 ' : ' text-black' }     >
-                Projects
+                Proyectos
             </NavLink>
         </nav>
     </header>
