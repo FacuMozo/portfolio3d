@@ -8,8 +8,10 @@ import sanjose from './sanjose.png'
 import consigna1 from './consigna1.webp'
 import AgileFlow from './AgileFlow.webp'
 import AgileFlow2 from './AgileFlow2.webp'
+import LernaCourses from './LernaCourses.png'
 
 export {
+    LernaCourses,
     hero,
     meta,
     shopify,

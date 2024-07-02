@@ -30,9 +30,11 @@ import soundon from './soundon.png'
 import soundoff from './soundoff.png'
 import angularIcon from './angular-icon.png'
 import faviconOcularVet from './faviconOcularVet.webp'
+import LernaLogo from './LernaLogo.png'
 
 
 export {
+    LernaLogo,
     Home_logo,
     angularIcon,
     faviconOcularVet,

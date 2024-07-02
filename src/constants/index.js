@@ -1,4 +1,4 @@
-import { meta, shopify, sanjose, tesla,consigna1,AgileFlow, AgileFlow2 } from "../assets/images";
+import { meta, shopify, sanjose, tesla, consigna1, AgileFlow, AgileFlow2, LernaCourses } from "../assets/images";
 import {
     car,
     AgileFlowLogo,
@@ -17,6 +17,7 @@ import {
     nextjs,
     nodejs,
     faviconOcularVet,
+    LernaLogo,
     pricewise,
     react,
     redux,
@@ -151,6 +152,15 @@ export const projects = [
         description: 'Plataforma web diseñada para simular las funcionalidades clave de TAIGA, facilitando la gestión eficiente de proyectos en entornos de desarrollo ágil. Ofrece la capacidad de descomponer proyectos en unidades incrementales, permitiendo la especificación y facilitando su implementación, además de posibilitar la asignación de tareas a los miembros del equipo.',
         link: 'https://agile-flow.vercel.app/login',
         imageUrl: AgileFlow2
+    },
+    {
+        iconUrl: LernaLogo,
+        theme: 'btn-back-pink',
+        name: 'Lerna Courses',
+        tecnologias: 'React - Bootstap - Figma',
+        description: 'Plataforma web diseñada para simular las funcionalidades de un e-commerce, proyecto realizado con React, Bootstap. Se destaca que es solo la implementacion del apartado frontEnd de la pagina principal.',
+        link: 'https://catalog-front-coral.vercel.app/',
+        imageUrl: LernaCourses
     },
     
 ];
