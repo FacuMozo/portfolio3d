@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useState, useRef, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Loader from '../components/Loader'
 import Island from '../models/Island'
@@ -6,12 +6,32 @@ import Sky from '../models/Sky'
 import Bird from '../models/Bird'
 import Plane from '../models/Plane'
 import HomeInfo from '../components/HomeInfo'
+import arrowLeft from '../assets/icons/arrowleft.svg'
+import arrowRight from '../assets/icons/arrowright.svg'
 
 
 
 const Home = () => {
   const [isRotating, setIsRotating] = useState(false);
   const [currentStage,setCurrentStage] = useState(1)
+  const islandApiRef = useRef(null);
+  const maxStage = 4;
+
+  const gotoStage = useCallback((target) => {
+    if (target < 1 || target > maxStage) return;
+    setCurrentStage(target);
+    // Delay slight to ensure state update does not get overridden by frame logic
+    requestAnimationFrame(() => {
+      islandApiRef.current?.gotoStage(target);
+    });
+  }, []);
+
+  const handlePrev = () => {
+    if (currentStage === 1) gotoStage(maxStage); else gotoStage(currentStage - 1);
+  }
+  const handleNext = () => {
+    if (currentStage === maxStage) gotoStage(1); else gotoStage(currentStage + 1);
+  }
 
   const adjustIslandForScreenSize = () =>{
     
@@ -45,9 +65,27 @@ const Home = () => {
 
   return (
     <section className='w-full h-screen relative'>
-      <div className='absolute top-28 left-0 right-0 z-10 flex itmes-center justify-center'>
+      {/* Stage overlay content */}
+      <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center pointer-events-none'>
         {currentStage && <HomeInfo currentStage={currentStage} />}
       </div> 
+      {/* Navigation buttons */}
+      <div className='absolute inset-y-0 left-4 flex items-center z-20'>
+        <button
+          onClick={handlePrev}
+          className='group p-3 rounded-full bg-white/70 backdrop-blur border border-white/40 shadow-md transition transform hover:scale-110 active:scale-95 hover:bg-white cursor-pointer'
+        >
+          <img src={arrowLeft} alt='Anterior (circular)' className='w-6 h-6 group-hover:-translate-x-1 transition' />
+        </button>
+      </div>
+      <div className='absolute inset-y-0 right-4 flex items-center z-20'>
+        <button
+          onClick={handleNext}
+          className='group p-3 rounded-full bg-white/70 backdrop-blur border border-white/40 shadow-md transition transform hover:scale-110 active:scale-95 hover:bg-white cursor-pointer'
+        >
+          <img src={arrowRight} alt='Siguiente (circular)' className='w-6 h-6 group-hover:translate-x-1 transition' />
+        </button>
+      </div>
       <Canvas 
         className={`w-full h-screen bg-transparent ${isRotating ? 'cursor-grabbing' : 'cursor-grab'}`}
         camera={{near:0.1, far:1000}}
@@ -62,6 +100,7 @@ const Home = () => {
           <Sky isRotating={isRotating}/>
           
           <Island 
+            ref={islandApiRef}
             position={islandPosition} scale={islandScale} rotation={islandRotation} 
             isRotating={isRotating}
             setIsRotating={setIsRotating} 

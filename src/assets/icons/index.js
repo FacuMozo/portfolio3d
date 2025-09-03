@@ -29,8 +29,10 @@ import AgileFlowLogo from './AgileFlow-logo.png'
 import soundon from './soundon.png'
 import soundoff from './soundoff.png'
 import angularIcon from './angular-icon.png'
+import oilPump from './oil-pump.png'
 import faviconOcularVet from './faviconOcularVet.webp'
 import LernaLogo from './LernaLogo.png'
+import babyIcon from './babyIcon.png'
 
 
 export {
@@ -66,5 +68,7 @@ export {
     arrow,
     contact,
     soundon,
+    oilPump,
+    babyIcon,
     soundoff
 }

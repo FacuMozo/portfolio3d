@@ -6,7 +6,7 @@ Source: https://sketchfab.com/3d-models/foxs-islands-163b68e09fcc47618450150be77
 Title: Fox's islands
 */
 import {  extend   } from '@react-three/fiber'
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { a } from '@react-spring/three'
@@ -15,8 +15,27 @@ extend({useGLTF});
 import islandScene from '../assets/3d/island.glb'
 
 
-const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
+const Island = forwardRef(({ isRotating, setIsRotating, setCurrentStage, ...props }, ref) => {
   const islandRef = useRef();
+  const targetRotation = useRef(null); // animated target in radians
+  const animating = useRef(false);
+
+  // Expose imperative API to parent to jump to a specific stage (1..4) with animation
+  useImperativeHandle(ref, () => ({
+    gotoStage: (stage) => {
+      const targets = {
+        1: 4.55,
+        2: 2.975,
+        3: 1.225,
+        4: 0
+      };
+      if (islandRef.current && targets[stage] !== undefined) {
+        targetRotation.current = targets[stage];
+        animating.current = true;
+        rotationSpeed.current = 0; // stop inertia while animating
+      }
+    }
+  }), []);
 
   const { gl, viewport } = useThree();
   const { nodes, materials } = useGLTF(islandScene);
@@ -28,7 +47,8 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
   const handlePointerDown = (e) => {
     e.stopPropagation();
     e.preventDefault()
-    setIsRotating(true);
+  setIsRotating(true);
+  animating.current = false; // cancel smooth animation on direct user action
     const clientX = e.touches
       ? e.touches[0].clientX
       : e.clientX;
@@ -132,12 +152,23 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
   };
 
   useFrame(() => {
-    if (!isRotating) {
+    if (animating.current && targetRotation.current !== null && !isRotating) {
+      const current = islandRef.current.rotation.y;
+      const target = targetRotation.current;
+      // compute shortest path diff
+      let diff = ((target - current + Math.PI) % (2 * Math.PI)) - Math.PI;
+      const step = diff * 0.12; // easing factor
+      islandRef.current.rotation.y = current + step;
+      if (Math.abs(diff) < 0.002) {
+        islandRef.current.rotation.y = target;
+        animating.current = false;
+        targetRotation.current = null;
+      }
+    } else if (!isRotating) {
       rotationSpeed.current *= dampingFactor;
       if (Math.abs(rotationSpeed.current) < 0.001) {
         rotationSpeed.current -= 0.0005;
       }
-
       islandRef.current.rotation.y += rotationSpeed.current
     }
       const rotation = islandRef.current.rotation.y;
@@ -162,16 +193,16 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
 
       // Set the current stage based on the island's orientation
       switch (true) {
-        case normalizedRotation >= 5.4 || normalizedRotation <= 0.3:
+        case normalizedRotation >= 5.35 || normalizedRotation <= 0.35:
           setCurrentStage(4);
           break;
-        case normalizedRotation >= 0.5 && normalizedRotation <= 2.0:
+        case normalizedRotation >= 0.45 && normalizedRotation <= 2.0:
           setCurrentStage(3);
           break;
-        case normalizedRotation >= 2.2 && normalizedRotation <= 3.7:
+        case normalizedRotation >= 2.2 && normalizedRotation <= 3.75:
           setCurrentStage(2);
           break;
-        case normalizedRotation >= 3.9 && normalizedRotation <= 5.2:
+        case normalizedRotation >= 3.85 && normalizedRotation <= 5.25:
           setCurrentStage(1);
           break;
         default:
@@ -242,6 +273,6 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
       />
     </a.group>
   )
-}
+})
 
 export default Island;
