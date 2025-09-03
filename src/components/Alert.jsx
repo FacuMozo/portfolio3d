@@ -1,11 +1,13 @@
 import React from 'react'
+import { useT } from '../i18n/LanguageProvider'
 
 const Alert = ({text, type}) => {
+  const t = useT();
   return (
     <div className='absolute top-10 left-0 right-0 flex justify-center items-center'>
         <div className={`${type === 'danger' ? 'bg-red-800' : 'bg-blue-800'} p-2 text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex items-center`} role="alert">
             <p className={`${type === 'danger' ? 'bg-red-500' : 'bg-blue-500'} rounded-full flex uppercase px-2 py-1 font-semibold mr-3 text-xs`}>
-                {type === 'danger' ? 'Failed' : 'Success'}
+                {type === 'danger' ? t('alert.error') : t('alert.success')}
             </p>
             <p className='mr-2 text-left'>
             {text}

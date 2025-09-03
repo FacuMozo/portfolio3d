@@ -8,11 +8,13 @@ import Plane from '../models/Plane'
 import HomeInfo from '../components/HomeInfo'
 import arrowLeft from '../assets/icons/arrowleft.svg'
 import arrowRight from '../assets/icons/arrowright.svg'
+import { useT } from '../i18n/LanguageProvider'
 
 
 
 const Home = () => {
   const [isRotating, setIsRotating] = useState(false);
+  const t = useT();
   const [currentStage,setCurrentStage] = useState(1)
   const islandApiRef = useRef(null);
   const maxStage = 4;
@@ -75,7 +77,7 @@ const Home = () => {
           onClick={handlePrev}
           className='group p-3 rounded-full bg-white/70 backdrop-blur border border-white/40 shadow-md transition transform hover:scale-110 active:scale-95 hover:bg-white cursor-pointer'
         >
-          <img src={arrowLeft} alt='Anterior (circular)' className='w-6 h-6 group-hover:-translate-x-1 transition' />
+          <img src={arrowLeft} alt={t('navigation.prev_alt')} className='w-6 h-6 group-hover:-translate-x-1 transition' />
         </button>
       </div>
       <div className='absolute inset-y-0 right-4 flex items-center z-20'>
@@ -83,7 +85,7 @@ const Home = () => {
           onClick={handleNext}
           className='group p-3 rounded-full bg-white/70 backdrop-blur border border-white/40 shadow-md transition transform hover:scale-110 active:scale-95 hover:bg-white cursor-pointer'
         >
-          <img src={arrowRight} alt='Siguiente (circular)' className='w-6 h-6 group-hover:translate-x-1 transition' />
+          <img src={arrowRight} alt={t('navigation.next_alt')} className='w-6 h-6 group-hover:translate-x-1 transition' />
         </button>
       </div>
       <Canvas 

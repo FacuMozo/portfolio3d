@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { useT } from '../i18n/LanguageProvider';
 
 const InfoBox = ({ text, link, btnText }) => (
     <div className='info-box'>
@@ -10,44 +11,39 @@ const InfoBox = ({ text, link, btnText }) => (
     </div >
 )
 
-const renderContent = {
-    1: (
-        <h1 className='sm:text-xl sm:leading-snug text-center neo-brutalism-blue py-4 px-8 text-white mx-5'>
-            Hola, bienvenido/a! <br /> Soy Facundo Mozo <span className='font-semibold'> Ingeniero de Sistemas</span>
-            <br />
-            Gira el avión o haz scroll para conocer más sobre mi! <br />
-
-        </h1>
-    ),
-    2: (
-        <InfoBox
-            text="Quieres echar un vistazo a otros proyectos míos?"
-            link="/projects"
-            btnText="Ver Portfolio"
-        />
-
-    ),
-    3: (
-        <InfoBox 
-            text="Tengo 25 años y estoy comenzando mi carrera profesional, te presento mis habilidades:"
-            link="/about"
-            btnText="Acerca de mi"
-        />
-    ),
-    4: (
-        <InfoBox 
-            text="Necesitas un programador? Estamos a un par de clicks de distancia!"
-            link="/contact"
-            btnText="Hablemos!"
-        />
-    ),
-}
-
-
-
 const HomeInfo = ({ currentStage }) => {
+    const t = useT();
+    const renderContent = {
+        1: (
+            <h1 className='sm:text-xl sm:leading-snug text-center neo-brutalism-blue py-4 px-8 text-white mx-5'>
+                {t('home.hero.greeting')} <br /> <span className='font-semibold'>{t('home.hero.subtitle')}</span>
+                <br />
+                {t('home.hero.cta')} <br />
+            </h1>
+        ),
+        2: (
+            <InfoBox
+                text={t('home.portfolio_question')}
+                link="/projects"
+                btnText={t('home.portfolio_btn')}
+            />
+        ),
+        3: (
+            <InfoBox
+                text={t('home.skills_text')}
+                link="/about"
+                btnText={t('home.skills_btn')}
+            />
+        ),
+        4: (
+            <InfoBox
+                text={t('home.hire_text')}
+                link="/contact"
+                btnText={t('home.hire_btn')}
+            />
+        ),
+    }
     return renderContent[currentStage] || null;
-
 }
 
 export default HomeInfo

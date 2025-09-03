@@ -1,0 +1,113 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "projects": "Proyectos",
+    "langToggle": "EN"
+  },
+  "home": {
+    "hero": {
+      "greeting": "Hola, bienvenido/a! Soy Facundo Mozo",
+      "subtitle": "Ingeniero de Sistemas",
+      "cta": "Gira el avión o haz scroll para conocer más sobre mi!"
+    },
+    "portfolio_question": "Quieres echar un vistazo a otros proyectos míos?",
+    "portfolio_btn": "Ver Portfolio",
+    "skills_text": "Tengo 25 años y estoy comenzando mi carrera profesional, te presento mis habilidades:",
+    "skills_btn": "Acerca de mi",
+    "hire_text": "Necesitas un programador? Estamos a un par de clicks de distancia!",
+    "hire_btn": "Hablemos!"
+  },
+  "about": {
+    "title_intro": "Hola, mi nombre es",
+    "profession": "Ingeniero de Sistemas, desarrollador de aplicaciones WEB (Full-Stack) con preferencia en el desarrollo FrontEnd.",
+    "work_experience_header": "Experiencia de trabajo",
+    "skills_header": "Mis Habilidades - Conocimientos",
+    "bio": "Como Ingeniero de Sistemas, tengo un gran interés en el desarrollo de aplicaciones web, especialmente en la parte del diseño visual y la interactividad (FrontEnd). Aunque todavía no tengo experiencia laboral formal, estoy ansioso por aprender y enfrentar desafíos con creatividad. Mi formación académica me ha proporcionado una buena base en tecnologías, y estoy preparado para aplicar estas habilidades en el mundo real."
+  },
+  "projects_page": {
+    "intro": "Te presento alguno de los proyectos WEB que realice recientemente, junto con una breve descripcion y las tecnologias involucradas.",
+    "link": "Link"
+  },
+  "contact": {
+    "title": "Ponete en contacto!",
+    "name_label": "Nombre",
+    "name_placeholder": "Tu nombre",
+    "email_label": "Email",
+    "email_placeholder": "ejemplo@mail.com",
+    "message_label": "Tu Mensaje",
+    "message_placeholder": "Decime en que puedo ayudarte!",
+    "send_btn": "Enviar Mensaje",
+    "sending_btn": "Enviando...",
+    "success": "Mensaje enviado exitosamente!",
+    "error": "Fallo al enviar el mensaje!"
+  },
+  "cta": {
+    "question": "¿Tienes un proyecto en mente?",
+    "action": "Desarrollemoslo juntos",
+    "button": "Contacto"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
+  },
+  "alert": {
+    "success": "Éxito",
+    "error": "Error"
+  },
+  "navigation": {
+    "prev_alt": "Anterior (circular)",
+    "next_alt": "Siguiente (circular)"
+  },
+  "experiences": {
+    "exeo": {
+      "title": "Ingeniero en Sistemas",
+      "company": "Exeo Technology",
+      "date": "Sep 2024 - actualidad",
+      "points": [
+        "Como Ingeniero Frontend, me encargo del diseño y desarrollo de aplicaciones web y móviles utilizando React y React Native, enfocándome en crear experiencias de usuario (UX) intuitivas y de alto impacto.",
+        "Implemento arquitecturas de componentes reutilizables y escalables, gestionando el estado de la aplicación de forma eficiente con herramientas como Redux y Context API para garantizar un rendimiento óptimo.",
+        "Traduzco diseños de UI/UX en interfaces funcionales, accesibles y responsivas, manteniendo la consistencia visual y aplicando las mejores prácticas de desarrollo frontend.",
+        "Colaboro estrechamente con equipos de backend para integrar APIs RESTful (desarrolladas en Spring Boot y Python), asegurando una comunicación fluida y una funcionalidad robusta en todo el sistema.",
+        "Participo activamente en metodologías ágiles, contribuyendo en ceremonias de Scrum, revisiones de código y procesos de CI/CD para entregar valor de forma continua y con altos estándares de calidad."
+      ]
+    },
+    "teacher": {
+      "title": "Profesor de Informatica",
+      "company": "Colegio San Jose",
+      "date": "Agosto 2023 - Diciembre 2023",
+      "points": [
+        "Diseñé y adapté planes de estudio de informática para cinco grupos de 40 estudiantes de primaria, enfocándome en conceptos clave de programación, alfabetización digital y pensamiento computacional.",
+        "Fomenté un ambiente de aprendizaje práctico y participativo, guiando a los estudiantes en el uso de herramientas como Office, G-Suite y plataformas de programación visual (Pilas Bloques) para resolver problemas del mundo real.",
+        "Desarrollé la curiosidad y el pensamiento crítico de los estudiantes, equipándolos con una base sólida no solo en habilidades técnicas, sino también en la comprensión del impacto y el uso ético de la tecnología.",
+        "Evalué el progreso de los estudiantes de manera continua, proporcionando retroalimentación constructiva y personalizada para apoyar su desarrollo individual."
+      ]
+    }
+  },
+  "projects_list": {
+    "oil": {
+      "name": "Sistema de control de equipos petroleros",
+      "tech": "React",
+      "description": "Plataforma dedicada al monitoreo, control y registro electrónico de equipos de perforación, well workover y pulling, diseñada para ofrecer datos en tiempo real de forma robusta y confiable, especialmente en entornos industriales del sector energético. Fui responsable del desarrollo de las interfaces web, utilizando React para crear componentes UI reutilizables, visualmente consistentes, responsivos y accesibles. Implementé formularios dinámicos, dashboards informativos y módulos de visualización de datos que reflejan variables críticas del equipo en tiempo real."
+    },
+    "pregnancyApp": {
+      "name": "App mobile de seguimiento de embarazo",
+      "tech": "React Native",
+      "description": "Aplicación mobile para el seguimiento integral del embarazo, diseñada para que futuras madres registren diariamente signos vitales y compartan esta información con sus proveedores de salud en tiempo real. Participé de la refactorización completa de la UX/UI e implementación de nuevas funcionalidades, re-implementando pantallas y flujos para mejorar la usabilidad, la consistencia visual y la accesibilidad, adaptando interfaces tanto para Android como para iOS con React Native."
+    },
+    "ocularVet": {
+      "name": "Ocular Vet",
+      "tech": "MEAN Stack (Mongo - Express - Angular - NodeJS)",
+      "description": "Aplicación web para el curso de Fisiología... (abreviado)."
+    },
+    "agileFlow": {
+      "name": "Agile Flow",
+      "tech": "MEAN Stack (Mongo - Express - Angular - NodeJS)",
+      "description": "Plataforma web diseñada para simular las funcionalidades clave de TAIGA... (abreviado)."
+    },
+    "lernaCourses": {
+      "name": "Lerna Courses",
+      "tech": "React - Bootstrap - Figma",
+      "description": "Plataforma web diseñada para simular las funcionalidades de un e-commerce... (abreviado)."
+    }
+  }
+}

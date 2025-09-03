@@ -2,28 +2,34 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { Home_logo } from '../assets/icons'
 import { arrow } from '../assets/icons'
+import { useLanguage, useT } from '../i18n/LanguageProvider'
 
 
 
 const Navbar = () => {
-  return (
-    <header className='header'>
-        <NavLink to="/" className="w-auto h-10 rounded-lg bg-white items-center justify-center flex  font-bold shadow-md p-3">
-            <img className='w-auto h-7 filter()' src={Home_logo} alt="" />
-            <p className='pl-3 blue-gradient_text'> Inicio</p>
-        </NavLink>
-            <img src="arrow" alt="" />
-        <nav className='flex tex-lg gap-2 font-medium rounded-lg bg-white w-auto h-10 shadow-md p-5 items-center justify-center flex  font-bold '>
-            <NavLink to="/about" className={({isActive}) => isActive ? 'text-blue-500' : ' text-black'}>
-                Acerca de
+    const { lang, setLang } = useLanguage();
+    const t = useT();
+    const toggle = () => setLang(lang === 'es' ? 'en' : 'es');
+    return (
+        <header className='header flex gap-4 items-center'>
+            <NavLink to="/" className="w-auto h-10 rounded-lg bg-white items-center justify-center flex font-bold shadow-md px-4">
+                <img className='h-7' src={Home_logo} alt="logo" />
+                <p className='pl-3 blue-gradient_text'>{t('navbar.home')}</p>
             </NavLink>
-            <div className='w-0.5 h-5 bg-slate-400'></div>
-            <NavLink to="/projects" className={({isActive}) => isActive ? 'text-blue-500 ' : ' text-black' }     >
-                Proyectos
-            </NavLink>
-        </nav>
-    </header>
-  )
+            <nav className='flex tex-lg gap-3 font-medium rounded-lg bg-white h-10 shadow-md px-6 items-center font-bold'>
+                <NavLink to="/about" className={({isActive}) => isActive ? 'text-blue-500' : 'text-black'}>
+                    {t('navbar.about')}
+                </NavLink>
+                <div className='w-0.5 h-5 bg-slate-300'></div>
+                <NavLink to="/projects" className={({isActive}) => isActive ? 'text-blue-500' : 'text-black'}>
+                    {t('navbar.projects')}
+                </NavLink>
+            </nav>
+            <button onClick={toggle} className='h-10 px-4 rounded-lg bg-white shadow-md font-semibold hover:scale-105 transition'>
+                {t('navbar.langToggle')}
+            </button>
+        </header>
+    )
 }
 
 export default Navbar

@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
-
 import { socialLinks } from "../constants";
+import { useT } from '../i18n/LanguageProvider';
 
 const Footer = () => {
+  const t = useT();
   return (
     <footer className='footer font-poppins'>
       <hr className='border-slate-200' />
 
       <div className='footer-container'>
         <p>
-          © 2024 <strong>Facundo Mozo</strong>. Todos los derechos reservados.
+          © 2024 <strong>Facundo Mozo</strong>. {t('footer.rights')}
         </p>
 
         <div className='flex gap-3 justify-center items-center'>

@@ -1,0 +1,113 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "langToggle": "ES"
+  },
+  "home": {
+    "hero": {
+      "greeting": "Hi, welcome! I'm Facundo Mozo",
+      "subtitle": "Systems Engineer",
+      "cta": "Rotate the plane or scroll to learn more about me!"
+    },
+    "portfolio_question": "Want to take a look at more of my projects?",
+    "portfolio_btn": "View Portfolio",
+    "skills_text": "I'm 25 and starting my professional career, here are my skills:",
+    "skills_btn": "About me",
+    "hire_text": "Need a developer? We're just a few clicks away!",
+    "hire_btn": "Let's talk!"
+  },
+  "about": {
+    "title_intro": "Hi, my name is",
+    "profession": "Systems Engineer and Web Developer (Full-Stack) with a preference for Frontend.",
+    "work_experience_header": "Work Experience",
+    "skills_header": "My Skills - Knowledge",
+    "bio": "As a Systems Engineer I'm deeply interested in web application development, especially visual design and interactivity (Frontend). I'm early in my professional journey and eager to learn, solve problems creatively and contribute to real products. My academic background gives me a solid foundation in technologies I'm ready to apply in real-world scenarios."
+  },
+  "projects_page": {
+    "intro": "Here are some recent web projects, with a brief description and the technologies involved.",
+    "link": "Link"
+  },
+  "contact": {
+    "title": "Get in touch!",
+    "name_label": "Name",
+    "name_placeholder": "Your name",
+    "email_label": "Email",
+    "email_placeholder": "example@mail.com",
+    "message_label": "Your Message",
+    "message_placeholder": "How can I help you?",
+    "send_btn": "Send Message",
+    "sending_btn": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Failed to send the message!"
+  },
+  "cta": {
+    "question": "Do you have a project in mind?",
+    "action": "Let's build it together",
+    "button": "Contact"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "alert": {
+    "success": "Success",
+    "error": "Failed"
+  },
+  "navigation": {
+    "prev_alt": "Previous (circular)",
+    "next_alt": "Next (circular)"
+  },
+  "experiences": {
+    "exeo": {
+      "title": "Software Engineer",
+      "company": "Exeo Technology",
+      "date": "Sep 2024 - Present",
+      "points": [
+        "As a Frontend Engineer I design and build web & mobile apps using React and React Native, focusing on high-impact user experiences.",
+        "I implement reusable, scalable component architectures and manage state efficiently with Redux and Context API for optimal performance.",
+        "I translate UI/UX designs into accessible, responsive, and visually consistent interfaces following best frontend practices.",
+        "I closely collaborate with backend teams integrating RESTful APIs (Spring Boot & Python) ensuring robust end-to-end functionality.",
+        "I actively contribute in agile ceremonies, code reviews and CI/CD workflows to continuously deliver quality value."
+      ]
+    },
+    "teacher": {
+      "title": "Computer Science Teacher",
+      "company": "Colegio San Jose",
+      "date": "Aug 2023 - Dec 2023",
+      "points": [
+        "Designed and adapted CS lesson plans for five groups of 40 primary students, focusing on programming basics, digital literacy and computational thinking.",
+        "Created a practical, participative learning environment using tools like Office, G-Suite and visual programming (Pilas Bloques) for real-world problem solving.",
+        "Encouraged curiosity and critical thinking, building a solid foundation in both technical skills and ethical understanding of technology.",
+        "Continuously assessed student progress providing constructive, individualized feedback."
+      ]
+    }
+  },
+  "projects_list": {
+    "oil": {
+      "name": "Oilfield Equipment Control System",
+      "tech": "React",
+      "description": "Platform for monitoring, control and electronic logging of drilling, workover and pulling rigs; delivers robust real-time data in industrial energy environments. Responsible for UI development: reusable components, responsive dashboards, dynamic forms, and real-time visualization modules."
+    },
+    "pregnancyApp": {
+      "name": "Pregnancy Tracking Mobile App",
+      "tech": "React Native",
+      "description": "Mobile app for comprehensive pregnancy tracking: daily vital signs logging and real-time sharing with healthcare providers. Contributed to full UX/UI refactor and new features, re-implementing screens and flows for accessibility and cross-platform consistency (Android & iOS)."
+    },
+    "ocularVet": {
+      "name": "Ocular Vet",
+      "tech": "MEAN Stack (Mongo - Express - Angular - NodeJS)",
+      "description": "Educational web app for veterinary physiology enabling self-assessment of canine ocular reflexes with realistic simulation cases. (abridged)"
+    },
+    "agileFlow": {
+      "name": "Agile Flow",
+      "tech": "MEAN Stack (Mongo - Express - Angular - NodeJS)",
+      "description": "Web platform simulating key TAIGA features for agile project management: incremental breakdown, specification and team task assignment. (abridged)"
+    },
+    "lernaCourses": {
+      "name": "Lerna Courses",
+      "tech": "React - Bootstrap - Figma",
+      "description": "Web prototype simulating core e‑commerce interactions (frontend only) built with React & Bootstrap. (abridged)"
+    }
+  }
+}

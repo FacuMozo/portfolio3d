@@ -2,9 +2,11 @@ import React, { useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import Alert from '../components/Alert';
 import useAlert from '../hooks/useAlert';
+import { useT } from '../i18n/LanguageProvider';
 
 const Contact = () => {
   const formRef = useRef(null)
+  const t = useT();
   const { alert, showAlert, hideAlert } = useAlert();
 
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -32,7 +34,7 @@ const Contact = () => {
       
     ).then(()=>{
       setIsLoading(false);
-      showAlert({show:true,text:'Mensaje enviado exitosamente!', type:'success'})
+  showAlert({show:true,text:t('contact.success'), type:'success'})
       setTimeout(()=>{
         setForm({name:'',email:'',message:''})
         hideAlert();
@@ -40,8 +42,8 @@ const Contact = () => {
     }).catch((error)=>{
       setIsLoading(false);
       console.log(error);
-      showAlert({show:true,text:'Mensaje enviado exitosamente!', type:'success'})
-      showAlert({show:true,text:'Fallo al enviar el mensaje!', type:'danger'})
+  showAlert({show:true,text:t('contact.success'), type:'success'})
+  showAlert({show:true,text:t('contact.error'), type:'danger'})
       setTimeout(()=>{
         hideAlert();
       },[4000])
@@ -56,18 +58,18 @@ return (
     {alert.show && <Alert {...alert}/>}
   
     <div className="flex-1 min-w-[50%] flex flex-col">
-      <h1 className='head-text'>Ponete en contacto!</h1>
+  <h1 className='head-text'>{t('contact.title')}</h1>
 
       <form className='w-full flex flex-col gap-7 mt-14'
         onSubmit={handleSubmit}
       >
         <label className='text-black-500 font-semibold'>
-          Nombre
+          {t('contact.name_label')}
           <input
             type="text"
             name="name"
             className='input'
-            placeholder='Tu nombre'
+            placeholder={t('contact.name_placeholder')}
             required
             value={form.name}
             onChange={handleChange}
@@ -76,12 +78,12 @@ return (
           />
         </label>
         <label className='text-black-500 font-semibold'>
-          Email
+          {t('contact.email_label')}
           <input
             type="email"
             name="email"
             className='input'
-            placeholder='Ejemplo@mail.com'
+            placeholder={t('contact.email_placeholder')}
             required
             value={form.email}
             onChange={handleChange}
@@ -90,12 +92,12 @@ return (
           />
         </label>
         <label className='text-black-500 font-semibold'>
-          Tu Mensaje
+          {t('contact.message_label')}
           <textarea
             name="message"
             rows={4}
             className='input'
-            placeholder='Decime en que puedo ayudarte!'
+            placeholder={t('contact.message_placeholder')}
             required
             value={form.message}
             onChange={handleChange}
@@ -110,7 +112,7 @@ return (
           onFocus={handleFocus}
           onBlur={handleBlur}
         >
-          {isLoading ? 'Sending ...' : 'Send Message'}
+          {isLoading ? t('contact.sending_btn') : t('contact.send_btn')}
         </button>
       </form>
     </div>
