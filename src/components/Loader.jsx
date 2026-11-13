@@ -1,17 +1,19 @@
-import React from 'react'
-import { extend   } from '@react-three/fiber'
-import {Html}from '@react-three/drei'
-extend({Html});
+import { Html } from '@react-three/drei'
+import { useT } from '../i18n/LanguageProvider'
 
+// Suspense fallback rendered inside the <Canvas> while the .glb models load.
 const Loader = () => {
+  const t = useT();
   return (
-    <html>
-        <div className=' flex justify-center items-center'>
-            <div className='w-20 h-20 border-2 border-opacity-20 border-blue-500 bordet-t-blue-500 rounded-full animate-spin'>
-
-            </div>
-        </div>
-    </html>
+    <Html center>
+      <div role='status' aria-live='polite' className='flex flex-col items-center gap-3'>
+        <div
+          aria-hidden='true'
+          className='w-20 h-20 rounded-full border-4 border-blue-500/20 border-t-blue-500 motion-safe:animate-spin'
+        />
+        <span className='sr-only'>{t('loader.loading')}</span>
+      </div>
+    </Html>
   )
 }
 

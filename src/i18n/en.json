@@ -3,30 +3,39 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
-    "langToggle": "ES"
+    "langToggle": "ES",
+    "langToggle_label": "Cambiar a español",
+    "main_nav": "Main"
+  },
+  "common": {
+    "new_tab": "opens in a new tab"
+  },
+  "loader": {
+    "loading": "Loading 3D scene…"
   },
   "home": {
     "hero": {
       "greeting": "Hi, welcome! I'm Facundo Mozo",
-      "subtitle": "Systems Engineer",
+      "subtitle": "Software Developer · Full-Stack & Mobile",
       "cta": "Rotate the plane or scroll to learn more about me!"
     },
     "portfolio_question": "Want to take a look at more of my projects?",
     "portfolio_btn": "View Portfolio",
-    "skills_text": "I'm 25 and starting my professional career, here are my skills:",
+    "skills_text": "I'm a Systems Engineer with 3 years of experience building web and mobile apps. Here are my skills:",
     "skills_btn": "About me",
     "hire_text": "Need a developer? We're just a few clicks away!",
     "hire_btn": "Let's talk!"
   },
   "about": {
     "title_intro": "Hi, my name is",
-    "profession": "Systems Engineer and Web Developer (Full-Stack) with a preference for Frontend.",
+    "profession": "Systems Engineer (UNICEN) and Full-Stack & Mobile Software Developer, with 3 years of experience building production web and mobile applications.",
     "work_experience_header": "Work Experience",
     "skills_header": "My Skills - Knowledge",
-    "bio": "As a Systems Engineer I'm deeply interested in web application development, especially visual design and interactivity (Frontend). I'm early in my professional journey and eager to learn, solve problems creatively and contribute to real products. My academic background gives me a solid foundation in technologies I'm ready to apply in real-world scenarios."
+    "bio": "I work with React, React Native, TypeScript, Node.js and Spring Boot, focused on real-time performance, state architecture and end-to-end feature ownership in critical domains: energy, industrial manufacturing and healthcare. I also have experience in data engineering and machine learning.",
+    "bio_personal": "I'm comfortable in agile teams with code review and CI/CD, and I use AI-assisted development tools such as Claude Code and GitHub Copilot every day. I'm open to Frontend, Mobile (React Native) or Full-Stack roles, including remote work with international teams."
   },
   "projects_page": {
-    "intro": "Here are some recent web projects, with a brief description and the technologies involved.",
+    "intro": "Here are some of the projects I've worked on, with a brief description and the technologies involved.",
     "link": "Link"
   },
   "contact": {
@@ -54,60 +63,88 @@
     "success": "Success",
     "error": "Failed"
   },
+  "lightbox": {
+    "open": "Enlarge image",
+    "close": "Close"
+  },
+  "cv": {
+    "open": "Download resume",
+    "title": "Download resume",
+    "description": "Choose which language version of my resume you want to download.",
+    "lang_es": "Español",
+    "lang_en": "English",
+    "close": "Close"
+  },
   "navigation": {
     "prev_alt": "Previous (circular)",
     "next_alt": "Next (circular)"
   },
   "experiences": {
     "exeo": {
-      "title": "Software Engineer",
-      "company": "Exeo Technology",
+      "title": "Software Developer",
+      "company": "Exeo Technology (Exeo IT)",
       "date": "Sep 2024 - Present",
       "points": [
-        "As a Frontend Engineer I design and build web & mobile apps using React and React Native, focusing on high-impact user experiences.",
-        "I implement reusable, scalable component architectures and manage state efficiently with Redux and Context API for optimal performance.",
-        "I translate UI/UX designs into accessible, responsive, and visually consistent interfaces following best frontend practices.",
-        "I closely collaborate with backend teams integrating RESTful APIs (Spring Boot & Python) ensuring robust end-to-end functionality.",
-        "I actively contribute in agile ceremonies, code reviews and CI/CD workflows to continuously deliver quality value."
+        "Full-stack and mobile development across production projects in oil & gas, healthcare and manufacturing, focused on performance, real-time systems and end-to-end feature ownership.",
+        "Designed and built web and mobile applications with React and React Native (TypeScript), owning features from requirement scoping with product and design through to production release.",
+        "Built RESTful APIs and backend logic with Spring Boot (Java), Node.js and Python, and integrated third-party systems: WITSML servers, EDI, AWS Cognito, Withings and Fitbit.",
+        "Applied state and data-flow architectures at scale (Redux Toolkit, Redux Saga, Context API, React Query, Zustand) and resolved performance and reliability issues across web and mobile.",
+        "Worked in cross-functional agile teams: Jira, code reviews, testing, CI/CD, cross-platform releases (web, iOS and Android) and English/Spanish localization."
       ]
     },
     "teacher": {
-      "title": "Computer Science Teacher",
-      "company": "Colegio San Jose",
-      "date": "Aug 2023 - Dec 2023",
+      "title": "IT Teacher (substitute)",
+      "company": "Colegio San José",
+      "date": "Aug 2023 - Feb 2024",
       "points": [
-        "Designed and adapted CS lesson plans for five groups of 40 primary students, focusing on programming basics, digital literacy and computational thinking.",
-        "Created a practical, participative learning environment using tools like Office, G-Suite and visual programming (Pilas Bloques) for real-world problem solving.",
-        "Encouraged curiosity and critical thinking, building a solid foundation in both technical skills and ethical understanding of technology.",
-        "Continuously assessed student progress providing constructive, individualized feedback."
+        "Taught computational thinking and digital literacy to five primary-school classes, with hands-on labs in Office, Google Classroom, Canva and PilasBloques (introductory programming)."
+      ]
+    },
+    "internship": {
+      "title": "Junior Full-Stack Developer (Internship)",
+      "company": "UNICEN - JOVIN Program",
+      "date": "Aug 2022 - Mar 2023",
+      "points": [
+        "Built OcularVet end to end for the Faculty of Veterinary Sciences: requirements gathering with end users, stack selection (MEAN), system architecture and role-based access control.",
+        "Implemented a REST API with Node.js and Express, MongoDB data modeling and an Angular (TypeScript) frontend; containerized the application with Docker and ran user testing with students."
       ]
     }
   },
   "projects_list": {
+    "inovaGlass": {
+      "name": "Inova Glass - Glass Quoting App",
+      "tech": "React Native, Expo, TypeScript, PyTorch",
+      "description": "Cross-platform app (iOS/Android) that automates industrial glass quoting: operators photograph or draw a piece and receive a production-ready quote. I built the mobile app end to end (Zustand, navigation and a step-based quoting flow) and the 2D geometry engine that turns model detections into an editable technical piece, with DXF and EDI exporters. I contributed to the computer-vision pipeline by fine-tuning two RF-DETR models, migrated the app to full backend integration (React Query, AWS Cognito/Amplify) and optimized the touch drawing canvas to a stable 60 FPS."
+    },
+    "wildfire": {
+      "name": "Wildfire Risk Prediction",
+      "tech": "Python, Parquet, LightGBM, XGBoost, Docker",
+      "description": "Research project predicting wildfire risk in Arizona and New Mexico over 20 years of hourly weather data and 2.3M historical fire records, mentored by university researchers. I built a Python ETL pipeline streaming 200M+ rows into a 24.5M-row labeled hourly grid in Parquet, implemented the Canadian Fire Weather Index from its original equations, and trained imbalanced classification models under leakage-safe temporal validation, raising PR-AUC by 40-56% over the climatological baseline."
+    },
     "oil": {
-      "name": "Oilfield Equipment Control System",
-      "tech": "React",
-      "description": "Platform for monitoring, control and electronic logging of drilling, workover and pulling rigs; delivers robust real-time data in industrial energy environments. Responsible for UI development: reusable components, responsive dashboards, dynamic forms, and real-time visualization modules."
+      "name": "Tenlek - Oil Drilling Monitoring Platform",
+      "tech": "React, TypeScript, Redux, ECharts",
+      "description": "Real-time well monitoring platform for the oil & gas industry: live trace visualization, KPI dashboards, reporting, alarms and field-device integration. I optimized real-time performance with incremental time-series merging and O(1) deduplication plus request batching, built Tenlek TV, a multi-well control-room monitoring module, and integrated the platform with WITSML servers. I also led the mobile adaptation of a desktop-only application."
     },
     "pregnancyApp": {
-      "name": "Pregnancy Tracking Mobile App",
-      "tech": "React Native",
-      "description": "Mobile app for comprehensive pregnancy tracking: daily vital signs logging and real-time sharing with healthcare providers. Contributed to full UX/UI refactor and new features, re-implementing screens and flows for accessibility and cross-platform consistency (Android & iOS)."
+      "name": "Pregnancy & Postpartum Tracking App",
+      "tech": "React Native, TypeScript",
+      "description": "Cross-platform mobile health app (iOS/Android) for daily vital-sign tracking, symptom logging and data sharing with healthcare providers across pregnancy and postpartum. I shipped 10+ end-to-end features, integrated wearable data (Withings and Fitbit) into blood-pressure and biometric check-in flows, implemented the postpartum tracking suite with custom charts, and fixed a production crash caused by React Native's layout engine."
     },
     "ocularVet": {
       "name": "Ocular Vet",
-      "tech": "MEAN Stack (Mongo - Express - Angular - NodeJS)",
-      "description": "Educational web app for veterinary physiology enabling self-assessment of canine ocular reflexes with realistic simulation cases. (abridged)"
+      "tech": "MEAN Stack (Mongo - Express - Angular - NodeJS), Docker",
+      "description": "My degree thesis: an educational web app for the Physiology of the Nervous and Muscular Systems course at the Faculty of Veterinary Sciences, where students self-assess ocular reflexes in dogs through simulations based on real clinical cases. Students identify the components of the reflex arc by seeing it work normally, and detect which structure is damaged when the pupillary reflex is altered. I built it end to end, from requirements gathering to user testing with students."
     },
     "agileFlow": {
       "name": "Agile Flow",
       "tech": "MEAN Stack (Mongo - Express - Angular - NodeJS)",
-      "description": "Web platform simulating key TAIGA features for agile project management: incremental breakdown, specification and team task assignment. (abridged)"
+      "description": "Web platform that simulates the key features of TAIGA for efficient project management in agile teams. It lets you break projects down into incremental units, specify them to ease implementation, and assign tasks to team members."
     },
     "lernaCourses": {
       "name": "Lerna Courses",
       "tech": "React - Bootstrap - Figma",
-      "description": "Web prototype simulating core e‑commerce interactions (frontend only) built with React & Bootstrap. (abridged)"
+      "description": "Web platform that simulates a course e-commerce site, built with React and Bootstrap from a Figma design. It covers only the frontend implementation of the main page."
     }
   }
 }

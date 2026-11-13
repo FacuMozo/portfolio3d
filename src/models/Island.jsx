@@ -5,274 +5,164 @@ License: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 Source: https://sketchfab.com/3d-models/foxs-islands-163b68e09fcc47618450150be7785907
 Title: Fox's islands
 */
-import {  extend   } from '@react-three/fiber'
-import React, { useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
-import { useGLTF } from '@react-three/drei'
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
+import { useGLTF } from '@react-three/drei'
 import { a } from '@react-spring/three'
-extend({useGLTF});
 
 import islandScene from '../assets/3d/island.glb'
 
+const TWO_PI = 2 * Math.PI;
+const DAMPING = 0.95;
+const IDLE_SPEED = 0.0005;
+// With prefers-reduced-motion the island keeps drifting, just gentler.
+const IDLE_SPEED_REDUCED = 0.0002;
+const STAGE_ROTATIONS = { 1: 4.55, 2: 2.975, 3: 1.225, 4: 0 };
+
+// Wraps an angle difference into [-PI, PI) so animations take the shortest path.
+const shortestAngle = (diff) => ((((diff + Math.PI) % TWO_PI) + TWO_PI) % TWO_PI) - Math.PI;
+
+const stageFromRotation = (rotation) => {
+  const r = ((rotation % TWO_PI) + TWO_PI) % TWO_PI;
+  if (r >= 5.35 || r <= 0.35) return 4;
+  if (r >= 0.45 && r <= 2.0) return 3;
+  if (r >= 2.2 && r <= 3.75) return 2;
+  if (r >= 3.85 && r <= 5.25) return 1;
+  return null;
+};
 
 const Island = forwardRef(({ isRotating, setIsRotating, setCurrentStage, ...props }, ref) => {
   const islandRef = useRef();
-  const targetRotation = useRef(null); // animated target in radians
+  const targetRotation = useRef(null);
   const animating = useRef(false);
-
-  // Expose imperative API to parent to jump to a specific stage (1..4) with animation
-  useImperativeHandle(ref, () => ({
-    gotoStage: (stage) => {
-      const targets = {
-        1: 4.55,
-        2: 2.975,
-        3: 1.225,
-        4: 0
-      };
-      if (islandRef.current && targets[stage] !== undefined) {
-        targetRotation.current = targets[stage];
-        animating.current = true;
-        rotationSpeed.current = 0; // stop inertia while animating
-      }
-    }
-  }), []);
+  const lastX = useRef(0);
+  const rotationSpeed = useRef(0);
+  const lastStage = useRef(undefined);
+  const reducedMotion = useRef(null);
+  // Mirror of the prop so the DOM listeners below can stay registered once.
+  const isRotatingRef = useRef(isRotating);
+  isRotatingRef.current = isRotating;
 
   const { gl, viewport } = useThree();
   const { nodes, materials } = useGLTF(islandScene);
 
-  const lastX = useRef(0);
-  const rotationSpeed = useRef(0);
-  const dampingFactor = 0.95;
-
-  const handlePointerDown = (e) => {
-    e.stopPropagation();
-    e.preventDefault()
-  setIsRotating(true);
-  animating.current = false; // cancel smooth animation on direct user action
-    const clientX = e.touches
-      ? e.touches[0].clientX
-      : e.clientX;
-
-    lastX.current = clientX;
-  }
-  const handlePointerUp = (e) => {
-    e.stopPropagation();
-    e.preventDefault()
-    setIsRotating(false);
-  }
-  const handlePointerMove = (e) => {
-    e.stopPropagation();
-    // e.preventDefault()
-
-    if (e.pointerType === 'mouse' && e.buttons === 0) {
-      return;
+  useImperativeHandle(ref, () => ({
+    gotoStage: (stage) => {
+      if (STAGE_ROTATIONS[stage] === undefined) return;
+      targetRotation.current = STAGE_ROTATIONS[stage];
+      animating.current = true;
+      rotationSpeed.current = 0;
     }
+  }), []);
 
-    if (isRotating) {
-      const clientX = e.touches
-        ? e.touches[0].clientX
-        : e.clientX;
-      const delta = (clientX - lastX.current) / viewport.width;
+  useEffect(() => {
+    const canvas = gl.domElement;
+    // Pointer events cover mouse, touch and pen; this stops the browser from
+    // scrolling/zooming while the user drags the island on touch screens.
+    canvas.style.touchAction = 'none';
+    reducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-      islandRef.current.rotation.y += delta * 0.01 * Math.PI;
+    const rotateBy = (amount) => {
+      if (islandRef.current) islandRef.current.rotation.y += amount;
+    };
 
-      lastX.current = clientX
-
-      rotationSpeed.current = delta * 0.01 * Math.PI;
-    }
-
-  }
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowLeft') {
-      if (!isRotating) setIsRotating(true);
-      islandRef.current.rotation.y += 0.01 * Math.PI;
-      rotationSpeed.current = 0.0125;
-    } else if (e.key === 'ArrowRight') {
-      if (!isRotating) setIsRotating(true);
-      islandRef.current.rotation.y -= 0.01 * Math.PI;
-      rotationSpeed.current = -0.0125;
-    }
-  }
-  const handleKeyUp = (e) => {
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+    const onPointerDown = (e) => {
+      canvas.setPointerCapture(e.pointerId);
+      animating.current = false;
+      lastX.current = e.clientX;
+      setIsRotating(true);
+    };
+    const onPointerUp = (e) => {
+      if (canvas.hasPointerCapture(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
       setIsRotating(false);
-    }
-  }
-  const handleMouseScroll = (e) => {
-    e.preventDefault(); // Evitar el comportamiento predeterminado del desplazamiento del navegador
-  
-    // Verificar si el botón izquierdo del ratón está presionado
-    // if (e.buttons === 0) {
-    //   return;
-    // }
-  
-    if (e.deltaY < 0) {
-      // Desplazamiento hacia arriba (scroll hacia arriba)
-      if (!isRotating) setIsRotating(false);
-      islandRef.current.rotation.y += 0.01 * Math.PI;
-    } else {
-      // Desplazamiento hacia abajo (scroll hacia abajo)
-      if (!isRotating) setIsRotating(false);
-      islandRef.current.rotation.y -= 0.01 * Math.PI;
-    }
-  
-    // Establecer isRotating en false después de un breve retraso cuando se detiene el scroll
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      setIsRotating(false);
-      console.log("scrollOff");
-    }, 1); // Cambia el valor de 200 según sea necesario
-  };
-  const handleTouchEnd = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-  setIsRotating(false);
-  const clientX = event.touches[0].clientX;
-  lastX.current = clientX;
-  };
-  
-  const handleTouchMove = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    if (isRotating) {
-      const clientX = event.touches[0].clientX;
-      const delta = (clientX - lastX.current) / viewport.width;
-        if (islandRef.current) {
-            islandRef.current.rotation.y += delta * 0.01 * Math.PI;
-  }
-      lastX.current = clientX;
+    };
+    const onPointerMove = (e) => {
+      if (!isRotatingRef.current) return;
+      const delta = (e.clientX - lastX.current) / viewport.width;
+      rotateBy(delta * 0.01 * Math.PI);
       rotationSpeed.current = delta * 0.01 * Math.PI;
-    }
-  };
-  
-  const handleTouchStart = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    setIsRotating(true);
-  };
+      lastX.current = e.clientX;
+    };
+    const onKeyDown = (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      animating.current = false;
+      const dir = e.key === 'ArrowLeft' ? 1 : -1;
+      rotateBy(dir * 0.01 * Math.PI);
+      rotationSpeed.current = dir * 0.0125;
+      if (!isRotatingRef.current) setIsRotating(true);
+    };
+    const onKeyUp = (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') setIsRotating(false);
+    };
+    const onWheel = (e) => {
+      e.preventDefault();
+      animating.current = false;
+      rotateBy((e.deltaY < 0 ? 1 : -1) * 0.01 * Math.PI);
+    };
+
+    canvas.addEventListener('pointerdown', onPointerDown);
+    canvas.addEventListener('pointerup', onPointerUp);
+    canvas.addEventListener('pointercancel', onPointerUp);
+    canvas.addEventListener('pointermove', onPointerMove);
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('keyup', onKeyUp);
+    // passive: false is required for preventDefault() to stop page scrolling.
+    window.addEventListener('wheel', onWheel, { passive: false });
+
+    return () => {
+      canvas.removeEventListener('pointerdown', onPointerDown);
+      canvas.removeEventListener('pointerup', onPointerUp);
+      canvas.removeEventListener('pointercancel', onPointerUp);
+      canvas.removeEventListener('pointermove', onPointerMove);
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('keyup', onKeyUp);
+      window.removeEventListener('wheel', onWheel);
+    };
+  }, [gl, viewport.width, setIsRotating]);
 
   useFrame(() => {
+    const island = islandRef.current;
+    if (!island) return;
+
     if (animating.current && targetRotation.current !== null && !isRotating) {
-      const current = islandRef.current.rotation.y;
-      const target = targetRotation.current;
-      // compute shortest path diff
-      let diff = ((target - current + Math.PI) % (2 * Math.PI)) - Math.PI;
-      const step = diff * 0.12; // easing factor
-      islandRef.current.rotation.y = current + step;
+      const diff = shortestAngle(targetRotation.current - island.rotation.y);
+      island.rotation.y += diff * 0.12;
       if (Math.abs(diff) < 0.002) {
-        islandRef.current.rotation.y = target;
+        island.rotation.y = targetRotation.current;
         animating.current = false;
         targetRotation.current = null;
       }
     } else if (!isRotating) {
-      rotationSpeed.current *= dampingFactor;
+      rotationSpeed.current *= DAMPING;
+      // Slow idle drift; slower still when the user asked for reduced motion.
       if (Math.abs(rotationSpeed.current) < 0.001) {
-        rotationSpeed.current -= 0.0005;
+        rotationSpeed.current -= reducedMotion.current?.matches ? IDLE_SPEED_REDUCED : IDLE_SPEED;
       }
-      islandRef.current.rotation.y += rotationSpeed.current
-    }
-      const rotation = islandRef.current.rotation.y;
-      /**
-       * Normalize the rotation value to ensure it stays within the range [0, 2 * Math.PI].
-       * The goal is to ensure that the rotation value remains within a specific range to
-       * prevent potential issues with very large or negative rotation values.
-       *  Here's a step-by-step explanation of what this code does:
-       *  1. rotation % (2 * Math.PI) calculates the remainder of the rotation value when divided
-       *     by 2 * Math.PI. This essentially wraps the rotation value around once it reaches a
-       *     full circle (360 degrees) so that it stays within the range of 0 to 2 * Math.PI.
-       *  2. (rotation % (2 * Math.PI)) + 2 * Math.PI adds 2 * Math.PI to the result from step 1.
-       *     This is done to ensure that the value remains positive and within the range of
-       *     0 to 2 * Math.PI even if it was negative after the modulo operation in step 1.
-       *  3. Finally, ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI) applies another
-       *     modulo operation to the value obtained in step 2. This step guarantees that the value
-       *     always stays within the range of 0 to 2 * Math.PI, which is equivalent to a full
-       *     circle in radians.
-       */
-      const normalizedRotation =
-        ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-
-      // Set the current stage based on the island's orientation
-      switch (true) {
-        case normalizedRotation >= 5.35 || normalizedRotation <= 0.35:
-          setCurrentStage(4);
-          break;
-        case normalizedRotation >= 0.45 && normalizedRotation <= 2.0:
-          setCurrentStage(3);
-          break;
-        case normalizedRotation >= 2.2 && normalizedRotation <= 3.75:
-          setCurrentStage(2);
-          break;
-        case normalizedRotation >= 3.85 && normalizedRotation <= 5.25:
-          setCurrentStage(1);
-          break;
-        default:
-          setCurrentStage(null);
-      
+      island.rotation.y += rotationSpeed.current;
     }
 
-
-  })
-
-  let scrollTimeout;
-  useEffect(() => {
-
-    const canvas = gl.domElement;
-    canvas.addEventListener('pointerdown', handlePointerDown);
-    canvas.addEventListener('pointerup', handlePointerUp);
-    canvas.addEventListener('pointermove', handlePointerMove);
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('keyup', handleKeyUp);
-    canvas.addEventListener("touchstart", handleTouchStart);
-    canvas.addEventListener("touchend", handleTouchEnd);
-    canvas.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("wheel", handleMouseScroll);
-
-    return () => {
-      canvas.removeEventListener('pointerdown', handlePointerDown);
-      canvas.removeEventListener('pointerup', handlePointerUp);
-      canvas.removeEventListener('pointermove', handlePointerMove);
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('keyup', handleKeyUp);
-      canvas.removeEventListener("touchstart", handleTouchStart);
-    canvas.removeEventListener("touchend", handleTouchEnd);
-    canvas.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("wheel", handleMouseScroll);
-      clearTimeout(scrollTimeout); 
+    const stage = stageFromRotation(island.rotation.y);
+    if (stage !== lastStage.current) {
+      lastStage.current = stage;
+      setCurrentStage(stage);
     }
-  }, [gl, handlePointerDown, handlePointerMove, handlePointerUp])
+  });
 
   return (
-    <a.group ref={islandRef}{...props} >
-      <mesh {...props}
-        geometry={nodes.polySurface944_tree_body_0.geometry}
-        material={materials.PaletteMaterial001}
-      />
-      <mesh
-        geometry={nodes.polySurface945_tree1_0.geometry}
-        material={materials.PaletteMaterial001}
-      />
-      <mesh
-        geometry={nodes.polySurface946_tree2_0.geometry}
-        material={materials.PaletteMaterial001}
-      />
-      <mesh
-        geometry={nodes.polySurface947_tree1_0.geometry}
-        material={materials.PaletteMaterial001}
-      />
-      <mesh
-        geometry={nodes.polySurface948_tree_body_0.geometry}
-        material={materials.PaletteMaterial001}
-      />
-      <mesh
-        geometry={nodes.polySurface949_tree_body_0.geometry}
-        material={materials.PaletteMaterial001}
-      />
-      <mesh
-        geometry={nodes.pCube11_rocks1_0.geometry}
-        material={materials.PaletteMaterial001}
-      />
+    <a.group ref={islandRef} {...props}>
+      <mesh geometry={nodes.polySurface944_tree_body_0.geometry} material={materials.PaletteMaterial001} />
+      <mesh geometry={nodes.polySurface945_tree1_0.geometry} material={materials.PaletteMaterial001} />
+      <mesh geometry={nodes.polySurface946_tree2_0.geometry} material={materials.PaletteMaterial001} />
+      <mesh geometry={nodes.polySurface947_tree1_0.geometry} material={materials.PaletteMaterial001} />
+      <mesh geometry={nodes.polySurface948_tree_body_0.geometry} material={materials.PaletteMaterial001} />
+      <mesh geometry={nodes.polySurface949_tree_body_0.geometry} material={materials.PaletteMaterial001} />
+      <mesh geometry={nodes.pCube11_rocks1_0.geometry} material={materials.PaletteMaterial001} />
     </a.group>
   )
 })
+
+Island.displayName = 'Island';
+
+useGLTF.preload(islandScene);
 
 export default Island;

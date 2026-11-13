@@ -3,30 +3,39 @@
     "home": "Inicio",
     "about": "Acerca de",
     "projects": "Proyectos",
-    "langToggle": "EN"
+    "langToggle": "EN",
+    "langToggle_label": "Switch to English",
+    "main_nav": "Principal"
+  },
+  "common": {
+    "new_tab": "se abre en una pestaña nueva"
+  },
+  "loader": {
+    "loading": "Cargando escena 3D…"
   },
   "home": {
     "hero": {
       "greeting": "Hola, bienvenido/a! Soy Facundo Mozo",
-      "subtitle": "Ingeniero de Sistemas",
+      "subtitle": "Desarrollador de Software · Full-Stack & Mobile",
       "cta": "Gira el avión o haz scroll para conocer más sobre mi!"
     },
     "portfolio_question": "Quieres echar un vistazo a otros proyectos míos?",
     "portfolio_btn": "Ver Portfolio",
-    "skills_text": "Tengo 25 años y estoy comenzando mi carrera profesional, te presento mis habilidades:",
+    "skills_text": "Soy Ingeniero de Sistemas con 3 años de experiencia construyendo aplicaciones web y móviles. Te presento mis habilidades:",
     "skills_btn": "Acerca de mi",
     "hire_text": "Necesitas un programador? Estamos a un par de clicks de distancia!",
     "hire_btn": "Hablemos!"
   },
   "about": {
     "title_intro": "Hola, mi nombre es",
-    "profession": "Ingeniero de Sistemas, desarrollador de aplicaciones WEB (Full-Stack) con preferencia en el desarrollo FrontEnd.",
+    "profession": "Ingeniero de Sistemas (UNICEN) y Desarrollador de Software Full-Stack & Mobile, con 3 años de experiencia construyendo aplicaciones web y móviles en producción.",
     "work_experience_header": "Experiencia de trabajo",
     "skills_header": "Mis Habilidades - Conocimientos",
-    "bio": "Como Ingeniero de Sistemas, tengo un gran interés en el desarrollo de aplicaciones web, especialmente en la parte del diseño visual y la interactividad (FrontEnd). Aunque todavía no tengo experiencia laboral formal, estoy ansioso por aprender y enfrentar desafíos con creatividad. Mi formación académica me ha proporcionado una buena base en tecnologías, y estoy preparado para aplicar estas habilidades en el mundo real."
+    "bio": "Trabajo con React, React Native, TypeScript, Node.js y Spring Boot, con foco en performance en tiempo real, arquitectura de estado y ownership end-to-end de features en dominios críticos: energía, manufactura industrial y salud. También tengo experiencia en data engineering y machine learning.",
+    "bio_personal": "Me siento cómodo en equipos ágiles, con code review y CI/CD, y uso a diario herramientas de desarrollo asistido por IA como Claude Code y GitHub Copilot. Estoy abierto a posiciones Frontend, Mobile (React Native) o Full-Stack, incluyendo trabajo remoto con equipos internacionales."
   },
   "projects_page": {
-    "intro": "Te presento alguno de los proyectos WEB que realice recientemente, junto con una breve descripcion y las tecnologias involucradas.",
+    "intro": "Te presento algunos de los proyectos en los que trabajé, junto con una breve descripción y las tecnologías involucradas.",
     "link": "Link"
   },
   "contact": {
@@ -54,60 +63,88 @@
     "success": "Éxito",
     "error": "Error"
   },
+  "lightbox": {
+    "open": "Ampliar imagen",
+    "close": "Cerrar"
+  },
+  "cv": {
+    "open": "Descargar CV",
+    "title": "Descargar CV",
+    "description": "Elegí el idioma del CV que querés descargar.",
+    "lang_es": "Español",
+    "lang_en": "English",
+    "close": "Cerrar"
+  },
   "navigation": {
     "prev_alt": "Anterior (circular)",
     "next_alt": "Siguiente (circular)"
   },
   "experiences": {
     "exeo": {
-      "title": "Ingeniero en Sistemas",
-      "company": "Exeo Technology",
-      "date": "Sep 2024 - actualidad",
+      "title": "Desarrollador de Software",
+      "company": "Exeo Technology (Exeo IT)",
+      "date": "Sep 2024 - Actualidad",
       "points": [
-        "Como Ingeniero Frontend, me encargo del diseño y desarrollo de aplicaciones web y móviles utilizando React y React Native, enfocándome en crear experiencias de usuario (UX) intuitivas y de alto impacto.",
-        "Implemento arquitecturas de componentes reutilizables y escalables, gestionando el estado de la aplicación de forma eficiente con herramientas como Redux y Context API para garantizar un rendimiento óptimo.",
-        "Traduzco diseños de UI/UX en interfaces funcionales, accesibles y responsivas, manteniendo la consistencia visual y aplicando las mejores prácticas de desarrollo frontend.",
-        "Colaboro estrechamente con equipos de backend para integrar APIs RESTful (desarrolladas en Spring Boot y Python), asegurando una comunicación fluida y una funcionalidad robusta en todo el sistema.",
-        "Participo activamente en metodologías ágiles, contribuyendo en ceremonias de Scrum, revisiones de código y procesos de CI/CD para entregar valor de forma continua y con altos estándares de calidad."
+        "Desarrollo full-stack y mobile en proyectos productivos de oil & gas, salud y manufactura, con foco en performance, sistemas en tiempo real y ownership end-to-end de features.",
+        "Diseño y desarrollo de aplicaciones web y móviles con React y React Native (TypeScript), desde la definición de requerimientos con producto y diseño hasta el release.",
+        "Desarrollo de APIs RESTful y lógica de backend con Spring Boot (Java), Node.js y Python, e integración de sistemas de terceros: servidores WITSML, EDI, AWS Cognito, Withings y Fitbit.",
+        "Arquitecturas de estado y flujo de datos a escala (Redux Toolkit, Redux Saga, Context API, React Query, Zustand) y resolución de problemas de performance y confiabilidad en web y mobile.",
+        "Trabajo en equipos ágiles multidisciplinarios: Jira, code reviews, testing, CI/CD, releases multiplataforma (web, iOS y Android) y localización inglés/español."
       ]
     },
     "teacher": {
-      "title": "Profesor de Informatica",
-      "company": "Colegio San Jose",
-      "date": "Agosto 2023 - Diciembre 2023",
+      "title": "Profesor de Informática (suplente)",
+      "company": "Colegio San José",
+      "date": "Ago 2023 - Feb 2024",
       "points": [
-        "Diseñé y adapté planes de estudio de informática para cinco grupos de 40 estudiantes de primaria, enfocándome en conceptos clave de programación, alfabetización digital y pensamiento computacional.",
-        "Fomenté un ambiente de aprendizaje práctico y participativo, guiando a los estudiantes en el uso de herramientas como Office, G-Suite y plataformas de programación visual (Pilas Bloques) para resolver problemas del mundo real.",
-        "Desarrollé la curiosidad y el pensamiento crítico de los estudiantes, equipándolos con una base sólida no solo en habilidades técnicas, sino también en la comprensión del impacto y el uso ético de la tecnología.",
-        "Evalué el progreso de los estudiantes de manera continua, proporcionando retroalimentación constructiva y personalizada para apoyar su desarrollo individual."
+        "Dicté pensamiento computacional y alfabetización digital a cinco cursos de nivel primario, con prácticas en Office, Google Classroom, Canva y PilasBloques (introducción a la programación)."
+      ]
+    },
+    "internship": {
+      "title": "Desarrollador Full-Stack Junior (Pasantía)",
+      "company": "UNICEN - Programa JOVIN",
+      "date": "Ago 2022 - Mar 2023",
+      "points": [
+        "Desarrollé OcularVet de punta a punta para la Facultad de Ciencias Veterinarias: relevamiento de requerimientos con usuarios finales, selección de stack (MEAN), arquitectura y control de acceso por roles.",
+        "Implementé la API REST con Node.js y Express, el modelado en MongoDB y el frontend en Angular (TypeScript); containericé la aplicación con Docker y realicé pruebas con usuarios reales."
       ]
     }
   },
   "projects_list": {
+    "inovaGlass": {
+      "name": "Inova Glass - Cotización de Vidrios",
+      "tech": "React Native, Expo, TypeScript, PyTorch",
+      "description": "App multiplataforma (iOS/Android) que automatiza la cotización de vidrio industrial: el operario fotografía o dibuja una pieza y obtiene una cotización lista para producción. Desarrollé la app móvil de punta a punta (Zustand, navegación y flujo de cotización por pasos) y construí el motor de geometría 2D que convierte las detecciones del modelo en una pieza técnica editable, con exportadores DXF y EDI. Contribuí al pipeline de visión por computadora con el fine-tuning de dos modelos RF-DETR, migré la app a integración completa con backend (React Query, AWS Cognito/Amplify) y optimicé el canvas de dibujo táctil a 60 FPS estables."
+    },
+    "wildfire": {
+      "name": "Predicción de Riesgo de Incendios",
+      "tech": "Python, Parquet, LightGBM, XGBoost, Docker",
+      "description": "Investigación sobre riesgo de incendios en Arizona y Nuevo México con 20 años de datos meteorológicos horarios y 2,3 millones de incendios históricos, guiada por investigadores universitarios. Construí un pipeline ETL en Python que procesa más de 200M de filas hasta una grilla horaria etiquetada de 24,5M de registros en Parquet, implementé el Fire Weather Index canadiense desde sus ecuaciones originales y entrené modelos de clasificación desbalanceada con validación temporal anti-fuga, elevando el PR-AUC un 40-56 % sobre el baseline climatológico."
+    },
     "oil": {
-      "name": "Sistema de control de equipos petroleros",
-      "tech": "React",
-      "description": "Plataforma dedicada al monitoreo, control y registro electrónico de equipos de perforación, well workover y pulling, diseñada para ofrecer datos en tiempo real de forma robusta y confiable, especialmente en entornos industriales del sector energético. Fui responsable del desarrollo de las interfaces web, utilizando React para crear componentes UI reutilizables, visualmente consistentes, responsivos y accesibles. Implementé formularios dinámicos, dashboards informativos y módulos de visualización de datos que reflejan variables críticas del equipo en tiempo real."
+      "name": "Tenlek - Monitoreo de Equipos Petroleros",
+      "tech": "React, TypeScript, Redux, ECharts",
+      "description": "Plataforma de monitoreo de pozos en tiempo real para la industria oil & gas: trazas en vivo, dashboards de KPI, reportes, alarmas e integración con dispositivos de campo. Optimicé la performance en tiempo real con un merge incremental de series temporales con deduplicación O(1) y batching de requests; desarrollé Tenlek TV, un módulo de monitoreo multi-pozo para sala de control, e integré la plataforma con servidores WITSML. También lideré la adaptación a mobile de una aplicación pensada solo para escritorio."
     },
     "pregnancyApp": {
-      "name": "App mobile de seguimiento de embarazo",
-      "tech": "React Native",
-      "description": "Aplicación mobile para el seguimiento integral del embarazo, diseñada para que futuras madres registren diariamente signos vitales y compartan esta información con sus proveedores de salud en tiempo real. Participé de la refactorización completa de la UX/UI e implementación de nuevas funcionalidades, re-implementando pantallas y flujos para mejorar la usabilidad, la consistencia visual y la accesibilidad, adaptando interfaces tanto para Android como para iOS con React Native."
+      "name": "App de Seguimiento de Embarazo y Posparto",
+      "tech": "React Native, TypeScript",
+      "description": "App móvil de salud (iOS/Android) para el registro diario de signos vitales y síntomas, y para compartir datos con profesionales de la salud durante el embarazo y el posparto. Entregué más de 10 features de punta a punta, integré datos de wearables (Withings y Fitbit) en los flujos de presión arterial y check-in biométrico, implementé el módulo de seguimiento posparto con gráficos custom y resolví un crash en producción originado en el motor de layout de React Native."
     },
     "ocularVet": {
       "name": "Ocular Vet",
-      "tech": "MEAN Stack (Mongo - Express - Angular - NodeJS)",
-      "description": "Aplicación web para el curso de Fisiología... (abreviado)."
+      "tech": "MEAN Stack (Mongo - Express - Angular - NodeJS), Docker",
+      "description": "Mi tesis de grado: aplicación web para el curso de Fisiología de los Sistemas Nervioso y Muscular en la Facultad de Ciencias Veterinarias, donde los estudiantes pueden autoevaluar los reflejos oculares en perros a través de simulaciones basadas en casos de práctica profesional real. La autoevaluación les permite identificar los componentes del arco reflejo al visualizar su funcionamiento normal, y detectar qué estructura está dañada en presencia de un reflejo pupilar alterado. La desarrollé de punta a punta, desde el relevamiento de requerimientos hasta las pruebas con estudiantes."
     },
     "agileFlow": {
       "name": "Agile Flow",
       "tech": "MEAN Stack (Mongo - Express - Angular - NodeJS)",
-      "description": "Plataforma web diseñada para simular las funcionalidades clave de TAIGA... (abreviado)."
+      "description": "Plataforma web diseñada para simular las funcionalidades clave de TAIGA, facilitando la gestión eficiente de proyectos en entornos de desarrollo ágil. Permite descomponer proyectos en unidades incrementales, especificarlas y facilitar su implementación, además de asignar tareas a los miembros del equipo."
     },
     "lernaCourses": {
       "name": "Lerna Courses",
       "tech": "React - Bootstrap - Figma",
-      "description": "Plataforma web diseñada para simular las funcionalidades de un e-commerce... (abreviado)."
+      "description": "Plataforma web diseñada para simular las funcionalidades de un e-commerce de cursos, realizada con React y Bootstrap a partir de un diseño en Figma. Se trata solo de la implementación del frontend de la página principal."
     }
   }
 }

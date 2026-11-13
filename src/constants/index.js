@@ -1,10 +1,7 @@
-import { meta, shopify, sanjose, consigna1, AgileFlow, AgileFlow2, LernaCourses, exeoLogo } from "../assets/images";
+import { sanjose, consigna1, AgileFlow2, LernaCourses, exeoLogo, tenlek } from "../assets/images";
 import {
-    car,
     AgileFlowLogo,
-    contact,
     css,
-    estate,
     express,
     git,
     github,
@@ -12,24 +9,21 @@ import {
     javascript,
     linkedin,
     mongodb,
-    motion,
-    mui,
     nextjs,
     nodejs,
     faviconOcularVet,
     LernaLogo,
     oilPump,
     babyIcon,
-    pricewise,
     react,
-    redux,
     sass,
-    snapgram,
-    summiz,
     tailwindcss,
-    threads,
     typescript,
-    angularIcon
+    angularIcon,
+    redux,
+    mui,
+    glass,
+    wildfire
 } from "../assets/icons";
 
 export const skills = [
@@ -91,6 +85,16 @@ export const skills = [
     },
     
     {
+        imageUrl: redux,
+        name: "Redux",
+        type: "State Management",
+    },
+    {
+        imageUrl: mui,
+        name: "MUI",
+        type: "Frontend",
+    },
+    {
         imageUrl: sass,
         name: "Sass",
         type: "Frontend",
@@ -117,8 +121,13 @@ export const experiences = [
     i18nKey: 'experiences.teacher',
     icon: sanjose,
     iconBg: "#accbe1",
-    },   
-    
+    },
+    {
+    i18nKey: 'experiences.internship',
+    icon: faviconOcularVet,
+    iconBg: "#accbe1",
+    },
+
 ];
 
 export const socialLinks = [
@@ -136,9 +145,20 @@ export const socialLinks = [
 
 export const projects = [
     {
+    iconUrl: glass,
+    theme: 'btn-back-blue',
+    i18nKey: 'projects_list.inovaGlass',
+    },
+    {
+    iconUrl: wildfire,
+    theme: 'btn-back-orange',
+    i18nKey: 'projects_list.wildfire',
+    },
+    {
     iconUrl: oilPump,
     theme: 'btn-back-blue',
     i18nKey: 'projects_list.oil',
+    imageUrl: tenlek,
     },
     {
     iconUrl: babyIcon,

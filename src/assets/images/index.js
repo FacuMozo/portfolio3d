@@ -1,25 +1,16 @@
-import hero from './hero.jpg'
-import meta from './meta.png'
-import shopify from './shopify.png'
-import starbucks from './starbucks.png'
-import logo from './logo.svg'
+// Only export images that are used: every import here gets copied to the build output.
 import sanjose from './sanjose.png'
 import consigna1 from './consigna1.webp'
-import AgileFlow from './AgileFlow.webp'
 import AgileFlow2 from './AgileFlow2.webp'
 import LernaCourses from './LernaCourses.png'
 import exeoLogo from './exeo-logo.png'
+import tenlek from './tenlek.png'
 
 export {
     LernaCourses,
-    hero,
-    meta,
-    shopify,
-    starbucks,
-    logo,
     sanjose,
     consigna1,
-    AgileFlow,
     AgileFlow2,
-    exeoLogo
+    exeoLogo,
+    tenlek
 }

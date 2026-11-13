@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
+/* Fonts are loaded from index.html (<link> + preconnect) instead of a render-blocking @import. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,7 +22,7 @@ body:has(.card[data-color="green"]:hover) {
 
 @layer utilities {
   .max-container {
-    @apply max-w-7xl mx-auto sm:p-16 pb-12 !pt-[126px] px-8 min-h-[calc(100vh-80px)];
+    @apply max-w-7xl mx-auto sm:p-16 pb-12 !pt-[126px] px-8 min-h-[calc(100dvh-80px)];
   }
 
   .head-text {
@@ -46,8 +45,14 @@ body:has(.card[data-color="green"]:hover) {
     @apply block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-200 focus:ring-blue-500 focus:border-blue-500 mt-2.5 font-normal shadow-card;
   }
 
+  /* Error styling only after the user interacted with the field or tried to submit. */
+  .input:user-invalid,
+  .textarea:user-invalid {
+    @apply border-red-500 focus:ring-red-500 focus:border-red-500;
+  }
+
   .btn {
-    @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#0072ff] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
+    @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#0072ff] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center disabled:opacity-70 disabled:cursor-wait;
   }
 
   .header {
@@ -157,12 +162,66 @@ body:has(.card[data-color="green"]:hover) {
   overflow: hidden;
 }
 
-.block-container:hover > .btn-back {
-  transform: translateZ(20px) rotateZ(15deg) rotateX(-20deg) rotateY(-20deg);
+/* 3D tilt on hover only for users who haven't asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .block-container:hover > .btn-back {
+    transform: translateZ(20px) rotateZ(15deg) rotateX(-20deg) rotateY(-20deg);
+  }
+
+  .block-container:hover > .btn-front {
+    transform: translateZ(80px) translateY(-5px) rotateX(15deg) rotateY(15deg);
+  }
 }
 
-.block-container:hover > .btn-front {
-  transform: translateZ(80px) translateY(-5px) rotateX(15deg) rotateY(15deg);
+/* Shared native modal <dialog> styles (ImageLightbox, CvDialog) */
+.app-dialog:modal {
+  overscroll-behavior: contain; /* scroll in the dialog doesn't chain to the page */
+}
+
+.app-dialog::backdrop {
+  background-color: rgb(15 23 42 / 0.85);
+  overflow: hidden; /* make ::backdrop a scroll container so overscroll-behavior applies */
+  overscroll-behavior: contain;
+}
+
+/* Fade/scale in and out only for users who haven't asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .app-dialog {
+    opacity: 0;
+    transform: scale(0.95);
+    transition-property: opacity, transform, display, overlay;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-out;
+    transition-behavior: allow-discrete;
+  }
+
+  .app-dialog[open] {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .app-dialog::backdrop {
+    background-color: rgb(15 23 42 / 0);
+    transition-property: background-color, display, overlay;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-out;
+    transition-behavior: allow-discrete;
+  }
+
+  .app-dialog[open]::backdrop {
+    background-color: rgb(15 23 42 / 0.85);
+  }
+
+  @starting-style {
+    .app-dialog[open] {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    .app-dialog[open]::backdrop {
+      background-color: rgb(15 23 42 / 0);
+    }
+  }
 }
 
 /* Neo Brutalism */

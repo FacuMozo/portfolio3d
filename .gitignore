@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/.claude
+
+# CV sources (contain personal data); published PDFs live in public/cv
+/cv
