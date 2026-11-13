@@ -26,3 +26,6 @@ dist-ssr
 
 # CV sources (contain personal data); published PDFs live in public/cv
 /cv
+
+# Raw Kenney kits (only the GLBs we use are copied to public/models)
+kenney_*/

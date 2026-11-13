@@ -146,5 +146,149 @@
       "tech": "React - Bootstrap - Figma",
       "description": "Web platform that simulates a course e-commerce site, built with React and Bootstrap from a Figma design. It covers only the frontend implementation of the main page."
     }
+  },
+  "ocean": {
+    "title": "Facundo Mozo's portfolio: sail between islands to explore my work",
+    "islands": {
+      "help": {
+        "name": "Help",
+        "icon": "🧭",
+        "title": "How to play"
+      },
+      "about": {
+        "name": "About me",
+        "icon": "🏡",
+        "title": "About me",
+        "page_link": "Open as full page"
+      },
+      "projects": {
+        "name": "Projects",
+        "icon": "🛠️",
+        "title": "Projects",
+        "page_link": "Open as full page"
+      },
+      "cv": {
+        "name": "CV & links",
+        "icon": "📜",
+        "title": "CV, documents & links",
+        "page_link": "Go to the contact form"
+      },
+      "fort": {
+        "name": "Games",
+        "icon": "🎮",
+        "title": "Defend the fort"
+      }
+    },
+    "modal": {
+      "close": "Close"
+    },
+    "hud": {
+      "dock": "Dock at {name}",
+      "islands_nav": "Islands",
+      "start_combat": "Combat mode",
+      "quit": "Leave combat",
+      "wave": "Wave",
+      "hp": "Health",
+      "enemies": "Enemies",
+      "fire": "Fire cannons",
+      "hint_move": "sail",
+      "hint_fire": "fire"
+    },
+    "combat": {
+      "incoming": "Wave {n} incoming!",
+      "cleared": "Wave cleared!",
+      "victory_title": "Victory!",
+      "victory_text": "You sank all 3 waves of invaders. The sea is yours, captain.",
+      "defeat_title": "You were sunk",
+      "defeat_text": "The invaders won this time. Another round?",
+      "retry": "Play again",
+      "explore": "Back to exploring"
+    },
+    "help": {
+      "intro": "Welcome aboard! I'm Facundo Mozo, a software developer. Each island in this sea holds a part of my portfolio: sail to it and dock to see it.",
+      "keyboard_title": "Keyboard",
+      "move": "Sail (forward, turn, brake)",
+      "space": "Space",
+      "fire": "Fire the cannons on both sides",
+      "dock": "Dock at the nearby island",
+      "close": "Close the window",
+      "touch_title": "Touch screen",
+      "touch": "Use the joystick on the left to point where you want to sail and the red button to fire. You can also tap any island's name.",
+      "islands_title": "Islands",
+      "islands": "You can also click an island or its name to open it right away, without sailing.",
+      "combat_title": "Combat mode",
+      "combat": "At the Fort you can start a 3-wave defense: invader boats will surround you and fire. Sink them all with your broadsides.",
+      "classic": "Prefer the classic version?",
+      "menu_title": "Menu",
+      "menu": "Open the MENU (bottom left, or press M) to jump to any island, switch language or pick a game mode.",
+      "race_title": "Race mode",
+      "race": "Go through the checkpoints in order (the gold arrow points to the next one) and reach the finish as fast as you can. Green bottles give you a boost, purple whirlpools slow you down and crates repair the ship. On medium and hard, island mortars mark a red circle on the water: get out before the shell lands."
+    },
+    "cv": {
+      "intro": "Download my CV or find me online.",
+      "links_title": "Links",
+      "contact": "Get in touch"
+    },
+    "fort": {
+      "intro": "A fleet of invader boats is closing in on the islands. Can you defend them?",
+      "rule_waves": "3 waves, each larger and more aggressive.",
+      "rule_fire": "Space (or the red button) fires a broadside from both sides: turn sideways to hit.",
+      "rule_hp": "You have 10 health points. Keep moving to dodge cannonballs.",
+      "start": "⚔️ Start the defense"
+    },
+    "hint": {
+      "move": "Use WASD or the arrow keys to sail",
+      "fire": "Space to fire"
+    },
+    "menu": {
+      "title": "MENU",
+      "islands": "Islands",
+      "modes": "Game modes",
+      "combat": "Combat",
+      "combat_desc": "Defend the fort from 3 waves",
+      "race": "Race",
+      "race_desc": "Hit every checkpoint against the clock",
+      "difficulty": {
+        "easy": "Easy",
+        "easy_desc": "Few obstacles and lots of boosts",
+        "medium": "Medium",
+        "medium_desc": "Mortars on 3 islands and 2 enemy ships",
+        "hard": "Hard",
+        "hard_desc": "Mortars on every island and 4 ships"
+      }
+    },
+    "race": {
+      "checkpoint": "Checkpoint",
+      "go": "GO!",
+      "quit": "Leave race",
+      "effect_boost": "⚡ Boost!",
+      "effect_slow": "🌀 Whirlpool: slowed down",
+      "finished_title": "You made it!",
+      "your_time": "Your time",
+      "best": "Best time",
+      "record": "New record!",
+      "failed_title": "You were sunk",
+      "failed_text": "The mortars and the pirates got you this time. Another lap?"
+    },
+    "music": {
+      "title": "Music",
+      "mute": "Mute music",
+      "unmute": "Turn music on",
+      "play": "Play",
+      "pause": "Pause",
+      "prev": "Previous track",
+      "next": "Next track",
+      "volume": "Volume",
+      "tracks": "Tracks",
+      "now_playing": "Now playing",
+      "off": "Music off",
+      "mode_combat": "combat mode",
+      "mode_race": "race mode",
+      "forced_hint": "Combat and race play their own music; your pick comes back when you explore.",
+      "tap_to_start": "Tap or press a key to start",
+      "missing": "file unavailable",
+      "credits": "Music by",
+      "via": "via"
+    }
   }
 }

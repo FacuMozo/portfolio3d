@@ -146,5 +146,149 @@
       "tech": "React - Bootstrap - Figma",
       "description": "Plataforma web diseñada para simular las funcionalidades de un e-commerce de cursos, realizada con React y Bootstrap a partir de un diseño en Figma. Se trata solo de la implementación del frontend de la página principal."
     }
+  },
+  "ocean": {
+    "title": "Portfolio de Facundo Mozo: navegá entre islas para conocer mi trabajo",
+    "islands": {
+      "help": {
+        "name": "Ayuda",
+        "icon": "🧭",
+        "title": "Cómo jugar"
+      },
+      "about": {
+        "name": "Acerca de mí",
+        "icon": "🏡",
+        "title": "Acerca de mí",
+        "page_link": "Ver como página completa"
+      },
+      "projects": {
+        "name": "Proyectos",
+        "icon": "🛠️",
+        "title": "Proyectos",
+        "page_link": "Ver como página completa"
+      },
+      "cv": {
+        "name": "CV y links",
+        "icon": "📜",
+        "title": "CV, documentos y links",
+        "page_link": "Ir al formulario de contacto"
+      },
+      "fort": {
+        "name": "Jugar",
+        "icon": "🎮",
+        "title": "Defendé el fuerte"
+      }
+    },
+    "modal": {
+      "close": "Cerrar"
+    },
+    "hud": {
+      "dock": "Atracar en {name}",
+      "islands_nav": "Islas",
+      "start_combat": "Modo combate",
+      "quit": "Abandonar combate",
+      "wave": "Oleada",
+      "hp": "Vida",
+      "enemies": "Enemigos",
+      "fire": "Disparar cañones",
+      "hint_move": "navegar",
+      "hint_fire": "disparar"
+    },
+    "combat": {
+      "incoming": "¡Se acerca la oleada {n}!",
+      "cleared": "¡Oleada superada!",
+      "victory_title": "¡Victoria!",
+      "victory_text": "Hundiste las 3 oleadas de invasores. El mar es tuyo, capitán.",
+      "defeat_title": "Te hundieron",
+      "defeat_text": "Los invasores ganaron esta vez. ¿Otra ronda?",
+      "retry": "Jugar de nuevo",
+      "explore": "Volver a explorar"
+    },
+    "help": {
+      "intro": "¡Bienvenido/a a bordo! Soy Facundo Mozo, desarrollador de software. Cada isla de este mar guarda una parte de mi portfolio: navegá hasta ella y atracá para verla.",
+      "keyboard_title": "Teclado",
+      "move": "Navegar (adelante, girar, frenar)",
+      "space": "Espacio",
+      "fire": "Disparar los cañones de ambos costados",
+      "dock": "Atracar en la isla cercana",
+      "close": "Cerrar la ventana",
+      "touch_title": "Pantalla táctil",
+      "touch": "Usá el joystick de la izquierda para indicar hacia dónde navegar y el botón rojo para disparar. También podés tocar el nombre de cualquier isla.",
+      "islands_title": "Islas",
+      "islands": "También podés hacer click en una isla o en su nombre para abrirla directamente, sin navegar.",
+      "combat_title": "Modo combate",
+      "combat": "En el Fuerte podés iniciar una defensa de 3 oleadas: botes invasores te van a rodear y disparar. Hundilos a todos con tus andanadas.",
+      "classic": "¿Preferís la versión clásica?",
+      "menu_title": "Menú",
+      "menu": "Abrí el MENÚ (abajo a la izquierda, o con la tecla M) para ir a cualquier isla, cambiar el idioma o elegir un modo de juego.",
+      "race_title": "Modo carrera",
+      "race": "Pasá por los checkpoints en orden (la flecha dorada te marca el próximo) y llegá a la meta lo más rápido posible. Las botellas verdes te dan turbo, los remolinos violetas te frenan y las cajas reparan el barco. En medio y difícil, los morteros de las islas marcan un círculo rojo en el agua: salí antes de que caiga la bala."
+    },
+    "cv": {
+      "intro": "Descargá mi CV o encontrame en mis redes.",
+      "links_title": "Links",
+      "contact": "Escribime"
+    },
+    "fort": {
+      "intro": "Una flota de botes invasores se acerca a las islas. ¿Podés defenderlas?",
+      "rule_waves": "3 oleadas, cada una más numerosa y agresiva.",
+      "rule_fire": "Espacio (o el botón rojo) dispara una andanada por ambos costados: ponete de lado para acertar.",
+      "rule_hp": "Tenés 10 puntos de vida. Moverte te ayuda a esquivar las balas.",
+      "start": "⚔️ Comenzar defensa"
+    },
+    "hint": {
+      "move": "Usá WASD o las flechas para navegar",
+      "fire": "Espacio para disparar"
+    },
+    "menu": {
+      "title": "MENÚ",
+      "islands": "Islas",
+      "modes": "Modos de juego",
+      "combat": "Combate",
+      "combat_desc": "Defendé el fuerte de 3 oleadas",
+      "race": "Carrera",
+      "race_desc": "Pasá por todos los checkpoints contra reloj",
+      "difficulty": {
+        "easy": "Fácil",
+        "easy_desc": "Pocos obstáculos y muchos turbos",
+        "medium": "Medio",
+        "medium_desc": "Morteros en 3 islas y 2 barcos enemigos",
+        "hard": "Difícil",
+        "hard_desc": "Morteros en todas las islas y 4 barcos"
+      }
+    },
+    "race": {
+      "checkpoint": "Checkpoint",
+      "go": "¡YA!",
+      "quit": "Abandonar carrera",
+      "effect_boost": "⚡ ¡Turbo!",
+      "effect_slow": "🌀 Remolino: más lento",
+      "finished_title": "¡Llegaste a la meta!",
+      "your_time": "Tu tiempo",
+      "best": "Mejor tiempo",
+      "record": "¡Nuevo récord!",
+      "failed_title": "Te hundieron",
+      "failed_text": "Los morteros y los piratas te ganaron esta vez. ¿Otra vuelta?"
+    },
+    "music": {
+      "title": "Música",
+      "mute": "Silenciar música",
+      "unmute": "Activar música",
+      "play": "Reproducir",
+      "pause": "Pausar",
+      "prev": "Canción anterior",
+      "next": "Canción siguiente",
+      "volume": "Volumen",
+      "tracks": "Canciones",
+      "now_playing": "Sonando",
+      "off": "Música apagada",
+      "mode_combat": "modo combate",
+      "mode_race": "modo carrera",
+      "forced_hint": "Durante combate y carrera suena la música del modo; tu elección vuelve al explorar.",
+      "tap_to_start": "Tocá o presioná una tecla para empezar",
+      "missing": "archivo no disponible",
+      "credits": "Música de",
+      "via": "vía"
+    }
   }
 }

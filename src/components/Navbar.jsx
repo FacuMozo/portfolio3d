@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Home_logo } from '../assets/icons'
 import { useLanguage, useT } from '../i18n/LanguageProvider'
 import CvDialog from './CvDialog'
@@ -9,7 +9,11 @@ const pillButton = 'h-10 px-3 sm:px-4 rounded-lg bg-white shadow-md font-semibol
 const Navbar = () => {
     const { lang, setLang } = useLanguage();
     const t = useT();
+    const { pathname } = useLocation();
     const nextLang = lang === 'es' ? 'en' : 'es';
+
+    // The ocean home screen has its own in-game MENU instead of the top bar.
+    if (pathname === '/') return null;
 
     return (
         <header className='header flex gap-2 sm:gap-4 items-center'>

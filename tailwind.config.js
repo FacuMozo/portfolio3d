@@ -22,6 +22,16 @@ export default {
         worksans: ["Work Sans", "sans-serif"],
         poppins: ['Poppins', "sans-serif"]
       },
+      keyframes: {
+        pingOnce: {
+          '0%': { transform: 'scale(0.6)', opacity: '0' },
+          '30%': { transform: 'scale(1.1)', opacity: '1' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+      },
+      animation: {
+        'ping-once': 'pingOnce 0.45s ease-out',
+      },
       boxShadow: {
         card: '0px 1px 2px 0px rgba(0, 0, 0, 0.05)'
       }

@@ -23,4 +23,12 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  overrides: [
+    {
+      // Ocean scene files are almost entirely three.js JSX (args, castShadow,
+      // position-y, flatShading...), none of which are DOM attributes.
+      files: ['src/ocean/scene/**/*.jsx'],
+      rules: { 'react/no-unknown-property': 'off' },
+    },
+  ],
 }

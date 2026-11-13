@@ -1,12 +1,8 @@
 import { useId, useRef } from 'react'
 import { useLanguage, useT } from '../i18n/LanguageProvider'
 import useLightDismiss from '../hooks/useLightDismiss'
+import { cvFiles } from '../constants'
 
-// Served from /public so the URLs stay stable and shareable.
-const CV_FILES = [
-  { lang: 'es', href: '/cv/CV_Facundo_Mozo_ES.pdf', file: 'CV_Facundo_Mozo_ES.pdf' },
-  { lang: 'en', href: '/cv/CV_Facundo_Mozo_EN.pdf', file: 'CV_Facundo_Mozo_EN.pdf' },
-];
 
 const DownloadIcon = () => (
   <svg aria-hidden='true' viewBox='0 0 24 24' className='w-5 h-5' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
@@ -32,7 +28,7 @@ const CvDialog = ({ buttonClassName }) => {
   };
 
   // Show the CV in the current UI language first.
-  const files = [...CV_FILES].sort((a, b) => (a.lang === lang ? -1 : b.lang === lang ? 1 : 0));
+  const files = [...cvFiles].sort((a, b) => (a.lang === lang ? -1 : b.lang === lang ? 1 : 0));
 
   return (
     <>

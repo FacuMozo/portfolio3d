@@ -188,3 +188,9 @@ export const projects = [
     },
     
 ];
+
+// CV PDFs, served from /public so the URLs stay stable and shareable.
+export const cvFiles = [
+    { lang: 'es', href: '/cv/CV_Facundo_Mozo_ES.pdf', file: 'CV_Facundo_Mozo_ES.pdf' },
+    { lang: 'en', href: '/cv/CV_Facundo_Mozo_EN.pdf', file: 'CV_Facundo_Mozo_EN.pdf' },
+];
