@@ -67,9 +67,7 @@ const HelpContent = () => {
       </section>
 
       <p className='text-sm text-slate-500'>
-        {t('ocean.help.classic')} <Link to='/about' className='text-blue-500 font-semibold hover:underline'>{t('navbar.about')}</Link>
-        {' · '}
-        <Link to='/projects' className='text-blue-500 font-semibold hover:underline'>{t('navbar.projects')}</Link>
+        {t('ocean.help.classic')} <Link to='/' className='text-blue-500 font-semibold hover:underline'>{t('site.ocean.back')}</Link>
       </p>
     </div>
   );
@@ -116,7 +114,7 @@ const CvContent = () => {
             </li>
           ))}
           <li>
-            <Link to='/contact' className={cardLink}>
+            <Link to='/#contact' className={cardLink}>
               <span className='flex items-center gap-3'>
                 <span aria-hidden='true' className='text-xl'>✉️</span>
                 {t('ocean.cv.contact')}

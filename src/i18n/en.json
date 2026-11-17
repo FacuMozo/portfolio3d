@@ -51,17 +51,8 @@
     "success": "Message sent successfully!",
     "error": "Failed to send the message!"
   },
-  "cta": {
-    "question": "Do you have a project in mind?",
-    "action": "Let's build it together",
-    "button": "Contact"
-  },
   "footer": {
     "rights": "All rights reserved."
-  },
-  "alert": {
-    "success": "Success",
-    "error": "Failed"
   },
   "lightbox": {
     "open": "Enlarge image",
@@ -218,7 +209,7 @@
       "islands": "You can also click an island or its name to open it right away, without sailing.",
       "combat_title": "Combat mode",
       "combat": "At the Fort you can start a 3-wave defense: invader boats will surround you and fire. Sink them all with your broadsides.",
-      "classic": "Prefer the classic version?",
+      "classic": "Prefer browsing the portfolio as a regular web page?",
       "menu_title": "Menu",
       "menu": "Open the MENU (bottom left, or press M) to jump to any island, switch language or pick a game mode.",
       "race_title": "Race mode",
@@ -289,6 +280,102 @@
       "missing": "file unavailable",
       "credits": "Music by",
       "via": "via"
+    }
+  },
+  "site": {
+    "skip": "Skip to content",
+    "available": "Available for new challenges",
+    "nav": {
+      "label": "Sections",
+      "menu": "Menu",
+      "home": "home",
+      "expertise": "expertise",
+      "work": "work",
+      "experience": "experience",
+      "contact": "contact"
+    },
+    "social": {
+      "github": "GitHub profile",
+      "linkedin": "LinkedIn profile"
+    },
+    "resume": "Resume",
+    "ocean": {
+      "cta": "3D ocean mode",
+      "short": "3D Ocean",
+      "title": "Rather explore it by playing?",
+      "desc": "Sail a ship between islands to browse this same portfolio in 3D, with combat and race modes (WebGL; best on desktop).",
+      "back": "Professional version"
+    },
+    "hero": {
+      "role": "Full-Stack & Mobile Developer",
+      "degree": "Systems Engineer (UNICEN)",
+      "summary": "3 years building production web and mobile applications for energy, industrial manufacturing and healthcare, focused on real-time performance and end-to-end ownership.",
+      "domains_label": "// specialties & key domains",
+      "domains": [
+        "Oil & Gas · real-time",
+        "Health & wearables",
+        "Computer vision",
+        "Data engineering & ML"
+      ],
+      "cta_work": "See projects",
+      "cta_contact": "Get in touch"
+    },
+    "expertise": {
+      "title": "My Expertise",
+      "subtitle": "// mobile apps, real-time frontend and end-to-end backend",
+      "mobile": {
+        "line1": "Mobile",
+        "line2": "Engineering",
+        "body": "iOS/Android apps with React Native, Expo and TypeScript: touch canvas at a stable 60 FPS, step-by-step flows, wearable integrations (Withings, Fitbit) and cross-platform releases."
+      },
+      "frontend": {
+        "line1": "Frontend",
+        "line2": "Architecture",
+        "body": "Web interfaces with React and TypeScript for real-time monitoring: time series with ECharts, state architecture at scale (Redux Toolkit, Redux Saga, React Query, Zustand) and a focus on performance."
+      },
+      "backend": {
+        "line1": "Backend &",
+        "line2": "Data",
+        "body": "RESTful APIs with Spring Boot (Java), Node.js and Python; integrations with WITSML, EDI and AWS Cognito; ETL pipelines and machine learning models (LightGBM, XGBoost, RF-DETR)."
+      },
+      "profile_note": "// Systems Engineer · UNICEN"
+    },
+    "work": {
+      "title_1": "My",
+      "title_2": "Work",
+      "intro": "Production software for oil & gas, healthcare and industrial manufacturing, plus research and academic projects. Each one with its stack and my concrete role.",
+      "filter_label": "// filter by:",
+      "filters_label": "Filter projects by category",
+      "results": "{n} projects shown",
+      "categories": {
+        "all": "All",
+        "realtime": "Real-time & IoT",
+        "mobile": "Mobile & vision",
+        "data": "Data & ML",
+        "web": "Web"
+      },
+      "featured": "Featured project",
+      "details": "View details",
+      "visit": "Visit site",
+      "preview": "Screenshot of {name}",
+      "live": "LIVE MONITORING · WELL #14-B"
+    },
+    "experience": {
+      "title": "Professional Experience",
+      "subtitle": "// software engineering and teaching track record"
+    },
+    "contact": {
+      "kicker": "// direct contact",
+      "title": "Got a demanding project? Let's talk.",
+      "body": "I'm open to Frontend, Mobile (React Native) or Full-Stack roles, including remote work with international teams. Email me directly or use the form.",
+      "email_label": "Direct email",
+      "location": "Tandil, Buenos Aires, Argentina · Remote",
+      "form_title": "Send a message",
+      "error_fallback": "If it keeps failing, email me directly at {email}."
+    },
+    "footer": {
+      "built": "Designed and built by Facundo Mozo",
+      "back_to_top": "Back to top"
     }
   }
 }

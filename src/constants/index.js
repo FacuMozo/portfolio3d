@@ -143,51 +143,83 @@ export const socialLinks = [
     }
 ];
 
+// `category` drives the filters of the professional site; `stack` its chips (proper nouns, not translated).
+// Display copy (name, description) lives in i18n under `i18nKey`.
 export const projects = [
-    {
-    iconUrl: glass,
-    theme: 'btn-back-blue',
-    i18nKey: 'projects_list.inovaGlass',
-    },
-    {
-    iconUrl: wildfire,
-    theme: 'btn-back-orange',
-    i18nKey: 'projects_list.wildfire',
-    },
     {
     iconUrl: oilPump,
     theme: 'btn-back-blue',
     i18nKey: 'projects_list.oil',
     imageUrl: tenlek,
+    imageSize: [1200, 563],
+    category: 'realtime',
+    featured: true,
+    stack: ['React', 'TypeScript', 'Redux', 'ECharts', 'WITSML'],
+    },
+    {
+    iconUrl: glass,
+    theme: 'btn-back-blue',
+    i18nKey: 'projects_list.inovaGlass',
+    category: 'mobile',
+    stack: ['React Native', 'Expo', 'TypeScript', 'PyTorch RF-DETR', 'React Query'],
     },
     {
     iconUrl: babyIcon,
     theme: 'btn-back-red',
     i18nKey: 'projects_list.pregnancyApp',
+    category: 'mobile',
+    stack: ['React Native', 'TypeScript', 'Withings', 'Fitbit'],
+    },
+    {
+    iconUrl: wildfire,
+    theme: 'btn-back-orange',
+    i18nKey: 'projects_list.wildfire',
+    category: 'data',
+    stack: ['Python', 'Parquet', 'LightGBM', 'XGBoost', 'Docker'],
     },
     {
     iconUrl: faviconOcularVet,
     theme: 'btn-back-pink',
     i18nKey: 'projects_list.ocularVet',
     link: 'https://ocular-vet.exa.unicen.edu.ar/#/auth/login',
-    imageUrl: consigna1
+    imageUrl: consigna1,
+    imageSize: [1200, 607],
+    category: 'web',
+    stack: ['Angular', 'Node.js', 'Express', 'MongoDB', 'Docker'],
     },
     {
     iconUrl: AgileFlowLogo,
     theme: 'btn-back-green',
     i18nKey: 'projects_list.agileFlow',
     link: 'https://agile-flow.vercel.app/login',
-    imageUrl: AgileFlow2
+    imageUrl: AgileFlow2,
+    imageSize: [1200, 675],
+    category: 'web',
+    stack: ['Angular', 'Node.js', 'Express', 'MongoDB'],
     },
     {
     iconUrl: LernaLogo,
     theme: 'btn-back-pink',
     i18nKey: 'projects_list.lernaCourses',
     link: 'https://catalog-front-coral.vercel.app/',
-    imageUrl: LernaCourses
+    imageUrl: LernaCourses,
+    imageSize: [1160, 1009],
+    category: 'web',
+    stack: ['React', 'Bootstrap', 'Figma'],
     },
-    
 ];
+
+// Filter order on the professional site ("all" first).
+export const projectCategories = ['all', 'realtime', 'mobile', 'data', 'web'];
+
+// Three expertise columns of the professional site; copy in i18n `site.expertise.<id>`.
+export const expertise = [
+    { id: 'mobile', icon: 'phone', accent: 'coral', stack: ['React Native', 'Expo', 'Zustand', 'iOS / Android'] },
+    { id: 'frontend', icon: 'hub', accent: 'cyan', stack: ['React', 'TypeScript', 'Redux Toolkit', 'ECharts'] },
+    { id: 'backend', icon: 'dns', accent: 'violet', stack: ['Spring Boot', 'Node.js', 'Python', 'AWS Cognito'] },
+];
+
+export const contactEmail = 'facumozo98@gmail.com';
 
 // CV PDFs, served from /public so the URLs stay stable and shareable.
 export const cvFiles = [

@@ -51,17 +51,8 @@
     "success": "Mensaje enviado exitosamente!",
     "error": "Fallo al enviar el mensaje!"
   },
-  "cta": {
-    "question": "¿Tienes un proyecto en mente?",
-    "action": "Desarrollemoslo juntos",
-    "button": "Contacto"
-  },
   "footer": {
     "rights": "Todos los derechos reservados."
-  },
-  "alert": {
-    "success": "Éxito",
-    "error": "Error"
   },
   "lightbox": {
     "open": "Ampliar imagen",
@@ -218,7 +209,7 @@
       "islands": "También podés hacer click en una isla o en su nombre para abrirla directamente, sin navegar.",
       "combat_title": "Modo combate",
       "combat": "En el Fuerte podés iniciar una defensa de 3 oleadas: botes invasores te van a rodear y disparar. Hundilos a todos con tus andanadas.",
-      "classic": "¿Preferís la versión clásica?",
+      "classic": "¿Preferís recorrer el portfolio como una página web?",
       "menu_title": "Menú",
       "menu": "Abrí el MENÚ (abajo a la izquierda, o con la tecla M) para ir a cualquier isla, cambiar el idioma o elegir un modo de juego.",
       "race_title": "Modo carrera",
@@ -289,6 +280,102 @@
       "missing": "archivo no disponible",
       "credits": "Música de",
       "via": "vía"
+    }
+  },
+  "site": {
+    "skip": "Saltar al contenido",
+    "available": "Disponible para nuevos desafíos",
+    "nav": {
+      "label": "Secciones",
+      "menu": "Menú",
+      "home": "inicio",
+      "expertise": "especialidades",
+      "work": "proyectos",
+      "experience": "experiencia",
+      "contact": "contacto"
+    },
+    "social": {
+      "github": "Perfil de GitHub",
+      "linkedin": "Perfil de LinkedIn"
+    },
+    "resume": "CV",
+    "ocean": {
+      "cta": "Modo océano 3D",
+      "short": "Océano 3D",
+      "title": "¿Preferís explorarlo jugando?",
+      "desc": "Navegá en barco entre islas para recorrer el mismo portfolio en 3D, con modos de combate y carrera (WebGL; ideal en escritorio).",
+      "back": "Versión profesional"
+    },
+    "hero": {
+      "role": "Full-Stack & Mobile Developer",
+      "degree": "Ingeniero de Sistemas (UNICEN)",
+      "summary": "3 años construyendo aplicaciones web y móviles en producción para energía, manufactura industrial y salud, con foco en performance en tiempo real y ownership de punta a punta.",
+      "domains_label": "// especialidades y dominios clave",
+      "domains": [
+        "Oil & Gas · tiempo real",
+        "Salud & wearables",
+        "Visión por computadora",
+        "Data engineering & ML"
+      ],
+      "cta_work": "Ver proyectos",
+      "cta_contact": "Contactame"
+    },
+    "expertise": {
+      "title": "Especialidades",
+      "subtitle": "// apps móviles, frontend en tiempo real y backend de punta a punta",
+      "mobile": {
+        "line1": "Mobile",
+        "line2": "Engineering",
+        "body": "Apps iOS/Android con React Native, Expo y TypeScript: canvas táctil a 60 FPS estables, flujos por pasos, integración con wearables (Withings, Fitbit) y releases multiplataforma."
+      },
+      "frontend": {
+        "line1": "Frontend",
+        "line2": "Architecture",
+        "body": "Interfaces web con React y TypeScript para monitoreo en tiempo real: series temporales con ECharts, arquitectura de estado a escala (Redux Toolkit, Redux Saga, React Query, Zustand) y foco en performance."
+      },
+      "backend": {
+        "line1": "Backend &",
+        "line2": "Data",
+        "body": "APIs RESTful con Spring Boot (Java), Node.js y Python; integraciones con WITSML, EDI y AWS Cognito; pipelines ETL y modelos de machine learning (LightGBM, XGBoost, RF-DETR)."
+      },
+      "profile_note": "// Ingeniero de Sistemas · UNICEN"
+    },
+    "work": {
+      "title_1": "Mis",
+      "title_2": "Proyectos",
+      "intro": "Software en producción para oil & gas, salud y manufactura industrial, además de proyectos de investigación y académicos. Cada uno con su stack y mi rol concreto.",
+      "filter_label": "// filtrar por:",
+      "filters_label": "Filtrar proyectos por categoría",
+      "results": "{n} proyectos visibles",
+      "categories": {
+        "all": "Todos",
+        "realtime": "Tiempo real & IoT",
+        "mobile": "Mobile & visión",
+        "data": "Data & ML",
+        "web": "Web"
+      },
+      "featured": "Proyecto destacado",
+      "details": "Ver detalle",
+      "visit": "Visitar sitio",
+      "preview": "Captura de {name}",
+      "live": "MONITOREO EN VIVO · POZO #14-B"
+    },
+    "experience": {
+      "title": "Experiencia profesional",
+      "subtitle": "// trayectoria en ingeniería de software y docencia"
+    },
+    "contact": {
+      "kicker": "// contacto directo",
+      "title": "¿Tenés un proyecto exigente? Hablemos.",
+      "body": "Estoy abierto a posiciones Frontend, Mobile (React Native) o Full-Stack, incluyendo trabajo remoto con equipos internacionales. Escribime directo o usá el formulario.",
+      "email_label": "Email directo",
+      "location": "Tandil, Buenos Aires, Argentina · Remoto",
+      "form_title": "Enviar un mensaje",
+      "error_fallback": "Si el problema sigue, escribime directo a {email}."
+    },
+    "footer": {
+      "built": "Diseñado y desarrollado por Facundo Mozo",
+      "back_to_top": "Volver arriba"
     }
   }
 }

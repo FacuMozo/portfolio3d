@@ -10,8 +10,30 @@ const DownloadIcon = () => (
   </svg>
 );
 
-/** Navbar button + native modal <dialog> to pick which CV language to download. */
-const CvDialog = ({ buttonClassName }) => {
+const THEMES = {
+  light: {
+    dialog: 'rounded-2xl bg-white shadow-xl',
+    title: 'font-poppins font-semibold text-xl text-black-500',
+    close: 'rounded-full text-slate-500 hover:bg-slate-100 focus-visible:ring-4 focus-visible:ring-blue-400',
+    desc: 'text-slate-600',
+    option: 'rounded-xl border-slate-200 text-black-500 hover:border-blue-500 hover:bg-blue-50 focus-visible:ring-4 focus-visible:ring-blue-400',
+    hint: 'text-slate-500',
+    icon: 'text-blue-500',
+  },
+  dark: {
+    dialog: 'site-dialog bg-surface-card text-on-surface border border-border-prominent shadow-2xl',
+    title: 'font-display font-bold text-xl text-text-primary',
+    close: 'text-text-secondary hover:text-text-primary hover:bg-surface-high focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-cyan',
+    desc: 'text-text-secondary',
+    option: 'border-border-prominent text-text-primary hover:border-accent-cyan hover:bg-surface-card-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-cyan',
+    hint: 'text-text-muted font-mono',
+    icon: 'text-accent-cyan',
+  },
+};
+
+/** Button + native modal <dialog> to pick which CV language to download. */
+const CvDialog = ({ buttonClassName, buttonContent, theme = 'light' }) => {
+  const c = THEMES[theme];
   const t = useT();
   const { lang } = useLanguage();
   const dialogRef = useRef(null);
@@ -38,7 +60,7 @@ const CvDialog = ({ buttonClassName }) => {
         aria-haspopup='dialog'
         className={buttonClassName}
       >
-        <span aria-hidden='true'>CV</span>
+        {buttonContent ?? <span aria-hidden='true'>CV</span>}
         <span className='sr-only'>{t('cv.open')}</span>
       </button>
 
@@ -48,21 +70,21 @@ const CvDialog = ({ buttonClassName }) => {
         closedby='any'
         aria-labelledby={titleId}
         aria-describedby={descId}
-        className='app-dialog w-[min(28rem,calc(100vw-2rem))] rounded-2xl bg-white p-6 shadow-xl'
+        className={`app-dialog w-[min(28rem,calc(100vw-2rem))] p-6 ${c.dialog}`}
       >
         <div className='flex items-start justify-between gap-4'>
-          <h2 id={titleId} className='font-poppins font-semibold text-xl text-black-500'>{t('cv.title')}</h2>
+          <h2 id={titleId} className={c.title}>{t('cv.title')}</h2>
           <form method='dialog'>
             <button
               type='submit'
               aria-label={t('cv.close')}
-              className='w-9 h-9 -mt-1 -mr-1 rounded-full text-slate-500 text-2xl leading-none flex items-center justify-center hover:bg-slate-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400'
+              className={`w-9 h-9 -mt-1 -mr-1 text-2xl leading-none flex items-center justify-center focus:outline-none ${c.close}`}
             >
               <span aria-hidden='true'>&times;</span>
             </button>
           </form>
         </div>
-        <p id={descId} className='mt-2 text-slate-600 text-sm'>{t('cv.description')}</p>
+        <p id={descId} className={`mt-2 text-sm ${c.desc}`}>{t('cv.description')}</p>
 
         <ul className='mt-5 flex flex-col gap-3'>
           {files.map(({ lang: fileLang, href, file }, i) => (
@@ -73,13 +95,13 @@ const CvDialog = ({ buttonClassName }) => {
                 hrefLang={fileLang}
                 type='application/pdf'
                 ref={i === 0 ? firstOptionRef : undefined}
-                className='group flex items-center justify-between gap-3 rounded-xl border border-slate-200 px-4 py-3 font-semibold text-black-500 transition hover:border-blue-500 hover:bg-blue-50 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400'
+                className={`group flex items-center justify-between gap-3 border px-4 py-3 font-semibold transition focus:outline-none ${c.option}`}
               >
                 <span>
                   {t(`cv.lang_${fileLang}`)}
-                  <span className='block text-xs font-normal text-slate-500'>PDF</span>
+                  <span className={`block text-xs font-normal ${c.hint}`}>PDF</span>
                 </span>
-                <span className='text-blue-500'><DownloadIcon /></span>
+                <span className={c.icon}><DownloadIcon /></span>
               </a>
             </li>
           ))}

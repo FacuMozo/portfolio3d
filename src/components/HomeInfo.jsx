@@ -24,11 +24,11 @@ const HomeInfo = ({ currentStage }) => {
                 </h1>
             );
         case 2:
-            return <InfoBox text={t('home.portfolio_question')} link='/projects' btnText={t('home.portfolio_btn')} />;
+            return <InfoBox text={t('home.portfolio_question')} link='/#work' btnText={t('home.portfolio_btn')} />;
         case 3:
-            return <InfoBox text={t('home.skills_text')} link='/about' btnText={t('home.skills_btn')} />;
+            return <InfoBox text={t('home.skills_text')} link='/#experience' btnText={t('home.skills_btn')} />;
         case 4:
-            return <InfoBox text={t('home.hire_text')} link='/contact' btnText={t('home.hire_btn')} />;
+            return <InfoBox text={t('home.hire_text')} link='/#contact' btnText={t('home.hire_btn')} />;
         default:
             return null;
     }

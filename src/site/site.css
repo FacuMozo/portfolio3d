@@ -1,0 +1,303 @@
+/* Professional site (route "/"). Tokens live in tailwind.config.js; this file holds what
+   utilities can't express well: document theme, native-element styling and motion. */
+
+/* ---- Document theme (class toggled by useSiteTheme) ---- */
+html.theme-site {
+  color-scheme: dark;
+  background-color: #0e0e10;
+  accent-color: #a855f7;
+  /* Keep a visible, operable scrollbar (Stitch hid it): just theme its colors. */
+  scrollbar-color: #4a4a58 #0e0e10;
+  scroll-padding-top: 5rem; /* anchored sections clear the fixed header */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-site {
+    scroll-behavior: smooth;
+  }
+}
+
+.site {
+  font-family: "Inter Variable", Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Fallback fonts are scaled to the web font's x-height: less layout shift on swap. */
+  font-size-adjust: from-font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.site :where(h1, h2, h3) {
+  font-size-adjust: cap-height from-font;
+  text-wrap: balance;
+}
+
+.site :where(p) {
+  text-wrap: pretty;
+}
+
+.site ::selection {
+  background-color: #7c3aed;
+  color: #fff;
+}
+
+.site :focus-visible {
+  outline: 2px solid #66d9ed;
+  outline-offset: 3px;
+}
+
+/* Sections are focusable anchor targets (tabindex=-1): no ring when focused by a nav jump. */
+.site section[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/* ---- Skip link ---- */
+.skip-link {
+  position: fixed;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  z-index: 100;
+  translate: 0 -200%;
+}
+
+.skip-link:focus-visible {
+  translate: 0 0;
+}
+
+/* ---- Scrollspy: native :target-current with an IntersectionObserver fallback class ---- */
+.site-nav-list {
+  scroll-target-group: auto;
+}
+
+/* :is() so the unknown pseudo-class doesn't invalidate the whole rule in older browsers. */
+.site-nav-link:is(:target-current, .target-current) {
+  color: #fff;
+  font-weight: 600;
+  border-bottom-color: #a855f7;
+}
+
+/* ---- Mobile navigation: the same list becomes a popover below lg ---- */
+.site-nav-list:popover-open {
+  position: fixed;
+  inset: 4.25rem 1rem auto auto;
+  margin: 0;
+  min-inline-size: 14rem;
+  max-block-size: calc(100dvh - 6rem);
+  overflow-y: auto;
+  padding: 0.75rem;
+  border: 1px solid #3f3f4d;
+  background-color: #18181c;
+  color: #e5e1e4;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  box-shadow: 0 24px 48px -12px rgb(0 0 0 / 0.6);
+}
+
+.site-nav-list:popover-open .site-nav-link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 0;
+  border-inline-start: 2px solid transparent;
+}
+
+.site-nav-list:popover-open .site-nav-link:is(:target-current, .target-current) {
+  border-inline-start-color: #a855f7;
+}
+
+/* ---- Experience accordion (native <details>) ---- */
+.xp-item > summary {
+  list-style: none; /* removes the default triangle; we draw our own marker */
+  cursor: pointer;
+}
+
+.xp-item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.xp-marker {
+  inline-size: 0.75rem;
+  block-size: 0.75rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  /* Chevron drawn with a mask so it follows the text color. */
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 8l8 8 8-8' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+  rotate: -90deg; /* closed: points to the inline end */
+}
+
+.xp-item[open] .xp-marker {
+  rotate: 0deg;
+}
+
+.xp-item::details-content {
+  overflow: clip;
+  contain: layout;
+}
+
+.xp-item:not([open])::details-content {
+  block-size: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .xp-marker {
+    transition: rotate 0.2s;
+  }
+
+  /* Progressive enhancement: instant open/close where interpolate-size is unsupported. */
+  .xp-item::details-content {
+    interpolate-size: allow-keywords;
+    transition: block-size 0.3s ease-in-out, content-visibility 0.3s allow-discrete;
+  }
+}
+
+/* ---- Cards & chips: spatial motion only for users who allow it ---- */
+.project-card,
+.featured-card {
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover,
+.project-card:focus-within,
+.featured-card:hover {
+  border-color: rgb(124 58 237 / 0.7);
+  box-shadow: 0 16px 36px -8px rgb(124 58 237 / 0.25), 0 0 0 1px rgb(124 58 237 / 0.35);
+}
+
+.tech-chip {
+  transition: border-color 0.25s, color 0.25s, background-color 0.25s;
+}
+
+.tech-chip:hover {
+  border-color: rgb(168 85 247 / 0.8);
+  color: #fff;
+  background-color: rgb(124 58 237 / 0.18);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .project-card,
+  .featured-card {
+    transition-property: translate, border-color, box-shadow;
+    transition-duration: 0.35s;
+  }
+
+  .project-card:hover,
+  .featured-card:hover {
+    translate: 0 -6px;
+  }
+
+  .project-card img {
+    transition: scale 0.5s ease-out;
+  }
+
+  .project-card:hover img {
+    scale: 1.06;
+  }
+
+  .pulse-dot {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.5;
+    }
+  }
+}
+
+/* Single-destination card: the heading link stretches over the whole card. */
+.card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ---- Contact form ---- */
+.site-field {
+  inline-size: 100%;
+  margin-block-start: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  background-color: #0e0e10;
+  border: 1px solid #3f3f4d;
+  color: #fff;
+  font: inherit;
+  transition: border-color 0.2s;
+}
+
+.site-field::placeholder {
+  color: #8b8b96;
+}
+
+.site-field:hover {
+  border-color: #60606b;
+}
+
+.site-field:focus-visible {
+  outline: 2px solid #66d9ed;
+  outline-offset: 0;
+  border-color: transparent;
+}
+
+/* Errors only after interaction, never on load. */
+.site-field:user-invalid {
+  border-color: #ffb4ab;
+}
+
+textarea.site-field {
+  resize: vertical;
+  min-block-size: 8rem;
+}
+
+/* ---- Custom cursor (decorative, fine pointers only; mounted lazily) ---- */
+.cursor-dot,
+.cursor-ring,
+.cursor-glow {
+  position: fixed;
+  inset: 0 auto auto 0;
+  pointer-events: none;
+  border-radius: 9999px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  will-change: transform;
+}
+
+.cursor-visible .cursor-dot,
+.cursor-visible .cursor-ring,
+.cursor-visible .cursor-glow {
+  opacity: 1;
+}
+
+.cursor-dot {
+  z-index: 9999;
+  inline-size: 7px;
+  block-size: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  background-color: #66d9ed;
+  box-shadow: 0 0 10px #66d9ed, 0 0 4px #a855f7;
+}
+
+.cursor-ring {
+  z-index: 9998;
+  inline-size: 42px;
+  block-size: 42px;
+  margin: -21px 0 0 -21px;
+  border: 1px solid rgb(168 85 247 / 0.45);
+  background: radial-gradient(circle, rgb(168 85 247 / 0.22) 0%, rgb(102 217 237 / 0.08) 50%, transparent 75%);
+  transition: opacity 0.25s ease, scale 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.cursor-glow {
+  z-index: 0;
+  inline-size: 480px;
+  block-size: 480px;
+  margin: -240px 0 0 -240px;
+  background: radial-gradient(circle, rgb(124 58 237 / 0.12) 0%, rgb(102 217 237 / 0.05) 35%, transparent 70%);
+}
+
+.cursor-hovering .cursor-ring {
+  scale: 1.5;
+  border-color: rgb(102 217 237 / 0.85);
+}
+
+.cursor-clicking .cursor-ring {
+  scale: 0.82;
+  border-color: rgb(0 229 153 / 0.9);
+}

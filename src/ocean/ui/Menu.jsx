@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ISLANDS, RACE_DIFFICULTY } from '../config'
 import { getUi, openIsland, readBestTimes, startCombat, startRace } from '../store'
 import { useLanguage, useT } from '../../i18n/LanguageProvider'
@@ -137,6 +138,10 @@ const Menu = ({ coarse, open, setOpen }) => {
           <span aria-hidden='true' className='w-7 text-center'>🌐</span>
           {t('navbar.langToggle_label')}
         </button>
+        <Link to='/' className={item}>
+          <span aria-hidden='true' className='w-7 text-center'>↩</span>
+          {t('site.ocean.back')}
+        </Link>
       </div>
     </div>
   );

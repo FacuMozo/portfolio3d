@@ -10,9 +10,9 @@ export const WORLD_RADIUS = 60; // boundary the ship can't leave
 // CV to the sides and the Fort behind.
 export const ISLANDS = [
   { id: 'help', kind: 'lighthouse', position: [20.5, -13.4], radius: 4.5, color: '#f59e0b', page: null },
-  { id: 'about', kind: 'village', position: [-31, -5.7], radius: 7, color: '#22c55e', page: '/about' },
-  { id: 'projects', kind: 'tower', position: [-7.1, -31], radius: 7.5, color: '#3b82f6', page: '/projects' },
-  { id: 'cv', kind: 'treasure', position: [-13.4, 23.3], radius: 6, color: '#eab308', page: '/contact' },
+  { id: 'about', kind: 'village', position: [-31, -5.7], radius: 7, color: '#22c55e', page: '/#experience' },
+  { id: 'projects', kind: 'tower', position: [-7.1, -31], radius: 7.5, color: '#3b82f6', page: '/#work' },
+  { id: 'cv', kind: 'treasure', position: [-13.4, 23.3], radius: 6, color: '#eab308', page: '/#contact' },
   { id: 'fort', kind: 'fort', position: [19.1, 19.1], radius: 7, color: '#ef4444', page: null },
 ];
 
