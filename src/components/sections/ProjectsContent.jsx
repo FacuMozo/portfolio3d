@@ -52,6 +52,30 @@ const ProjectsContent = ({ compact = false }) => {
                     />
                   </button>
                 )}
+                {project.screens && (
+                  <ul className='mt-4 flex gap-3'>
+                    {project.screens.map(({ src, size: [w, h] }, i) => (
+                      <li key={src} className='w-24 sm:w-28'>
+                        <button
+                          type='button'
+                          onClick={() => setPreview({ src, alt: `${name} preview ${i + 1}`, caption: name })}
+                          aria-label={`${t('lightbox.open')}: ${name} (${i + 1}/${project.screens.length})`}
+                          className='block w-full rounded-lg cursor-zoom-in transition hover:opacity-90 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400 focus-visible:ring-offset-2'
+                        >
+                          <img
+                            className='rounded-lg border border-slate-200 object-cover object-top aspect-[9/16] w-full'
+                            src={src}
+                            width={w}
+                            height={h}
+                            alt=''
+                            loading='lazy'
+                            decoding='async'
+                          />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 {project.link && (
                   <div className='mt-5 flex items-center gap-2 font-poppins'>
                     {/* External URL: a plain <a>, not react-router's <Link> */}

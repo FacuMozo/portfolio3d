@@ -635,9 +635,11 @@ export const step = (dt) => {
   world.time += dt;
   const ui = getUi();
   updateParticles(dt);
-  if (ui.openIsland) return; // game paused while reading a modal
+  if (ui.openIsland || ui.entering) return; // paused while diving into an island or reading its modal
 
   updateBuoys(dt);
+  if (!ui.started) return; // start screen: the sea lives, the ship waits for "Sail" / "Play"
+
   const racing = ui.mode === 'race' && world.race?.state === 'running';
   const playing = ui.mode === 'explore' || ui.mode === 'combat' || racing;
   updateShip(dt, playing, ui.mode === 'explore');

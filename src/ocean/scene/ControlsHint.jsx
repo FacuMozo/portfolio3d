@@ -34,14 +34,19 @@ const ControlsHint = () => {
   const start = useRef(null);
   const [coarse] = useState(isCoarse);
   const [dismissed, setDismissed] = useState(false);
-  const visible = useUi((s) => s.mode === 'explore' && !s.openIsland);
+  // Shown once the player has started and closed the instructions.
+  const visible = useUi((s) => s.started && s.mode === 'explore' && !s.openIsland && !s.entering);
 
   const [gone, setGone] = useState(false);
 
+  const [armed, setArmed] = useState(false);
+  if (visible && !armed) setArmed(true);
+
   useEffect(() => {
+    if (!armed) return undefined;
     const id = setTimeout(() => setDismissed(true), TIMEOUT_MS);
     return () => clearTimeout(id);
-  }, []);
+  }, [armed]);
 
   // Unmount once the fade-out ends, so drei stops repositioning it every frame.
   useEffect(() => {
@@ -55,7 +60,7 @@ const ControlsHint = () => {
     const g = groupRef.current;
     if (!g) return;
     g.position.set(s.x, 6 * s.scale, s.z);
-    if (dismissed) return;
+    if (dismissed || !armed) return;
     if (!start.current) start.current = [s.x, s.z];
     if (Math.hypot(s.x - start.current[0], s.z - start.current[1]) > MOVE_THRESHOLD) setDismissed(true);
   });

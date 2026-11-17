@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { screen, within } from '@testing-library/react'
+import { act, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithProviders } from '../test/utils'
 import { projects } from '../constants'
@@ -115,5 +115,31 @@ describe('ContactForm', () => {
     expect(await screen.findByRole('status')).toHaveTextContent(es.contact.error);
     expect(screen.getByRole('status')).toHaveTextContent('facumozo98@gmail.com');
     expect(screen.getByLabelText(es.contact.name_label)).toHaveValue('Ada');
+  });
+});
+
+describe('SectionNav', () => {
+  it('points to the next section and shows "back to top" only away from home', async () => {
+    let notify;
+    const original = window.IntersectionObserver;
+    window.IntersectionObserver = class {
+      constructor(cb) { notify = cb; }
+      observe() {}
+      disconnect() {}
+    };
+    try {
+      renderSite();
+      expect(screen.getByTestId('next-section')).toHaveAttribute('href', '#expertise');
+      expect(screen.queryByTestId('back-to-top')).not.toBeInTheDocument();
+
+      act(() => notify([{ isIntersecting: true, target: document.getElementById('work') }]));
+      expect(screen.getByTestId('next-section')).toHaveAttribute('href', '#experience');
+      expect(screen.getByTestId('back-to-top')).toHaveAttribute('href', '#home');
+
+      act(() => notify([{ isIntersecting: true, target: document.getElementById('contact') }]));
+      expect(screen.queryByTestId('next-section')).not.toBeInTheDocument();
+    } finally {
+      window.IntersectionObserver = original;
+    }
   });
 });

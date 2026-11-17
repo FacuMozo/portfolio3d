@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ISLANDS, RACE_CHECKPOINTS, RACE_DIFFICULTY, SHIP, WAVES } from '../config'
-import { backToExplore, openIsland, startCombat, startRace, useUi, world } from '../store'
+import { backToExplore, enterIsland, startCombat, startRace, useUi, world } from '../store'
 import { useT } from '../../i18n/LanguageProvider'
 import Minimap from './Minimap'
 import TouchControls from './TouchControls'
 import Menu from './Menu'
 import MusicPlayer from './MusicPlayer'
+import StartScreen from './StartScreen'
 import { formatTime } from './format'
 
 const chip = 'rounded-full bg-white/90 px-3 py-1.5 text-sm font-semibold shadow-md border-2 transition hover:bg-white motion-safe:hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400';
@@ -231,18 +232,19 @@ const RaceEnd = ({ ui, t }) => {
 };
 
 const DockHint = ({ ui, t, coarse }) => {
-  if (ui.mode !== 'explore' || !ui.nearIsland) return null;
+  if (ui.mode !== 'explore' || !ui.nearIsland || ui.entering) return null;
   const island = ISLANDS.find((i) => i.id === ui.nearIsland);
   const name = t(`ocean.islands.${island.id}.name`);
   return (
     <div
       className='absolute left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1'
-      style={{ bottom: coarse ? 'calc(11rem + env(safe-area-inset-bottom, 0px))' : '2rem' }}
+      // Touch: above the music player (which sits at 11rem, over the joystick), so they never overlap.
+      style={{ bottom: coarse ? 'calc(15.5rem + env(safe-area-inset-bottom, 0px))' : '2rem' }}
     >
       <button
         type='button'
-        onClick={() => openIsland(island.id)}
-        className='rounded-xl bg-white px-5 py-3 font-poppins font-semibold shadow-xl border-b-4 transition motion-safe:hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400'
+        onClick={() => enterIsland(island.id)}
+        className='whitespace-nowrap rounded-xl bg-white px-5 py-3 font-poppins font-semibold text-slate-900 shadow-xl border-b-4 transition motion-safe:hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400'
         style={{ borderColor: island.color }}
       >
         <span aria-hidden='true' className='mr-2'>{t(`ocean.islands.${island.id}.icon`)}</span>
@@ -268,6 +270,15 @@ const Hud = ({ coarse }) => {
   const setMusicOpen = useCallback((v) => setPanel((p) => (v ? 'music' : p === 'music' ? null : p)), []);
   // MENU unmounts outside explore mode; don't let it pop back open on return.
   useEffect(() => { if (!exploring) setMenuOpen(false); }, [exploring, setMenuOpen]);
+
+  if (!ui.started) {
+    return (
+      <>
+        <MusicPlayer coarse={coarse} open={panel === 'music'} setOpen={setMusicOpen} />
+        <StartScreen />
+      </>
+    );
+  }
 
   return (
     <>
@@ -297,7 +308,7 @@ const Hud = ({ coarse }) => {
       {ui.mode === 'race' && <Countdown ui={ui} t={t} />}
       <Banner ui={ui} t={t} />
       <DockHint ui={ui} t={t} coarse={coarse} />
-      {coarse && (ui.mode === 'explore' || ui.mode === 'combat' || ui.race?.state === 'running') && !ui.openIsland && <TouchControls />}
+      {coarse && (ui.mode === 'explore' || ui.mode === 'combat' || ui.race?.state === 'running') && !ui.openIsland && !ui.entering && <TouchControls />}
       <EndScreen ui={ui} t={t} />
       <RaceEnd ui={ui} t={t} />
     </>

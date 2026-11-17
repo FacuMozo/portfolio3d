@@ -4,13 +4,11 @@ import OceanScene from '../ocean/scene/OceanScene'
 import Hud from '../ocean/ui/Hud'
 import IslandModal from '../ocean/ui/IslandModal'
 import useKeyboard from '../ocean/useKeyboard'
-import { backToExplore, closeIsland, getUi, openIsland, useUi } from '../ocean/store'
+import { getUi, resetSession, setReducedMotion, useUi } from '../ocean/store'
 import { mountMusic, setMusicMode } from '../ocean/music'
 import { useT } from '../i18n/LanguageProvider'
 import useMediaQuery from '../hooks/useMediaQuery'
 import useSiteTheme from '../hooks/useSiteTheme'
-
-const HELP_SEEN_KEY = 'ocean_help_seen';
 
 /** 3D variant (/ocean): sail between islands, each one a section of the portfolio. Lazy-loaded. */
 const Ocean = () => {
@@ -24,23 +22,13 @@ const Ocean = () => {
   useEffect(() => mountMusic(getUi().mode), []);
   useEffect(() => setMusicMode(mode), [mode]);
 
-  useEffect(() => {
-    // Show the instructions on the first visit only.
-    let seen = true;
-    try {
-      seen = localStorage.getItem(HELP_SEEN_KEY) === '1';
-      localStorage.setItem(HELP_SEEN_KEY, '1');
-    } catch {
-      // Storage unavailable: skip the auto-open rather than nag every visit.
-    }
-    if (!seen) openIsland('help');
+  useEffect(() => setReducedMotion(reducedMotion), [reducedMotion]);
 
-    return () => {
-      // Leaving the page: close modals and stop any battle in progress.
-      closeIsland();
-      if (getUi().mode !== 'explore') backToExplore();
-      document.body.style.cursor = '';
-    };
+  // The start screen gates the controls; the instructions open after "Sail" / "Play".
+  useEffect(() => () => {
+    // Leaving the page: close modals, stop any battle and show the start screen next time.
+    resetSession();
+    document.body.style.cursor = '';
   }, []);
 
   return (

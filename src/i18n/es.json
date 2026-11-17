@@ -167,7 +167,7 @@
       "fort": {
         "name": "Jugar",
         "icon": "🎮",
-        "title": "Defendé el fuerte"
+        "title": "Modos de juego"
       }
     },
     "modal": {
@@ -225,7 +225,8 @@
       "rule_waves": "3 oleadas, cada una más numerosa y agresiva.",
       "rule_fire": "Espacio (o el botón rojo) dispara una andanada por ambos costados: ponete de lado para acertar.",
       "rule_hp": "Tenés 10 puntos de vida. Moverte te ayuda a esquivar las balas.",
-      "start": "⚔️ Comenzar defensa"
+      "start": "⚔️ Comenzar defensa",
+      "race_pick": "Elegí la dificultad"
     },
     "hint": {
       "move": "Usá WASD o las flechas para navegar",
@@ -280,6 +281,16 @@
       "missing": "archivo no disponible",
       "credits": "Música de",
       "via": "vía"
+    },
+    "start": {
+      "title": "Portfolio de Facundo Mozo",
+      "subtitle": "Navegá entre islas para conocer mi trabajo, o jugá un rato.",
+      "sail": "Navegar",
+      "sail_desc": "Explorá las islas a tu ritmo",
+      "play": "Jugar",
+      "play_desc": "Combate o carrera contra reloj",
+      "choose": "Elegí un modo de juego",
+      "back": "Volver"
     }
   },
   "site": {
@@ -292,7 +303,9 @@
       "expertise": "especialidades",
       "work": "proyectos",
       "experience": "experiencia",
-      "contact": "contacto"
+      "contact": "contacto",
+      "next": "Ir a la sección siguiente: {section}",
+      "top": "Volver al inicio"
     },
     "social": {
       "github": "Perfil de GitHub",
@@ -358,7 +371,7 @@
       "details": "Ver detalle",
       "visit": "Visitar sitio",
       "preview": "Captura de {name}",
-      "live": "MONITOREO EN VIVO · POZO #14-B"
+      "live": "MONITOREO EN VIVO · TENLEK"
     },
     "experience": {
       "title": "Experiencia profesional",
@@ -374,8 +387,19 @@
       "error_fallback": "Si el problema sigue, escribime directo a {email}."
     },
     "footer": {
-      "built": "Diseñado y desarrollado por Facundo Mozo",
-      "back_to_top": "Volver arriba"
+      "built": "Diseñado y desarrollado por Facundo Mozo"
+    },
+    "palette": {
+      "legend": "// paleta de colores",
+      "cube": "Cubo {n} de 3",
+      "unlocked": "¡Desbloqueaste las paletas de colores! Elegí una debajo de los cubos.",
+      "applied": "Paleta {name} aplicada",
+      "names": {
+        "violet": "Violeta",
+        "matrix": "Matrix",
+        "sunset": "Sunset",
+        "ocean": "Océano"
+      }
     }
   }
 }

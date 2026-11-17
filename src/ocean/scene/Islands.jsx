@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import { colliderProfile, colliderRadius, DOCK_RANGE, ISLANDS, SHIP } from '../config'
-import { openIsland, useUi, world } from '../store'
+import { enterIsland, useUi, world } from '../store'
 import { useT } from '../../i18n/LanguageProvider'
 import { IslandModel } from './models'
 
@@ -92,7 +92,7 @@ const HoverZone = ({ island, ...handlers }) => {
 const Island = ({ island, index, near, canDock }) => {
   const t = useT();
   const name = t(`ocean.islands.${island.id}.name`);
-  const open = () => canDock && openIsland(island.id);
+  const open = () => canDock && enterIsland(island.id);
   const [hovered, setHovered] = useState(false);
   const highlight = near || hovered;
 
@@ -132,7 +132,7 @@ const Island = ({ island, index, near, canDock }) => {
 
 const Islands = () => {
   const near = useUi((s) => s.nearIsland);
-  const canDock = useUi((s) => s.mode === 'explore');
+  const canDock = useUi((s) => s.started && s.mode === 'explore' && !s.entering);
   return ISLANDS.map((island, i) => (
     <Island key={island.id} island={island} index={i} near={near === island.id} canDock={canDock} />
   ));

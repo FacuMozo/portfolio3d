@@ -180,10 +180,10 @@ body:has(.card[data-color="green"]:hover) {
 
 /* Neo Brutalism */
 .neo-brutalism-blue {
-  background: #2b77e7;
+  background: #2971db;
   position: relative;
   border-radius: 10px;
-  border: #2b77e7;
+  border: #2971db;
   box-shadow: 0.6vmin 0.6vmin #336cc1, 1vmin 1vmin #0092db, 1vmin 1vmin #0092db,
     0.65vmin 1vmin #0092db, 1vmin 0.65vmin #0092db;
 }
@@ -193,4 +193,162 @@ body:has(.card[data-color="green"]:hover) {
   border: #fff;
   box-shadow: 0.6vmin 0.6vmin #fff, 1vmin 1vmin #d2e4ff, 1vmin 1vmin #d2e4ff,
     0.65vmin 1vmin #d2e4ff, 1vmin 0.65vmin #d2e4ff;
+}
+/* ---- Island modal: a parchment scroll that unrolls (IslandModal) ---- */
+.scroll-dialog {
+  --rod: 1.375rem;
+  --unroll: 1.6s cubic-bezier(0.33, 0.9, 0.3, 1);
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.scroll-dialog:modal {
+  overscroll-behavior: contain;
+}
+
+.scroll-dialog::backdrop {
+  background-color: rgb(28 18 6 / 0.6);
+}
+
+.scroll-wrap {
+  position: relative;
+  padding-block: calc(var(--rod) / 2);
+  filter: drop-shadow(0 18px 30px rgb(30 18 4 / 0.45));
+}
+
+.scroll-paper {
+  color: #3b2a14;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgb(255 250 235 / 0.65), transparent 70%),
+    linear-gradient(90deg, rgb(150 100 40 / 0.18), transparent 6%, transparent 94%, rgb(150 100 40 / 0.18)),
+    #f4e6c3;
+  box-shadow: inset 0 0 2.5rem rgb(120 80 30 / 0.28);
+}
+
+/* Wooden rods with darker knobs that stick out on both sides. */
+.scroll-rod {
+  position: absolute;
+  inset-inline: -0.875rem;
+  block-size: var(--rod);
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #c08443 0%, #8a531f 45%, #5a3410 100%);
+  box-shadow: 0 3px 6px rgb(40 22 5 / 0.45);
+  z-index: 1;
+}
+
+.scroll-rod::before,
+.scroll-rod::after {
+  content: "";
+  position: absolute;
+  inset-block: -0.2rem;
+  inline-size: 0.875rem;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #7a4718, #3d220a);
+}
+
+.scroll-rod::before { inset-inline-start: -0.375rem; }
+.scroll-rod::after { inset-inline-end: -0.375rem; }
+
+.scroll-rod--top { inset-block-start: 0; }
+.scroll-rod--bottom { inset-block-start: calc(100% - var(--rod)); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Keep the dialog rendered (and in the top layer) while it rolls back up. */
+  .scroll-dialog {
+    transition: display var(--unroll) allow-discrete, overlay var(--unroll) allow-discrete;
+  }
+
+  .scroll-dialog::backdrop {
+    transition: background-color 0.4s ease, display var(--unroll) allow-discrete, overlay var(--unroll) allow-discrete;
+  }
+
+  .scroll-paper {
+    transition: clip-path var(--unroll);
+  }
+
+  .scroll-rod--bottom {
+    transition: inset-block-start var(--unroll);
+  }
+
+  /* Rolling back up is quicker than unrolling (the closed state's duration applies on close). */
+  .scroll-dialog:not([open]) {
+    --unroll: 0.8s cubic-bezier(0.5, 0, 0.75, 0);
+  }
+
+  /* Closed: rolled up against the top rod. */
+  .scroll-dialog:not([open]) .scroll-paper {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  .scroll-dialog:not([open]) .scroll-rod--bottom {
+    inset-block-start: 0;
+  }
+
+  .scroll-dialog:not([open])::backdrop {
+    background-color: rgb(28 18 6 / 0);
+  }
+
+  .scroll-dialog[open] .scroll-paper {
+    clip-path: inset(0);
+  }
+
+  @starting-style {
+    .scroll-dialog[open] .scroll-paper {
+      clip-path: inset(0 0 100% 0);
+    }
+
+    .scroll-dialog[open] .scroll-rod--bottom {
+      inset-block-start: 0;
+    }
+
+    .scroll-dialog[open]::backdrop {
+      background-color: rgb(28 18 6 / 0);
+    }
+  }
+}
+
+/* Reduced motion: a plain fade instead of the unrolling. */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-dialog {
+    opacity: 1;
+    transition: opacity 0.2s, display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+  }
+
+  .scroll-dialog:not([open]) {
+    opacity: 0;
+  }
+
+  @starting-style {
+    .scroll-dialog[open] {
+      opacity: 0;
+    }
+  }
+}
+
+/* Game island tabs: the selected tab gets an underline drawn with a border on a pseudo-element
+   (shape, not just color; borders survive forced-colors mode, box-shadows don't). */
+.game-tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0.5rem;
+  inset-block-end: -1px;
+  border-block-end: 3px solid currentColor;
+}
+
+/* Parchment body scrollbar: wood brown on the paper (the shared slate one was barely visible),
+   a little slimmer than the default, and inset from the paper's edges. */
+.scroll-paper .modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #8a531f rgb(138 83 31 / 0.15);
+  margin-inline-end: 0.625rem;
+  margin-block: 0.375rem;
+}
+
+/* When the body is the paper's last block, clear the bottom rod (it overlaps the paper by
+   half its height) so the scrollbar's end isn't hidden under it. */
+.scroll-paper .modal-scroll:last-child {
+  margin-block-end: calc(var(--rod) / 2 + 0.625rem);
 }

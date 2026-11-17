@@ -1,9 +1,12 @@
+import { useId, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AboutContent from '../../components/sections/AboutContent'
 import ProjectsContent from '../../components/sections/ProjectsContent'
 import { cvFiles, socialLinks } from '../../constants'
 import { useLanguage, useT } from '../../i18n/LanguageProvider'
-import { startCombat } from '../store'
+import { RACE_DIFFICULTY } from '../config'
+import { readBestTimes, startCombat, startRace } from '../store'
+import { formatTime } from './format'
 
 const cardLink = 'group flex items-center justify-between gap-3 rounded-xl border border-slate-200 px-4 py-3 font-semibold text-black-500 transition hover:border-blue-500 hover:bg-blue-50 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400';
 
@@ -128,19 +131,86 @@ const CvContent = () => {
   );
 };
 
+const GAME_TABS = ['combat', 'race'];
+
+/** Game island: "Combat" / "Race" tabs (WAI-ARIA tabs, selection follows focus). */
 const FortContent = () => {
   const t = useT();
+  const [tab, setTab] = useState('combat');
+  const [best] = useState(readBestTimes);
+  const tabRefs = useRef({});
+  const baseId = useId();
+  const tabId = (id) => `${baseId}-tab-${id}`;
+  const panelId = (id) => `${baseId}-panel-${id}`;
+
+  const select = (id) => {
+    setTab(id);
+    tabRefs.current[id]?.focus();
+  };
+  const onKeyDown = (e) => {
+    const i = GAME_TABS.indexOf(tab);
+    const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: GAME_TABS.length - 1 }[e.key];
+    if (next === undefined) return;
+    e.preventDefault();
+    select(GAME_TABS[(next + GAME_TABS.length) % GAME_TABS.length]);
+  };
+
   return (
     <div className='flex flex-col gap-5 text-slate-700'>
-      <p className='text-pretty'>{t('ocean.fort.intro')}</p>
-      <ul className='list-disc ml-5 space-y-1'>
-        <li>{t('ocean.fort.rule_waves')}</li>
-        <li>{t('ocean.fort.rule_fire')}</li>
-        <li>{t('ocean.fort.rule_hp')}</li>
-      </ul>
-      <button type='button' onClick={startCombat} className='btn !w-full sm:!w-auto self-start text-base'>
-        {t('ocean.fort.start')}
-      </button>
+      <div role='tablist' aria-label={t('ocean.menu.modes')} onKeyDown={onKeyDown} className='flex gap-1 border-b border-[#d8c08f]'>
+        {GAME_TABS.map((id) => (
+          <button
+            key={id}
+            ref={(el) => { tabRefs.current[id] = el; }}
+            type='button'
+            role='tab'
+            id={tabId(id)}
+            aria-selected={tab === id}
+            tabIndex={tab === id ? 0 : -1}
+            onClick={() => select(id)}
+            className='game-tab relative px-4 py-2 font-poppins font-semibold text-[#6b4a22] aria-selected:text-[#3b2a14] hover:text-[#3b2a14] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#8a4b0f] rounded-t-lg'
+          >
+            <span aria-hidden='true' className='mr-1.5'>{id === 'combat' ? '⚔️' : '🏁'}</span>
+            {t(`ocean.menu.${id}`)}
+          </button>
+        ))}
+      </div>
+
+      <div role='tabpanel' id={panelId('combat')} aria-labelledby={tabId('combat')} hidden={tab !== 'combat'}>
+        <div className='flex flex-col gap-5'>
+          <p className='text-pretty'>{t('ocean.fort.intro')}</p>
+          <ul className='list-disc ml-5 space-y-1'>
+            <li>{t('ocean.fort.rule_waves')}</li>
+            <li>{t('ocean.fort.rule_fire')}</li>
+            <li>{t('ocean.fort.rule_hp')}</li>
+          </ul>
+          <button type='button' onClick={startCombat} className='btn !w-full sm:!w-auto self-start text-base'>
+            {t('ocean.fort.start')}
+          </button>
+        </div>
+      </div>
+
+      <div role='tabpanel' id={panelId('race')} aria-labelledby={tabId('race')} hidden={tab !== 'race'}>
+        <div className='flex flex-col gap-5'>
+          <p className='text-pretty'>{t('ocean.help.race')}</p>
+          <p className='font-poppins font-semibold text-[#3b2a14]'>{t('ocean.fort.race_pick')}</p>
+          <ul className='grid gap-3 sm:grid-cols-3'>
+            {Object.keys(RACE_DIFFICULTY).map((d) => (
+              <li key={d}>
+                <button type='button' onClick={() => startRace(d)} className={`${cardLink} !items-start w-full text-left`}>
+                  <span>
+                    🏁 {t(`ocean.menu.difficulty.${d}`)}
+                    <span className='block text-xs font-normal text-slate-600'>{t(`ocean.menu.difficulty.${d}_desc`)}</span>
+                    {best[d] != null && (
+                      <span className='block mt-1 text-xs font-mono text-amber-800' title={t('ocean.race.best')}>🏆 {formatTime(best[d])}</span>
+                    )}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };

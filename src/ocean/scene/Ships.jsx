@@ -5,20 +5,34 @@ import { useUi, world } from '../store'
 import { waveHeight } from '../waves'
 import { EnemyBoatModel, PlayerShipModel } from './models'
 
-// Place a boat on the sea: follow wave height and tilt with the local slope.
-const float = (obj, x, z, heading, amp, extraRoll = 0) => {
+// Place a boat on the sea. The water is sampled at the bow, stern and both sides at the
+// hull's real size (halfLen / halfBeam, world units), and the boat takes the plane through
+// those points: on short, steep waves sampling only next to the centre left the bow and
+// stern under water ("flooded" look). It also never sits below the average of its ends, so
+// the deck stays clear in a trough.
+const MAX_TILT = 0.35;
+const clampTilt = (a) => Math.max(-MAX_TILT, Math.min(MAX_TILT, a));
+const float = (obj, x, z, heading, amp, { halfLen, halfBeam, roll: extraRoll = 0 }) => {
   const t = world.time;
-  const h = waveHeight(x, z, t, amp);
   const fx = Math.sin(heading);
   const fz = Math.cos(heading);
-  const ahead = waveHeight(x + fx, z + fz, t, amp);
-  const side = waveHeight(x + fz, z - fx, t, amp);
-  obj.position.set(x, h, z);
+  const center = waveHeight(x, z, t, amp);
+  const bow = waveHeight(x + fx * halfLen, z + fz * halfLen, t, amp);
+  const stern = waveHeight(x - fx * halfLen, z - fz * halfLen, t, amp);
+  const right = waveHeight(x + fz * halfBeam, z - fx * halfBeam, t, amp);
+  const left = waveHeight(x - fz * halfBeam, z + fx * halfBeam, t, amp);
+  const y = Math.max(center, (bow + stern) / 2, (right + left) / 2);
+  obj.position.set(x, y, z);
   obj.rotation.set(0, 0, 0);
   obj.rotateY(heading);
-  obj.rotateX(-(ahead - h) * 0.9);
-  obj.rotateZ((side - h) * 0.9 + extraRoll);
+  obj.rotateX(-clampTilt(Math.atan2(bow - stern, 2 * halfLen)));
+  obj.rotateZ(clampTilt(Math.atan2(right - left, 2 * halfBeam)) + extraRoll);
 };
+
+// Hull half-length / half-beam of the Kenney ships at their base scale (model ±4.4 x ±2.4,
+// drawn at 0.4 for the player and 0.26 for enemies), slightly inset from the extremes.
+const PLAYER_HULL = { halfLen: 1.6, halfBeam: 0.8 };
+const ENEMY_HULL = { halfLen: 1.05, halfBeam: 0.55 };
 
 // Kenney's arrow riding the waves ahead of the ship, showing where it's heading.
 // Points backward when reversing and fades out as the ship stops.
@@ -68,8 +82,13 @@ export const PlayerShip = ({ amp }) => {
     const dh = s.heading - prevHeading.current;
     const turnRate = Math.atan2(Math.sin(dh), Math.cos(dh)) / Math.max(dt, 1e-3);
     prevHeading.current = s.heading;
-    const roll = Math.max(-0.25, Math.min(0.25, -turnRate * 0.12));
-    float(obj, s.x, s.z, s.heading, amp, roll);
+    // Gentle lean into turns: a stronger one dipped the rail under the waves.
+    const roll = Math.max(-0.12, Math.min(0.12, -turnRate * 0.08));
+    float(obj, s.x, s.z, s.heading, amp, {
+      halfLen: PLAYER_HULL.halfLen * s.scale,
+      halfBeam: PLAYER_HULL.halfBeam * s.scale,
+      roll,
+    });
 
     sink.current = s.hp === 0 ? Math.min(sink.current + dt * 0.6, 2.5) : 0;
     obj.position.y -= sink.current;
@@ -94,7 +113,7 @@ const EnemyBoat = ({ id, amp }) => {
     const e = world.enemies.find((en) => en.id === id);
     const obj = ref.current;
     if (!e) { obj.visible = false; return; }
-    float(obj, e.x, e.z, e.heading, amp);
+    float(obj, e.x, e.z, e.heading, amp, ENEMY_HULL);
     if (e.sinking) {
       obj.position.y -= e.sinkT * 0.9;
       obj.rotateZ(e.sinkT * 0.5);

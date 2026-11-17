@@ -9,7 +9,7 @@ export const OceanPromo = () => {
   const t = useT();
   return (
     <aside aria-labelledby='ocean-promo-title' className='w-full max-w-7xl mx-auto px-4 sm:px-margin pb-space-3xl'>
-      <div className='relative overflow-hidden border border-accent-cyan/30 bg-gradient-to-br from-[#062b3f] via-surface-card to-surface-card p-6 sm:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6'>
+      <div className='relative overflow-hidden border border-accent-cyan/30 bg-gradient-to-br from-[rgb(var(--c-tint))] via-surface-card to-surface-card p-6 sm:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6'>
         <div className='max-w-2xl'>
           <h2 id='ocean-promo-title' className='font-display text-headline-md text-text-primary mb-2'>{t('site.ocean.title')}</h2>
           <p className='text-body-md text-text-secondary'>{t('site.ocean.desc')}</p>
@@ -39,7 +39,7 @@ const Footer = () => {
           <span aria-hidden='true' className='hidden sm:inline text-border-prominent'>|</span>
           <p className='text-on-surface-variant'>{t('site.footer.built')}</p>
         </div>
-        <div className='flex items-center gap-6'>
+        <div className='flex items-center gap-6 md:pr-16'>
           <ul className='flex items-center gap-4 font-mono text-code-snippet'>
             {socialLinks.map((link) => (
               <li key={link.name}>
@@ -50,14 +50,6 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-          <a
-            href='#home'
-            data-magnetic
-            className='w-11 h-11 bg-text-primary hover:bg-accent-lilac text-surface-lowest flex items-center justify-center transition-colors'
-          >
-            <Icon name='arrowUp' className='w-5 h-5' />
-            <span className='sr-only'>{t('site.footer.back_to_top')}</span>
-          </a>
         </div>
       </div>
     </footer>

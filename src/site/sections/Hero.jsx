@@ -18,6 +18,11 @@ const Hero = () => {
     >
       <HeroArt />
 
+      <p className='inline-flex items-center gap-2 mb-6 px-3 py-1 bg-surface-card border border-border-subtle font-mono text-code-snippet text-text-secondary uppercase'>
+        <span aria-hidden='true' className='pulse-dot w-2 h-2 rounded-full bg-syntax-comment' />
+        {t('site.available')}
+      </p>
+
       {/* Text LCP: no image competes with it. */}
       <h1 id='hero-title' className='font-display text-display-hero text-text-primary uppercase mb-4 max-w-4xl'>
         Facundo Mozo

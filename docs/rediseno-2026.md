@@ -148,8 +148,99 @@ El peso de `/` en mobile bajó de 2543 KiB a 231 KiB (−91%).
   - `/classic` sin errores de consola;
   - mobile a 400 px sin overflow horizontal, con el menú popover funcionando.
 
-## 8. Pendientes / ideas
+## 8. Iteración 2: pantalla de inicio del Ocean, entrada a islas, pergamino y navegación flotante
 
+### Ocean
+- **Pantalla de inicio** (`ocean/ui/StartScreen.jsx`). Agrega `ui.started` al store. Hasta elegir una opción, el barco no responde (`sim.step`, `useKeyboard`) y no se puede atracar en las islas.
+  - **⛵ Navegar**: arranca la exploración.
+  - **🎮 Jugar**: despliega Combate y Carrera (fácil, medio o difícil).
+- **Instrucciones**: aparecen **siempre** después de elegir. En Jugar, el modo se inicia debajo del modal, pero queda en pausa hasta cerrarlo, porque `step()` pausa todo mientras hay un modal abierto.
+- **Entrada a la isla** (`enterIsland` + `CameraRig`): la cámara hace zoom ×2.6, orbita unos 35° y baja; recién entonces se abre el modal. Al cerrarlo, la cámara vuelve. El juego queda pausado durante el zoom.
+  - Con `prefers-reduced-motion: reduce` el modal se abre directo.
+  - En la pantalla de inicio la cámara deriva lentamente.
+- **Modal pergamino** (`.scroll-dialog`):
+  - Papel color pergamino con varillas de madera.
+  - Al abrir, la varilla inferior baja mientras el `clip-path` revela el papel (unos 0.75 s). Al cerrar, se enrolla.
+  - Usa `@starting-style` y `transition-behavior: allow-discrete` (con `display`/`overlay`). Con reduced-motion hace solo un fade.
+- Ya no se usa el aviso de "primera visita" (`ocean_help_seen`).
+- **Ajuste posterior**:
+  - El zoom de la cámara dura unos 1.6 s, con más órbita y más zoom.
+  - El pergamino se desenrolla en 1.6 s y se enrolla en 0.8 s.
+  - **Fuertes**: los GLB de Kenney tienen la cara almenada a lo largo de X local (muro y ventana miden 2.0, el portón 4.0); Z es la profundidad del adarve. El fuerte del puerto suponía lo contrario, así que sus muros quedaban perpendiculares. El fuerte redondo, al ser un anillo de piezas rectas, dejaba huecos.
+  - Ahora **los dos fuertes son cuadrados** y salen de un mismo constructor (`ocean/scene/fortLayout.js`):
+    - rotación de cada pieza `atan2(nx, nz)` según la normal del lado;
+    - en los lados sin portón, las piezas se estiran en X para igualar el largo;
+    - una torre en cada esquina.
+  - Un test verifica que cada lado es continuo, sin huecos ni solapamientos.
+- **Iteración 3**:
+  - **Torres**: miden 1.9× la altura del muro y su diámetro coincide con el espesor del muro. Los muros solo ocupan el tramo entre torres (con un 15% de solape para ocultar la junta), así que ya no las atraviesan.
+  - **Cañones**: los ubica el mismo constructor, afuera y en la arena, a mitad de camino entre el portón y cada esquina, apuntando hacia afuera. El fuerte de "Jugar" tiene cañones al frente y atrás; el del puerto, solo al frente.
+  - **Fuerte del puerto**: una esquina sobresalía 1.46 unidades del borde de la isla, y por eso parecía flotar. Se calculó contra el perfil real de la isla: escala 0.4 y desplazado 2 en z (donde la isla es más ancha). Todas las esquinas quedan a ≥1.4 dentro de la costa sin esconder el fuerte en las nubes.
+  - **Isla de juego**: el modal tiene pestañas "Combate" y "Carrera" (patrón WAI-ARIA tabs, la selección sigue al foco y la pestaña activa se marca con un borde en un pseudo-elemento). Carrera ofrece fácil, medio y difícil con el mejor tiempo de cada una.
+  - **Barco "inundado"**: la flotación tomaba el agua a solo 1 unidad del centro, pero el casco escalado mide unas ±3.2 unidades, así que proa y popa quedaban bajo la ola. Ahora toma muestras en proa, popa y ambos costados según el tamaño real del casco y se apoya en ese plano. Además, nunca queda debajo del promedio de sus extremos, la inclinación está limitada y el escorado en las curvas bajó de 0.25 a 0.12 rad.
+  - **Zoom a "Acerca de mí" y "CV y links"**: la cámara gira hacia la derecha (`diveTurn: -1` en `ISLANDS`) y deshace el giro con el mismo sentido al salir.
+
+### Sitio profesional
+- **Navegación flotante** (`SectionNav`):
+  - Una flecha ↓ transparente, centrada, que lleva a la sección siguiente. Se oculta en Contacto para no tapar el formulario.
+  - Un botón "volver al inicio" abajo a la derecha cuando no estás en el home. Reemplaza al del footer.
+- **Header**:
+  - El badge "Disponible" pasa al hero.
+  - El nav inline aparece desde `xl` (1280 px); por debajo se usa el popover.
+  - Los íconos sociales del header se muestran solo desde `2xl`.
+  - Verificado en ES y EN a 360, 400, 768, 1024, 1280, 1366, 1440 y 1920 px: sin superposiciones ni overflow.
+- **Scrollspy**: había un bug con dos links resaltados a la vez. Se corrigió:
+  - El resaltado visual lo pinta una sola fuente: `:target-current` nativo o, si no hay soporte, la clase de fallback.
+  - `aria-current` sale siempre del IntersectionObserver.
+
+### Verificación
+- 25 tests OK. Los 8 nuevos cubren:
+  - el bloqueo de controles antes de iniciar;
+  - Navegar, Jugar y la pausa debajo de las instrucciones;
+  - el comportamiento con reduced-motion;
+  - el StartScreen;
+  - el SectionNav.
+- Lighthouse sin cambios: `/` mobile 98/100/100/100 y desktop 100/100/100/100.
+- Nota: el Chrome headless de esta máquina reporta `prefers-reduced-motion: reduce` (puede venir de *Configuración de Windows → Accesibilidad → Efectos de animación*). Las animaciones se verificaron emulando `no-preference`. Si ese ajuste está desactivado en tu Windows, en tu navegador vas a ver la versión sin animaciones, que es lo esperado.
+
+## 9. Iteración 4: easter egg de paletas y Lighthouse de todas las pantallas
+
+### Cubos del hero (`site/sections/HeroArt.jsx`, `site/palette.js`)
+- Antes se compararon dos opciones en un prototipo (cambio de paleta y "puerta al Océano"); se eligió el **cambio de paleta**.
+- Cada cubo es un `<button aria-pressed>`.
+  - **Hover** (solo con puntero fino y sin reduced-motion): el cubo se inclina en 3D hacia el puntero y su sombra se desplaza.
+  - **Click o Enter**: el cubo se enciende con un barrido de colores (`hue-rotate`); otro click lo apaga.
+- **Primera vez con los 3 encendidos**: un círculo crece desde los cubos y repinta el sitio con la paleta **Matrix**. La animación es una View Transition con `clip-path`, más lenta y con destello, acompañada de una onda expansiva y 22 chispas. Luego aparece el selector con las 4 paletas (Violeta, Matrix, Sunset, Océano), hecho con radios nativos en `fieldset` + `legend`.
+- **Después**: elegir una paleta la aplica con el círculo creciendo desde el chip. Volver a encender los 3 cubos pasa a la paleta siguiente.
+- La paleta elegida y el desbloqueo se guardan en `localStorage` y se aplican antes del primer pintado.
+- Con reduced-motion el cambio es instantáneo. El estado se anuncia por `role="status"`.
+
+### Implementación de las paletas
+- Los tokens de acento de Tailwind (`primary-container`, `inverse-primary`, `accent-*`) pasan a ser variables CSS en formato RGB: `rgb(var(--c-…) / <alpha-value>)`. Los valores de cada paleta están en `site.css` bajo `html[data-palette]`.
+- Cada paleta mantiene AA:
+  - texto blanco sobre `primary` ≥4.5:1;
+  - `accent-text` ≥4.5:1 sobre las tarjetas oscuras.
+- También se pasaron a variables los colores fijos de `site.css`: scrollspy, foco, hover de tarjetas, cursor, selección y las líneas del gráfico de telemetría.
+
+### Otros
+- El azul legado `#2b77e7` (Ocean/Classic) daba 4.29:1 sobre blanco. Se oscureció a `#2971db` (4.69:1).
+
+### Lighthouse (`vite preview`, Lighthouse 12.6)
+
+| Pantalla | Perf | A11y | BP | SEO | LCP | TBT | CLS | Peso |
+|---|---|---|---|---|---|---|---|---|
+| `/` mobile | 98 | 100 | 100 | 100 | 2.2 s | 70 ms | 0 | 235 KiB |
+| `/` desktop | 100 | 100 | 100 | 100 | 0.5 s | 0 ms | 0 | 358 KiB |
+| `/ocean` mobile | 36 | 100 | 100 | 100 | 18.4 s | 2640 ms | 0 | 2644 KiB |
+| `/ocean` desktop | 58 | 100 | 100 | 100 | 3.3 s | 510 ms | 0.002 | 2684 KiB |
+| `/classic` mobile | 38 | 100 | 100 | 100 | 11.3 s | 2190 ms | 0.001 | 1928 KiB |
+| `/classic` desktop | 72 | 100 | 100 | 100 | 2.1 s | 360 ms | 0.001 | 1928 KiB |
+
+Las variantes 3D tienen performance baja por diseño: three.js/r3f (~250 KB gzip) más modelos GLB y escena WebGL. Por eso son opcionales y se cargan con lazy loading; la home no las descarga.
+
+## 10. Pendientes / ideas
+
+- Ocean/Classic: optimizar modelos GLB (Draco/meshopt), mostrar una pantalla de carga liviana mientras baja three.js y bajar el DPR en mobile.
 - Cargar solo el diccionario del idioma activo (hoy ES y EN viajan juntos en el entry, unos 70 KB sin comprimir).
 - Las capturas de los proyectos sin imagen (Inova Glass, embarazo, incendios) usan mockups: se pueden reemplazar por screenshots reales si se pueden publicar.
 - El HTML original de Stitch (`index copy.html`) quedó fuera del commit, como referencia local.

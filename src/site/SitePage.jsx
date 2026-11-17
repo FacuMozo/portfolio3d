@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import '@fontsource-variable/inter/wght.css'
 import '@fontsource-variable/space-grotesk/wght.css'
@@ -14,6 +14,8 @@ import Expertise from './sections/Expertise'
 import Work from './sections/Work'
 import Experience from './sections/Experience'
 import Contact from './sections/Contact'
+import SectionNav from './components/SectionNav'
+import { paintPalette } from './palette'
 
 // Purely decorative: its own chunk, fetched after the page is idle and only where it can be seen.
 const CustomCursor = lazy(() => import('./components/CustomCursor'));
@@ -48,6 +50,8 @@ const useScrollToHash = () => {
 const SitePage = () => {
   const t = useT();
   useSiteTheme(true);
+  // Saved palette (hero easter egg) applied before the first paint: no flash of the default.
+  useLayoutEffect(() => paintPalette(), []);
   useScrollToHash();
   const fancyPointer = useMediaQuery('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   const idle = useIdle();
@@ -69,6 +73,7 @@ const SitePage = () => {
       <div className='relative z-10'>
         <Footer />
       </div>
+      <SectionNav />
       {fancyPointer && idle && (
         <Suspense fallback={null}>
           <CustomCursor />

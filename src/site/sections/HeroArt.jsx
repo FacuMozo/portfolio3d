@@ -1,54 +1,160 @@
-// Decorative isometric composition from the Stitch design, as a static inline SVG
-// (no network request, crisp at any density). Hidden from assistive technology.
-const Cube = ({ transform, top, left, right, stroke = ['#4A4455', '#3F3F4D', '#7C3AED'], width = 0.75, rightOpacity }) => (
-  <g transform={transform}>
-    <polygon fill={top} points='50,0 100,24 50,48 0,24' stroke={stroke[0]} strokeWidth={width} />
-    <polygon fill={left} points='0,24 50,48 50,110 0,86' stroke={stroke[1]} strokeWidth={width} />
-    <polygon fill={right} opacity={rightOpacity} points='50,48 100,24 100,86 50,110' stroke={stroke[2]} strokeWidth={width} />
-  </g>
+import { useEffect, useRef, useState } from 'react'
+import { useT } from '../../i18n/LanguageProvider'
+import useMediaQuery from '../../hooks/useMediaQuery'
+import { FIRST_UNLOCK_PALETTE, PALETTES, nextPalette, setPalette, unlockPalettes, usePalette } from '../palette'
+
+/*
+ * Hero easter egg: three isometric cubes.
+ * - Hover (fine pointer, motion allowed): the cube tilts in 3D toward the pointer.
+ * - Click / Enter: the cube lights up with a color sweep (click again turns it off).
+ * - All three lit: the first time, a circle grows from the cubes and repaints the site with the
+ *   "Matrix" palette (flash + sparks) and the palette picker appears; afterwards, lighting all
+ *   three again moves to the next palette.
+ */
+const CUBES = [
+  { left: '26.7%', top: '10%', width: '12.5%' },
+  { left: '41.7%', top: '21%', width: '16.7%' },
+  { left: '58.3%', top: '30%', width: '10.8%' },
+];
+const SPARKS = Array.from({ length: 22 }, (_, i) => {
+  const a = (i / 22) * Math.PI * 2 + (i % 2) * 0.2;
+  const d = 90 + (i % 5) * 28;
+  return { dx: Math.cos(a) * d, dy: Math.sin(a) * d * 0.7, hue: i % 3, delay: (i % 4) * 30 };
+});
+const CUBE_BOX = '-10 -10 120 150';
+
+const CubeSvg = () => (
+  <svg viewBox={CUBE_BOX} aria-hidden='true' focusable='false'>
+    <ellipse className='hero-cube__shadow' cx='50' cy='128' rx='44' ry='7' />
+    <polygon className='hero-cube__face hero-cube__face--top' points='50,0 100,24 50,48 0,24' />
+    <polygon className='hero-cube__face hero-cube__face--left' points='0,24 50,48 50,110 0,86' />
+    <polygon className='hero-cube__face hero-cube__face--right' points='50,48 100,24 100,86 50,110' />
+  </svg>
 );
 
-const HeroArt = () => (
-  <div aria-hidden='true' className='relative w-full max-w-3xl h-40 sm:h-52 mx-auto mb-6 flex items-center justify-center pointer-events-none select-none'>
-    <div className='absolute w-72 h-72 rounded-full bg-primary-container/15 blur-3xl -top-10' />
-    <svg className='relative w-full h-full max-h-48' viewBox='0 0 600 200' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <defs>
-        <radialGradient id='hero-sun' cx='50%' cy='50%' r='50%'>
-          <stop offset='0%' stopColor='#FFDD99' />
-          <stop offset='50%' stopColor='#F97316' />
-          <stop offset='100%' stopColor='#905B00' stopOpacity='0.1' />
-        </radialGradient>
-        <linearGradient id='hero-left' x1='0%' x2='100%' y1='0%' y2='100%'>
-          <stop offset='0%' stopColor='#2A2A38' />
-          <stop offset='100%' stopColor='#14141A' />
-        </linearGradient>
-        <linearGradient id='hero-right' x1='0%' x2='100%' y1='100%' y2='0%'>
-          <stop offset='0%' stopColor='#4E2788' />
-          <stop offset='100%' stopColor='#23173B' />
-        </linearGradient>
-        <linearGradient id='hero-top' x1='0%' x2='100%' y1='0%' y2='0%'>
-          <stop offset='0%' stopColor='#3A384F' />
-          <stop offset='100%' stopColor='#211F2D' />
-        </linearGradient>
-        <filter id='hero-glow' x='-100%' y='-100%' width='300%' height='300%'>
-          <feGaussianBlur stdDeviation='6' />
-        </filter>
-      </defs>
+const centerOf = (el) => {
+  const r = el.getBoundingClientRect();
+  return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+};
 
-      <circle cx='370' cy='40' r='18' fill='#F97316' opacity='0.55' filter='url(#hero-glow)' />
-      <circle cx='370' cy='40' r='14' fill='url(#hero-sun)' />
-      <circle cx='366' cy='36' r='3' fill='#FFF' opacity='0.6' />
+export const PalettePicker = () => {
+  const t = useT();
+  const { palette } = usePalette();
+  return (
+    <fieldset className='palette-picker'>
+      <legend className='font-mono text-code-badge text-text-muted uppercase tracking-widest mb-2 mx-auto'>{t('site.palette.legend')}</legend>
+      <div className='flex flex-wrap justify-center gap-2'>
+        {PALETTES.map((id) => (
+          <label key={id} className='palette-chip' data-swatch={id}>
+            <input
+              type='radio'
+              name='site-palette'
+              value={id}
+              checked={palette === id}
+              onChange={(e) => setPalette(id, centerOf(e.currentTarget.closest('label')))}
+              className='sr-only'
+            />
+            <span aria-hidden='true' className='palette-chip__dot' />
+            {t(`site.palette.names.${id}`)}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+};
 
-      <Cube transform='translate(160, 20) scale(0.75)' top='#2E2C3D' left='#181822' right='#291838' stroke={['#3F3F4D', '#282830', '#3F3F4D']} width={0.5} />
-      <Cube transform='translate(350, 60) scale(0.65)' top='#38364D' left='#1C1A28' right='#3D1D69' stroke={['#4A4455', '#282830', '#6D28D9']} width={0.5} />
-      <Cube transform='translate(250, 42)' top='url(#hero-top)' left='url(#hero-left)' right='url(#hero-right)' rightOpacity='0.85' />
+const HeroArt = () => {
+  const t = useT();
+  const { unlocked } = usePalette();
+  const tilt = useMediaQuery('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+  const [lit, setLit] = useState([false, false, false]);
+  const [igniting, setIgniting] = useState(null);
+  const [burst, setBurst] = useState(0);
+  const [status, setStatus] = useState('');
+  const boxRef = useRef(null);
+  const timers = useRef([]);
 
-      <circle cx='120' cy='110' r='1.5' fill='#66D9ED' opacity='0.4' />
-      <circle cx='140' cy='120' r='1.5' fill='#66D9ED' opacity='0.3' />
-      <circle cx='480' cy='100' r='1.5' fill='#A855F7' opacity='0.4' />
-      <circle cx='460' cy='115' r='1.5' fill='#A855F7' opacity='0.3' />
-    </svg>
-  </div>
-);
+  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+  const later = (fn, ms) => timers.current.push(setTimeout(fn, ms));
+
+  const onAllLit = () => {
+    const origin = centerOf(boxRef.current);
+    if (!unlocked) {
+      unlockPalettes();
+      setBurst((b) => b + 1);
+      setPalette(FIRST_UNLOCK_PALETTE, { ...origin, big: true });
+      setStatus(t('site.palette.unlocked'));
+    } else {
+      const next = nextPalette();
+      setPalette(next, origin);
+      setStatus(t('site.palette.applied').replace('{name}', t(`site.palette.names.${next}`)));
+    }
+    later(() => setLit([false, false, false]), 1100);
+  };
+
+  const toggle = (i) => {
+    const next = lit.map((v, j) => (j === i ? !v : v));
+    setLit(next);
+    if (next[i]) setIgniting(i);
+    if (next.every(Boolean)) later(onAllLit, 550);
+  };
+
+  const onMove = (e) => {
+    if (!tilt) return;
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    el.style.setProperty('--ry', `${px * 34}deg`);
+    el.style.setProperty('--rx', `${-py * 34}deg`);
+    el.style.setProperty('--sx', `${-px * 14}px`);
+  };
+  const onLeave = (e) => {
+    for (const p of ['--rx', '--ry', '--sx']) e.currentTarget.style.removeProperty(p);
+  };
+
+  return (
+    <div className='relative w-full max-w-3xl mx-auto mb-6 flex flex-col items-center'>
+      <div aria-hidden='true' className='absolute w-72 h-72 rounded-full bg-primary-container/15 blur-3xl -top-10 pointer-events-none' />
+      <div ref={boxRef} className='hero-cubes relative w-full max-w-[600px] aspect-[3/1]'>
+        <span aria-hidden='true' className='hero-sun' />
+        <span aria-hidden='true' className='hero-dot' style={{ left: '20%', top: '55%' }} />
+        <span aria-hidden='true' className='hero-dot' style={{ left: '23.3%', top: '60%' }} />
+        <span aria-hidden='true' className='hero-dot hero-dot--alt' style={{ left: '80%', top: '50%' }} />
+        <span aria-hidden='true' className='hero-dot hero-dot--alt' style={{ left: '76.7%', top: '57.5%' }} />
+        {CUBES.map((pos, i) => (
+          <button
+            key={i}
+            type='button'
+            className={`hero-cube hero-cube--${i} ${igniting === i ? 'is-igniting' : ''}`}
+            style={pos}
+            aria-pressed={lit[i]}
+            aria-label={t('site.palette.cube').replace('{n}', i + 1)}
+            onClick={() => toggle(i)}
+            onPointerMove={onMove}
+            onPointerLeave={onLeave}
+            onAnimationEnd={() => setIgniting(null)}
+          >
+            <CubeSvg />
+          </button>
+        ))}
+        {burst > 0 && (
+          <div key={burst} aria-hidden='true' className='hero-burst'>
+            <span className='hero-burst__ring' />
+            {SPARKS.map((s, i) => (
+              <span
+                key={i}
+                className={`hero-burst__spark hero-burst__spark--${s.hue}`}
+                style={{ '--dx': `${s.dx}px`, '--dy': `${s.dy}px`, animationDelay: `${s.delay}ms` }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+      <p role='status' className='sr-only'>{status}</p>
+      {unlocked && <PalettePicker />}
+    </div>
+  );
+};
 
 export default HeroArt

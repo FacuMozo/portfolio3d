@@ -21,7 +21,7 @@ const Experience = () => {
           const points = Array.isArray(data?.points) ? data.points : [];
           return (
             <details key={experience.i18nKey} open={i === 0} className='xp-item border border-border-prominent bg-surface-card'>
-              <summary className='group px-5 sm:px-6 py-4 bg-[#231A38] hover:bg-[#2C2146] transition-colors flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2'>
+              <summary className='group px-5 sm:px-6 py-4 bg-[rgb(var(--c-tint))] hover:bg-[rgb(var(--c-tint)/0.7)] transition-colors flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2'>
                 <span className='flex items-center gap-3 font-display text-headline-sm text-text-primary group-hover:text-accent-cyan transition-colors'>
                   <span className='xp-marker' aria-hidden='true' />
                   <span>

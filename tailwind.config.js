@@ -16,10 +16,12 @@ export default {
           500: "#1D2235"
         },
         blue: {
-          500: "#2b77e7"
+          500: "#2971db" // was #2b77e7 (4.29:1 on white); darkened to pass WCAG AA
         },
 
         // ---- Professional site (design tokens from the Stitch design) ----
+        // Accent colors are CSS variables (RGB triplets) so the hero easter egg can swap the
+        // palette at runtime; values per palette live in src/site/site.css ([data-palette]).
         surface: {
           bg: "#0D0D0F",
           lowest: "#0E0E10",
@@ -37,14 +39,14 @@ export default {
         "text-muted": "#8B8B96",
         "on-surface": "#E5E1E4",
         "on-surface-variant": "#CCC3D8",
-        "accent-violet": "#A855F7",
+        "accent-violet": "rgb(var(--c-accent) / <alpha-value>)",
         // Lighter violet for small text on dark cards (#A855F7 is only ~3.6:1 there).
-        "accent-lilac": "#C084FC",
-        "accent-cyan": "#66D9ED",
-        "accent-coral": "#F97316",
+        "accent-lilac": "rgb(var(--c-accent-text) / <alpha-value>)",
+        "accent-cyan": "rgb(var(--c-accent-2) / <alpha-value>)",
+        "accent-coral": "rgb(var(--c-accent-3) / <alpha-value>)",
         "syntax-comment": "#00E599",
-        "primary-container": "#7C3AED",
-        "inverse-primary": "#6D28D9",
+        "primary-container": "rgb(var(--c-primary) / <alpha-value>)",
+        "inverse-primary": "rgb(var(--c-primary-strong) / <alpha-value>)",
         "quote-blue": "#0369A1",
         error: "#FFB4AB",
         tertiary: "#FFB95F",

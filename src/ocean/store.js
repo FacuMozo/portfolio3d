@@ -57,6 +57,8 @@ export const resetWorld = () => {
 // --- UI store -------------------------------------------------------------
 
 let ui = {
+  started: false, // false until the player picks "Sail" or "Play" on the start screen
+  entering: null, // island id the camera is diving into (the modal opens when it arrives)
   mode: 'explore', // 'explore' | 'combat' | 'victory' | 'defeat' | 'race'
   nearIsland: null, // island id within docking range
   openIsland: null, // island id whose modal is open
@@ -92,8 +94,26 @@ export const useUi = (selector = (s) => s) => useSyncExternalStore(subscribe, ()
 
 // --- Actions --------------------------------------------------------------
 
-export const openIsland = (id) => setUi({ openIsland: id });
-export const closeIsland = () => setUi({ openIsland: null });
+const releaseInput = () => {
+  Object.keys(input).forEach((k) => { input[k] = typeof input[k] === 'number' ? 0 : false; });
+};
+
+/** Opens the modal immediately (no camera dive). */
+export const openIsland = (id) => setUi({ openIsland: id, entering: null });
+export const closeIsland = () => setUi({ openIsland: null, entering: null });
+
+let reducedMotion = false;
+export const setReducedMotion = (value) => { reducedMotion = value; };
+
+/**
+ * Player-initiated docking: the camera first dives into the island (CameraRig), then the
+ * modal unrolls. With reduced motion the modal opens straight away.
+ */
+export const enterIsland = (id) => {
+  releaseInput();
+  if (reducedMotion) openIsland(id);
+  else setUi({ entering: id, openIsland: null });
+};
 
 export const startCombat = () => {
   const { x, z, heading, scale } = world.ship;
@@ -110,6 +130,28 @@ export const backToExplore = () => {
   // camera glides there and the ship's size eases back up from its current scale.
   world.ship.scale = scale;
   setUi({ mode: 'explore', wave: 0, waveState: 'idle', hp: SHIP.maxHp, enemyIds: [], race: null });
+};
+
+// --- Start screen -----------------------------------------------------------
+
+/** "Sail": free exploration straight away (the Help island and the MENU keep the instructions). */
+export const startExploring = () => {
+  setUi({ started: true });
+};
+
+/** "Play": start a game mode, then show the instructions; the mode begins when they're closed. */
+export const startPlaying = (mode, difficulty) => {
+  if (mode === 'race') startRace(difficulty);
+  else startCombat();
+  setUi({ started: true });
+  openIsland('help');
+};
+
+/** Leaving /ocean: back to the start screen next time. */
+export const resetSession = () => {
+  releaseInput();
+  if (ui.mode !== 'explore') backToExplore();
+  setUi({ started: false, openIsland: null, entering: null });
 };
 
 // --- Race -------------------------------------------------------------------

@@ -1,11 +1,56 @@
 /* Professional site (route "/"). Tokens live in tailwind.config.js; this file holds what
    utilities can't express well: document theme, native-element styling and motion. */
 
+/* ---- Color palettes (hero easter egg) ----
+   RGB triplets consumed by the Tailwind accent tokens (tailwind.config.js) and below.
+   primary: filled buttons (white text ≥4.5:1) · accent: borders/glows · accent-text: small
+   text on dark cards (≥4.5:1) · accent-2 / accent-3: secondary accents. */
+:root,
+html[data-palette="violet"] {
+  --c-primary: 124 58 237;
+  --c-primary-strong: 109 40 217;
+  --c-accent: 168 85 247;
+  --c-accent-text: 192 132 252;
+  --c-accent-2: 102 217 237;
+  --c-accent-3: 249 115 22;
+  --c-tint: 35 26 56; /* accent-tinted dark surface (experience rows, promo) */
+}
+
+html[data-palette="matrix"] {
+  --c-primary: 4 120 87;
+  --c-primary-strong: 6 95 70;
+  --c-accent: 16 185 129;
+  --c-accent-text: 52 211 153;
+  --c-accent-2: 94 234 212;
+  --c-accent-3: 163 230 53;
+  --c-tint: 14 40 30;
+}
+
+html[data-palette="sunset"] {
+  --c-primary: 194 65 12;
+  --c-primary-strong: 154 52 18;
+  --c-accent: 249 115 22;
+  --c-accent-text: 251 146 60;
+  --c-accent-2: 251 191 36;
+  --c-accent-3: 244 63 94;
+  --c-tint: 48 24 16;
+}
+
+html[data-palette="ocean"] {
+  --c-primary: 3 105 161;
+  --c-primary-strong: 7 89 133;
+  --c-accent: 14 165 233;
+  --c-accent-text: 56 189 248;
+  --c-accent-2: 103 232 249;
+  --c-accent-3: 251 191 36;
+  --c-tint: 10 34 52;
+}
+
 /* ---- Document theme (class toggled by useSiteTheme) ---- */
 html.theme-site {
   color-scheme: dark;
   background-color: #0e0e10;
-  accent-color: #a855f7;
+  accent-color: rgb(var(--c-accent));
   /* Keep a visible, operable scrollbar (Stitch hid it): just theme its colors. */
   scrollbar-color: #4a4a58 #0e0e10;
   scroll-padding-top: 5rem; /* anchored sections clear the fixed header */
@@ -35,12 +80,12 @@ html.theme-site {
 }
 
 .site ::selection {
-  background-color: #7c3aed;
+  background-color: rgb(var(--c-primary));
   color: #fff;
 }
 
 .site :focus-visible {
-  outline: 2px solid #66d9ed;
+  outline: 2px solid rgb(var(--c-accent-2));
   outline-offset: 3px;
 }
 
@@ -71,7 +116,7 @@ html.theme-site {
 .site-nav-link:is(:target-current, .target-current) {
   color: #fff;
   font-weight: 600;
-  border-bottom-color: #a855f7;
+  border-bottom-color: rgb(var(--c-accent));
 }
 
 /* ---- Mobile navigation: the same list becomes a popover below lg ---- */
@@ -100,7 +145,7 @@ html.theme-site {
 }
 
 .site-nav-list:popover-open .site-nav-link:is(:target-current, .target-current) {
-  border-inline-start-color: #a855f7;
+  border-inline-start-color: rgb(var(--c-accent));
 }
 
 /* ---- Experience accordion (native <details>) ---- */
@@ -157,8 +202,8 @@ html.theme-site {
 .project-card:hover,
 .project-card:focus-within,
 .featured-card:hover {
-  border-color: rgb(124 58 237 / 0.7);
-  box-shadow: 0 16px 36px -8px rgb(124 58 237 / 0.25), 0 0 0 1px rgb(124 58 237 / 0.35);
+  border-color: rgb(var(--c-primary) / 0.7);
+  box-shadow: 0 16px 36px -8px rgb(var(--c-primary) / 0.25), 0 0 0 1px rgb(var(--c-primary) / 0.35);
 }
 
 .tech-chip {
@@ -166,9 +211,9 @@ html.theme-site {
 }
 
 .tech-chip:hover {
-  border-color: rgb(168 85 247 / 0.8);
+  border-color: rgb(var(--c-accent) / 0.8);
   color: #fff;
-  background-color: rgb(124 58 237 / 0.18);
+  background-color: rgb(var(--c-primary) / 0.18);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -231,7 +276,7 @@ html.theme-site {
 }
 
 .site-field:focus-visible {
-  outline: 2px solid #66d9ed;
+  outline: 2px solid rgb(var(--c-accent-2));
   outline-offset: 0;
   border-color: transparent;
 }
@@ -256,7 +301,8 @@ textarea.site-field {
   border-radius: 9999px;
   opacity: 0;
   transition: opacity 0.25s ease;
-  will-change: transform;
+  /* Positioned with `translate` (set from JS); `scale` then acts around the element's centre. */
+  will-change: translate;
 }
 
 .cursor-visible .cursor-dot,
@@ -270,8 +316,9 @@ textarea.site-field {
   inline-size: 7px;
   block-size: 7px;
   margin: -3.5px 0 0 -3.5px;
-  background-color: #66d9ed;
-  box-shadow: 0 0 10px #66d9ed, 0 0 4px #a855f7;
+  background-color: rgb(var(--c-accent-2));
+  box-shadow: 0 0 10px rgb(var(--c-accent-2)), 0 0 4px rgb(var(--c-accent));
+  transition: opacity 0.25s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .cursor-ring {
@@ -279,9 +326,10 @@ textarea.site-field {
   inline-size: 42px;
   block-size: 42px;
   margin: -21px 0 0 -21px;
-  border: 1px solid rgb(168 85 247 / 0.45);
-  background: radial-gradient(circle, rgb(168 85 247 / 0.22) 0%, rgb(102 217 237 / 0.08) 50%, transparent 75%);
-  transition: opacity 0.25s ease, scale 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  border: 1px solid rgb(var(--c-accent) / 0.45);
+  background: radial-gradient(circle, rgb(var(--c-accent) / 0.22) 0%, rgb(var(--c-accent-2) / 0.08) 50%, transparent 75%);
+  will-change: translate, scale;
+  transition: opacity 0.25s ease, scale 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .cursor-glow {
@@ -289,15 +337,295 @@ textarea.site-field {
   inline-size: 480px;
   block-size: 480px;
   margin: -240px 0 0 -240px;
-  background: radial-gradient(circle, rgb(124 58 237 / 0.12) 0%, rgb(102 217 237 / 0.05) 35%, transparent 70%);
+  background: radial-gradient(circle, rgb(var(--c-primary) / 0.12) 0%, rgb(var(--c-accent-2) / 0.05) 35%, transparent 70%);
 }
 
 .cursor-hovering .cursor-ring {
-  scale: 1.5;
-  border-color: rgb(102 217 237 / 0.85);
+  scale: 1.35;
+  border-color: rgb(var(--c-accent-2) / 0.85);
 }
 
+/* Click: the ring stays put and lights up briefly (no scale jump). */
 .cursor-clicking .cursor-ring {
-  scale: 0.82;
-  border-color: rgb(0 229 153 / 0.9);
+  border-color: rgb(0 229 153 / 0.95);
+  box-shadow: 0 0 14px rgb(0 229 153 / 0.45), inset 0 0 10px rgb(var(--c-accent-2) / 0.3);
+}
+
+.cursor-clicking .cursor-dot {
+  background-color: #fff;
+  box-shadow: 0 0 14px rgb(var(--c-accent-2)), 0 0 22px rgb(0 229 153 / 0.7);
+}
+
+/* ---- Floating section navigation (SectionNav) ---- */
+.section-fab {
+  position: fixed;
+  z-index: 40;
+  inset-block-end: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  place-items: center;
+  inline-size: 2.75rem; /* ≥44px touch target */
+  block-size: 2.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  background-color: rgb(14 14 16 / 0.35);
+  color: #e5e1e4;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0.75;
+  transition: opacity 0.25s, border-color 0.25s, color 0.25s, background-color 0.25s, display 0.25s allow-discrete;
+}
+
+.section-fab:hover,
+.section-fab:focus-visible {
+  opacity: 1;
+  color: rgb(var(--c-accent-2));
+  border-color: rgb(var(--c-accent-2) / 0.6);
+  background-color: rgb(14 14 16 / 0.6);
+}
+
+@starting-style {
+  .section-fab {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .section-fab--next .section-fab__icon {
+    animation: fab-bounce 2.2s ease-in-out infinite;
+  }
+
+  .section-fab--next:hover .section-fab__icon {
+    animation-play-state: paused;
+  }
+
+  @keyframes fab-bounce {
+    0%, 100% { translate: 0 -2px; }
+    50% { translate: 0 3px; }
+  }
+}
+
+/* ---- Hero cubes (HeroArt easter egg) ---- */
+.hero-sun {
+  position: absolute;
+  left: 59.3%;
+  top: 13%;
+  inline-size: 4.7%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 38% 38%, rgb(255 255 255 / 0.7), transparent 28%),
+    radial-gradient(circle, #ffdd99, rgb(var(--c-accent-3)) 55%, transparent 72%);
+  filter: drop-shadow(0 0 12px rgb(var(--c-accent-3) / 0.8));
+  pointer-events: none;
+}
+
+.hero-dot {
+  position: absolute;
+  inline-size: 3px;
+  block-size: 3px;
+  border-radius: 9999px;
+  background: rgb(var(--c-accent-2) / 0.45);
+  pointer-events: none;
+}
+
+.hero-dot--alt { background: rgb(var(--c-accent) / 0.45); }
+
+.hero-cube {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform: perspective(700px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.18s ease-out, filter 0.4s;
+  -webkit-tap-highlight-color: transparent;
+  /* Unlit faces: dark, with the palette showing on the right face and edges. */
+  --top: #34324a;
+  --left: #1a1a24;
+  --right: color-mix(in oklab, rgb(var(--c-primary)) 45%, #14141a);
+  --edge: color-mix(in oklab, rgb(var(--c-accent)) 55%, #3f3f4d);
+  --lit: var(--c-accent);
+}
+
+.hero-cube--1 { --lit: var(--c-accent-2); }
+.hero-cube--2 { --lit: var(--c-accent-3); }
+
+.hero-cube svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+}
+
+.hero-cube__face {
+  stroke: var(--edge);
+  stroke-width: 1;
+  transition: fill 0.5s, stroke 0.5s;
+}
+
+.hero-cube__face--top { fill: var(--top); }
+.hero-cube__face--left { fill: var(--left); }
+.hero-cube__face--right { fill: var(--right); }
+
+.hero-cube__shadow {
+  fill: #000;
+  opacity: 0.4;
+  transform: translateX(var(--sx, 0px));
+  transition: transform 0.18s ease-out;
+}
+
+.hero-cube[aria-pressed="true"] {
+  --top: color-mix(in oklab, rgb(var(--lit)) 70%, white);
+  --left: color-mix(in oklab, rgb(var(--lit)) 55%, black);
+  --right: rgb(var(--lit));
+  --edge: color-mix(in oklab, rgb(var(--lit)) 60%, white);
+  filter: drop-shadow(0 0 14px rgb(var(--lit) / 0.7));
+}
+
+.hero-cube:focus-visible {
+  outline: 2px solid rgb(var(--c-accent-2));
+  outline-offset: 6px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-cube.is-igniting {
+    animation: cube-ignite 0.9s ease-out;
+  }
+
+  @keyframes cube-ignite {
+    0% { filter: hue-rotate(0deg) brightness(1.8) drop-shadow(0 0 22px rgb(255 255 255 / 0.55)); }
+    50% { filter: hue-rotate(200deg) brightness(1.4) drop-shadow(0 0 18px rgb(var(--lit))); }
+    100% { filter: hue-rotate(360deg) brightness(1) drop-shadow(0 0 14px rgb(var(--lit) / 0.7)); }
+  }
+}
+
+/* First unlock: shockwave ring + sparks from the cubes. */
+.hero-burst {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  pointer-events: none;
+}
+
+.hero-burst__ring,
+.hero-burst__spark {
+  position: absolute;
+  inset: 0 auto auto 0;
+  border-radius: 9999px;
+  opacity: 0;
+}
+
+.hero-burst__ring {
+  inline-size: 40px;
+  block-size: 40px;
+  margin: -20px 0 0 -20px;
+  border: 2px solid rgb(var(--c-accent-2));
+  box-shadow: 0 0 24px rgb(var(--c-accent-2) / 0.8);
+}
+
+.hero-burst__spark {
+  inline-size: 6px;
+  block-size: 6px;
+  margin: -3px 0 0 -3px;
+  background: rgb(var(--c-accent));
+  box-shadow: 0 0 10px rgb(var(--c-accent));
+}
+
+.hero-burst__spark--1 { background: rgb(var(--c-accent-2)); box-shadow: 0 0 10px rgb(var(--c-accent-2)); }
+.hero-burst__spark--2 { background: rgb(var(--c-accent-3)); box-shadow: 0 0 10px rgb(var(--c-accent-3)); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-burst__ring { animation: burst-ring 0.9s ease-out; }
+  .hero-burst__spark { animation: burst-spark 0.95s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+
+  @keyframes burst-ring {
+    0% { opacity: 1; scale: 0.3; }
+    100% { opacity: 0; scale: 9; }
+  }
+
+  @keyframes burst-spark {
+    0% { opacity: 1; translate: 0 0; scale: 1; }
+    100% { opacity: 0; translate: var(--dx) var(--dy); scale: 0.3; }
+  }
+}
+
+/* Palette picker: native radios (fieldset + legend), shown once unlocked. */
+.palette-picker {
+  border: 0;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  min-inline-size: 0;
+  display: grid;
+  justify-items: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .palette-picker { animation: picker-in 0.6s 0.5s both ease-out; }
+
+  @keyframes picker-in {
+    from { opacity: 0; translate: 0 8px; }
+    to { opacity: 1; translate: 0 0; }
+  }
+}
+
+.palette-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid #3f3f4d;
+  background: #18181c;
+  color: #a6a6b0;
+  font: 500 0.75rem/1rem "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.palette-chip:hover { color: #fff; }
+
+.palette-chip:has(:checked) {
+  color: #fff;
+  border-color: rgb(var(--c-accent));
+}
+
+.palette-chip:has(:focus-visible) {
+  outline: 2px solid rgb(var(--c-accent-2));
+  outline-offset: 2px;
+}
+
+.palette-chip__dot {
+  inline-size: 0.625rem;
+  block-size: 0.625rem;
+  border-radius: 9999px;
+}
+
+/* Each chip previews its own palette (fixed colors, independent of the active one). */
+.palette-chip[data-swatch="violet"] .palette-chip__dot { background: #a855f7; }
+.palette-chip[data-swatch="matrix"] .palette-chip__dot { background: #10b981; }
+.palette-chip[data-swatch="sunset"] .palette-chip__dot { background: #f97316; }
+.palette-chip[data-swatch="ocean"] .palette-chip__dot { background: #0ea5e9; }
+
+/* Palette reveal: the new palette grows as a circle from the cubes / the clicked chip. */
+@media (prefers-reduced-motion: no-preference) {
+  html.palette-reveal::view-transition-old(root) {
+    animation: none;
+  }
+
+  html.palette-reveal::view-transition-new(root) {
+    animation: palette-reveal 0.75s cubic-bezier(0.3, 0.6, 0.2, 1);
+  }
+
+  /* First unlock: slower, with a bright rim. */
+  html.palette-reveal--big::view-transition-new(root) {
+    animation: palette-reveal 1.3s cubic-bezier(0.3, 0.6, 0.2, 1), palette-flash 1.3s ease-out;
+  }
+
+  @keyframes palette-reveal {
+    from { clip-path: circle(0 at var(--reveal-x) var(--reveal-y)); }
+    to { clip-path: circle(150vmax at var(--reveal-x) var(--reveal-y)); }
+  }
+
+  @keyframes palette-flash {
+    0%, 30% { filter: brightness(1.8) saturate(1.4); }
+    100% { filter: none; }
+  }
 }

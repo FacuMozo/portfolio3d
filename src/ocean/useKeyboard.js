@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { getUi, input, openIsland } from './store'
+import { enterIsland, getUi, input } from './store'
 
 const KEYS = {
   KeyW: 'forward', ArrowUp: 'forward',
@@ -24,7 +24,7 @@ const useKeyboard = () => {
     const onKeyDown = (e) => {
       if (e.altKey || e.ctrlKey || e.metaKey) return;
       const ui = getUi();
-      if (ui.openIsland || isTextField(e.target)) return;
+      if (!ui.started || ui.openIsland || ui.entering || isTextField(e.target)) return;
       if ((e.code === 'Space' || e.code === 'Enter') && isActivatable(e.target)) return;
       // Next to an island, Space docks instead of firing.
       if (DOCK_KEYS.has(e.code) && ui.nearIsland && ui.mode === 'explore') {
@@ -33,7 +33,7 @@ const useKeyboard = () => {
         // Buttons activate on Space *keyup*: opening now would let that keyup
         // hit the modal's focused close button, so Space opens on release.
         if (e.code === 'Space') spaceDock = true;
-        else if (!e.repeat) openIsland(ui.nearIsland);
+        else if (!e.repeat) enterIsland(ui.nearIsland);
         return;
       }
       const action = KEYS[e.code];
@@ -48,9 +48,9 @@ const useKeyboard = () => {
       if (e.code === 'Space' && spaceDock) {
         spaceDock = false;
         const ui = getUi();
-        if (ui.nearIsland && ui.mode === 'explore' && !ui.openIsland) {
+        if (ui.nearIsland && ui.mode === 'explore' && !ui.openIsland && !ui.entering) {
           e.preventDefault();
-          openIsland(ui.nearIsland);
+          enterIsland(ui.nearIsland);
         }
       }
     };

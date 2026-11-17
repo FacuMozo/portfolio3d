@@ -8,7 +8,9 @@ const MAGNETIC = '[data-magnetic]';
  * Rebuilt for performance and accessibility:
  * - only mounted for fine pointers without reduced motion (decided by the parent), lazily;
  * - the native cursor stays visible (this is an accent, not a replacement);
- * - positions via `transform: translate3d` (compositor only, no layout) and one rAF loop that
+ * - positions via the individual `translate` property (compositor only, no layout), so the
+ *   state `scale` (hover) grows the ring around its own centre instead of scaling its position
+ *   (with `transform`, `scale` multiplied the translation and the ring jumped away); one rAF loop that
  *   stops when the pointer is idle; event delegation instead of a listener per element.
  */
 const CustomCursor = () => {
@@ -26,7 +28,7 @@ const CustomCursor = () => {
     let magnet = null; // { el, x, y }
     let frame = 0;
 
-    const place = (el, p) => { el.style.transform = `translate3d(${p.x}px, ${p.y}px, 0)`; };
+    const place = (el, p) => { el.style.translate = `${p.x}px ${p.y}px`; };
 
     const tick = () => {
       const target = magnet

@@ -19,9 +19,9 @@ const Header = () => {
   const { lang, setLang } = useLanguage();
   const nextLang = lang === 'es' ? 'en' : 'es';
   const listRef = useRef(null);
-  const active = useScrollSpy(listRef, SECTION_IDS);
-  // One <nav> at every size: inline from lg up, a native popover below (Esc / click-outside for free).
-  const wide = useMediaQuery('(min-width: 1024px)');
+  const { active, native } = useScrollSpy(SECTION_IDS);
+  // One <nav> at every size: inline from xl up (it needs ~1270px in ES), a native popover below (Esc / click-outside for free).
+  const wide = useMediaQuery('(min-width: 1280px)');
 
   const closeMenu = () => {
     const list = listRef.current;
@@ -31,17 +31,13 @@ const Header = () => {
   return (
     <header className='fixed inset-x-0 top-0 z-50 bg-surface-lowest/90 backdrop-blur-xl border-b border-border-subtle'>
       <div className='h-16 max-w-7xl mx-auto px-4 sm:px-margin flex items-center justify-between gap-3'>
-        <div className='flex items-center gap-4 min-w-0'>
+        <div className='flex items-center gap-4 shrink-0'>
           <a href='#home' className='group flex items-center gap-2 shrink-0' aria-label={`Facundo Mozo — ${t('site.nav.home')}`}>
             <span aria-hidden='true' className='px-1 py-0.5 bg-surface-high border border-border-prominent text-accent-cyan font-mono text-code-badge font-bold'>FM</span>
             <span aria-hidden='true' className='hidden sm:inline font-mono text-code-badge tracking-wider text-text-primary font-bold group-hover:text-accent-cyan transition-colors'>
               FACUNDO MOZO
             </span>
           </a>
-          <p className='hidden 2xl:flex items-center gap-2 whitespace-nowrap px-2 py-1 bg-surface-card border border-border-subtle font-mono text-code-snippet text-text-secondary uppercase'>
-            <span aria-hidden='true' className='pulse-dot w-2 h-2 rounded-full bg-syntax-comment' />
-            {t('site.available')}
-          </p>
         </div>
 
         <nav aria-label={t('site.nav.label')}>
@@ -50,7 +46,7 @@ const Header = () => {
             id={NAV_ID}
             // Lowercase: React 18 passes unknown attributes through via setAttribute (as the guide requires).
             popover={wide ? undefined : 'auto'}
-            className='site-nav-list hidden lg:flex items-center gap-5 text-left'
+            className='site-nav-list hidden xl:flex items-center gap-5 text-left'
           >
             {SECTION_IDS.map((id) => {
               const current = active === id;
@@ -60,7 +56,7 @@ const Header = () => {
                     href={`#${id}`}
                     onClick={closeMenu}
                     aria-current={current ? 'true' : undefined}
-                    className={`site-nav-link inline-block whitespace-nowrap py-1 border-b-2 border-transparent font-mono text-nav-comment text-on-surface-variant hover:text-text-primary transition-colors ${current ? 'target-current' : ''}`}
+                    className={`site-nav-link inline-block whitespace-nowrap py-1 border-b-2 border-transparent font-mono text-nav-comment text-on-surface-variant hover:text-text-primary transition-colors ${current && !native ? 'target-current' : ''}`}
                   >
                     <span aria-hidden='true'>{'// '}</span>{t(`site.nav.${id}`)}
                   </a>
@@ -71,7 +67,7 @@ const Header = () => {
         </nav>
 
         <div className='flex items-center gap-2 sm:gap-3 shrink-0'>
-          <ul className='hidden md:flex items-center gap-1'>
+          <ul className='hidden 2xl:flex items-center gap-1'>
             {socialLinks.map((link) => (
               <li key={link.name}>
                 <a
@@ -119,7 +115,7 @@ const Header = () => {
             type='button'
             popovertarget={NAV_ID}
             aria-controls={NAV_ID}
-            className='lg:hidden inline-flex items-center justify-center w-9 h-9 border border-border-prominent text-text-primary hover:border-accent-cyan hover:text-accent-cyan transition-colors'
+            className='xl:hidden inline-flex items-center justify-center w-9 h-9 border border-border-prominent text-text-primary hover:border-accent-cyan hover:text-accent-cyan transition-colors'
           >
             <Icon name='menu' className='w-5 h-5' />
             <span className='sr-only'>{t('site.nav.menu')}</span>

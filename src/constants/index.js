@@ -1,4 +1,4 @@
-import { sanjose, consigna1, AgileFlow2, LernaCourses, exeoLogo, tenlek } from "../assets/images";
+import { sanjose, consigna1, AgileFlow2, LernaCourses, exeoLogo, tenlek, inova1, inova2, journey1, journey2 } from "../assets/images";
 import {
     AgileFlowLogo,
     css,
@@ -160,6 +160,8 @@ export const projects = [
     iconUrl: glass,
     theme: 'btn-back-blue',
     i18nKey: 'projects_list.inovaGlass',
+    // Portrait phone screenshots (demo data), shown side by side.
+    screens: [{ src: inova1, size: [540, 1164] }, { src: inova2, size: [540, 1200] }],
     category: 'mobile',
     stack: ['React Native', 'Expo', 'TypeScript', 'PyTorch RF-DETR', 'React Query'],
     },
@@ -167,6 +169,7 @@ export const projects = [
     iconUrl: babyIcon,
     theme: 'btn-back-red',
     i18nKey: 'projects_list.pregnancyApp',
+    screens: [{ src: journey1, size: [540, 960] }, { src: journey2, size: [540, 960] }],
     category: 'mobile',
     stack: ['React Native', 'TypeScript', 'Withings', 'Fitbit'],
     },

@@ -8,11 +8,12 @@ export const WORLD_RADIUS = 60; // boundary the ship can't leave
 // Laid out around the origin so that, seen from the isometric camera, the ship
 // starts facing "About" (ahead-left) and "Projects" (ahead-right), with Help and
 // CV to the sides and the Fort behind.
+// diveTurn: camera orbit direction when entering the island (1 default, -1 turns the other way).
 export const ISLANDS = [
   { id: 'help', kind: 'lighthouse', position: [20.5, -13.4], radius: 4.5, color: '#f59e0b', page: null },
-  { id: 'about', kind: 'village', position: [-31, -5.7], radius: 7, color: '#22c55e', page: '/#experience' },
+  { id: 'about', kind: 'village', position: [-31, -5.7], radius: 7, color: '#22c55e', page: '/#experience', diveTurn: -1 },
   { id: 'projects', kind: 'tower', position: [-7.1, -31], radius: 7.5, color: '#3b82f6', page: '/#work' },
-  { id: 'cv', kind: 'treasure', position: [-13.4, 23.3], radius: 6, color: '#eab308', page: '/#contact' },
+  { id: 'cv', kind: 'treasure', position: [-13.4, 23.3], radius: 6, color: '#eab308', page: '/#contact', diveTurn: -1 },
   { id: 'fort', kind: 'fort', position: [19.1, 19.1], radius: 7, color: '#ef4444', page: null },
 ];
 

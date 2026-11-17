@@ -6,6 +6,7 @@ import { Clone, useGLTF } from '@react-three/drei'
 import { OBSTACLES } from '../config'
 import { MAP_BUOY_COUNT, world } from '../store'
 import { waveHeight } from '../waves'
+import { squareFort } from './fortLayout'
 
 const KIT = {
   pirate: '/models/pirate/',
@@ -87,21 +88,11 @@ const LANDMARKS = {
     ['crate-bottles', 2, -1.3, 0.3, 1],
     ['flag-high-pennant', -2.4, 2, 0, 0.9],
   ],
-  fort: (radius) => {
-    // A ring of castle walls with a gate, cannons on the beach and a keep.
-    const r = radius * 0.6;
-    const scale = 0.55;
-    const count = Math.round((2 * Math.PI * r) / (2.8 * scale));
-    const pieces = [];
-    for (let i = 0; i < count; i++) {
-      const a = (i / count) * Math.PI * 2;
-      pieces.push([i === 0 ? 'castle-gate' : 'castle-wall', Math.cos(a) * r, Math.sin(a) * r, -a, scale]);
-    }
-    for (const a of [0.8, 2.3, 3.9, 5.4]) {
-      const d = radius * 0.84;
-      pieces.push(['cannon', Math.cos(a) * d, Math.sin(a) * d, Math.atan2(Math.cos(a), Math.sin(a)), 0.8]);
-    }
-    pieces.push(['tower-complete-small', 0, 0, 0, 0.4]);
+  fort: () => {
+    // Square fort (fortLayout.js, same builder as the harbor fort): cannons by the gate and
+    // on the back side, a keep in the middle.
+    const pieces = squareFort({ scale: 0.6, cannons: ['front', 'back'] });
+    pieces.push(['tower-complete-small', 0, 0, 0, 0.5]);
     pieces.push(['flag-pirate-high', 1.6, 1.4, 0.4, 0.8]);
     return pieces;
   },

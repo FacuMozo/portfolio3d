@@ -14,6 +14,7 @@ const STROKES = {
   dns: <><rect x='3' y='3' width='18' height='7' rx='1.5' /><rect x='3' y='14' width='18' height='7' rx='1.5' /><path d='M7 6.5h.01M7 17.5h.01' /></>,
   document: <><path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' /><path d='M14 3v5h5M9 13h6M9 17h4' /></>,
   arrowUp: <path d='M12 19V5m-6 6 6-6 6 6' />,
+  arrowDown: <path d='M12 5v14m-6-6 6 6 6-6' />,
   arrowRight: <path d='M5 12h14m-6-6 6 6-6 6' />,
   northEast: <path d='M7 17 17 7M8 7h9v9' />,
   menu: <path d='M4 7h16M4 12h16M4 17h16' />,

@@ -17,25 +17,47 @@ const projectKey = (project) => project.i18nKey.split('.').pop();
 const pad = (n) => String(n).padStart(2, '0');
 
 
-/** Live-telemetry illustration for the featured project (decorative). */
-const TelemetryMockup = () => {
+/** Featured project's real screenshot, in a "live monitor" frame. */
+const FeaturedShot = ({ project, name }) => {
+  const t = useT();
+  const [w, h] = project.imageSize ?? [];
+  return (
+    <figure className='bg-surface-lowest border border-border-prominent p-2'>
+      <figcaption className='flex items-center justify-between gap-2 px-1 pb-2 text-[11px] font-mono text-text-muted'>
+        <span className='text-syntax-comment truncate'>{t('site.work.live')}</span>
+        <span aria-hidden='true' className='pulse-dot text-accent-coral shrink-0'>● REC</span>
+      </figcaption>
+      <img
+        src={project.imageUrl}
+        alt={t('site.work.preview').replace('{name}', name)}
+        width={w}
+        height={h}
+        loading='lazy'
+        decoding='async'
+        className='w-full h-auto'
+      />
+    </figure>
+  );
+};
+
+/** Two portrait phone screenshots side by side (mobile apps). */
+const PhoneScreens = ({ screens, name }) => {
   const t = useT();
   return (
-    <div aria-hidden='true' className='relative bg-surface-lowest border border-border-prominent p-3 aspect-[4/3] flex flex-col justify-between overflow-hidden'>
-      <div className='flex items-center justify-between gap-2 text-[11px] font-mono text-text-muted border-b border-border-subtle pb-2'>
-        <span className='text-syntax-comment truncate'>{t('site.work.live')}</span>
-        <span className='pulse-dot text-accent-coral shrink-0'>● REC</span>
-      </div>
-      <svg className='my-auto w-full h-24' viewBox='0 0 240 80' fill='none'>
-        <path d='M0,50 Q20,20 40,45 T80,30 T120,60 T160,20 T200,40 T240,25' stroke='#66D9ED' strokeWidth='2.5' />
-        <path d='M0,65 Q30,55 60,70 T120,45 T180,65 T240,50' stroke='#A855F7' strokeDasharray='4 2' strokeWidth='1.5' />
-        <circle cx='160' cy='20' r='4' fill='#00E599' />
-      </svg>
-      <div className='grid grid-cols-3 gap-2 pt-2 border-t border-border-subtle text-center text-[10px] font-mono text-text-secondary'>
-        <div>TORQUE <span className='block text-text-primary'>14.2 kNm</span></div>
-        <div>ROP <span className='block text-syntax-comment'>38.4 m/h</span></div>
-        <div>PRES <span className='block text-accent-cyan'>3,450 PSI</span></div>
-      </div>
+    <div className='relative w-full aspect-[16/9] bg-surface-container overflow-hidden flex items-end justify-center gap-4 sm:gap-6 px-6 pt-6'>
+      <div aria-hidden='true' className='absolute w-56 h-56 rounded-full bg-primary-container/20 blur-3xl top-1/4' />
+      {screens.map(({ src, size: [w, h] }, i) => (
+        <img
+          key={src}
+          src={src}
+          alt={`${t('site.work.preview').replace('{name}', name)} (${i + 1}/${screens.length})`}
+          width={w}
+          height={h}
+          loading='lazy'
+          decoding='async'
+          className='phone-shot relative w-[34%] max-w-[180px] h-full object-cover object-top rounded-t-2xl border-[3px] border-b-0 border-[#2a2a2c] shadow-2xl'
+        />
+      ))}
     </div>
   );
 };
@@ -78,7 +100,7 @@ const FeaturedProject = ({ project }) => {
             <Icon name='arrowRight' className='w-4 h-4' />
           </a>
         </div>
-        <TelemetryMockup />
+        <FeaturedShot project={project} name={data?.name ?? ''} />
       </div>
     </article>
   );
@@ -107,7 +129,9 @@ const ProjectCard = ({ project }) => {
         </header>
 
         <div className='order-1 relative border-b border-border-subtle bg-surface-container overflow-hidden'>
-          {project.imageUrl ? (
+          {project.screens ? (
+            <PhoneScreens screens={project.screens} name={name} />
+          ) : project.imageUrl ? (
             <img
               src={project.imageUrl}
               alt={t('site.work.preview').replace('{name}', name)}

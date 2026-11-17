@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ISLANDS, RACE_DIFFICULTY } from '../config'
-import { getUi, openIsland, readBestTimes, startCombat, startRace } from '../store'
+import { enterIsland, getUi, readBestTimes, startCombat, startRace } from '../store'
 import { useLanguage, useT } from '../../i18n/LanguageProvider'
 import { formatTime } from './format'
 
@@ -87,7 +87,7 @@ const Menu = ({ coarse, open, setOpen }) => {
           <ul>
             {ISLANDS.map((island) => (
               <li key={island.id}>
-                <button type='button' onClick={run(() => openIsland(island.id))} className={item}>
+                <button type='button' onClick={run(() => enterIsland(island.id))} className={item}>
                   <span aria-hidden='true' className='w-7 h-7 shrink-0 rounded-full flex items-center justify-center border-2' style={{ borderColor: island.color }}>
                     {t(`ocean.islands.${island.id}.icon`)}
                   </span>

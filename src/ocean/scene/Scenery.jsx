@@ -4,6 +4,7 @@ import { EDGE_ISLAND, ICEBERG, MOORED_SHIPS, PIER, TRAFFIC, TRAFFIC_CLEARANCES }
 import { useUi, world } from '../store'
 import { waveHeight } from '../waves'
 import { IslandModel, Model, VesselModel } from './models'
+import { squareFort } from './fortLayout'
 
 const TAU = Math.PI * 2;
 const wrapAngle = (a) => Math.atan2(Math.sin(a), Math.cos(a));
@@ -33,41 +34,18 @@ const Bobbing = ({ name, scale, phase = 0, tilt, ...props }) => {
 const FRAME = -(EDGE_ISLAND.angle + Math.PI);
 const TIP = Math.max(...EDGE_ISLAND.profile); // local x of the tip
 
-// Square fort: each side alternates castle-wall and castle-window, the side
-// facing the sea has a castle-gate in the middle, and a tower-complete-large
-// stands on every corner. Pieces run along their local Z: walls/windows are
-// 2.8 long, the gate 3.6, so the gateless sides stretch theirs to match.
+// Square fort (shared builder, see fortLayout.js) with its gate facing the map,
+// a tower on every corner, a flag in the middle and two cannons by the gate.
 const FORT = (() => {
-  const s = 0.45;
-  const gateSide = ['castle-wall', 'castle-window', 'castle-gate', 'castle-window', 'castle-wall'];
-  const plainSide = ['castle-wall', 'castle-window', 'castle-wall', 'castle-window', 'castle-wall'];
-  const length = (name) => (name === 'castle-gate' ? 3.6 : 2.8);
-  const side = gateSide.reduce((sum, n) => sum + length(n), 0); // model units
-  const h = (side * s) / 2;
-  const cx = TIP - h - 3.4;
-  const pieces = [];
-  // Lays a side along its own axis: `place(offset)` -> [x, z]; `rot` turns the
-  // pieces so their length follows that side.
-  const lay = (names, rot, place) => {
-    const stretch = side / names.reduce((sum, n) => sum + length(n), 0);
-    let o = -h;
-    for (const name of names) {
-      const l = length(name) * s * stretch;
-      const [x, z] = place(o + l / 2);
-      pieces.push([name, x, z, rot, [s, s, s * stretch]]);
-      o += l;
-    }
-  };
-  lay(gateSide, 0, (o) => [cx + h, o]); // sea side, facing the map
-  lay(plainSide, Math.PI, (o) => [cx - h, o]);
-  lay(plainSide, Math.PI / 2, (o) => [cx + o, h]);
-  lay(plainSide, -Math.PI / 2, (o) => [cx + o, -h]);
-  for (const [sx, sz] of [[1, 1], [1, -1], [-1, 1], [-1, -1]]) {
-    pieces.push(['tower-complete-large', cx + sx * h, sz * h, 0, 0.3]);
-  }
-  pieces.push(['flag-pirate-high', cx, 0, 0.3, 0.9]);
-  pieces.push(['cannon', cx + h + 1.6, -2.2, Math.PI / 2, 0.8]);
-  pieces.push(['cannon', cx + h + 1.6, 2.2, Math.PI / 2, 0.8]);
+  const s = 0.4;
+  const half = squareFort({ scale: s }).half;
+  // Front kept 3.4 from the tip so it shows out of the clouds, shifted toward +z where the
+  // island is wider: every corner stands ≥1.4 and the cannons ≥1.1 inside the shore
+  // (a corner used to hang 1.5 past the edge and looked like it was floating).
+  const cx = TIP - half - 3.4;
+  const cz = 2;
+  const pieces = squareFort({ scale: s, cx, cz });
+  pieces.push(['flag-pirate-high', cx, cz, 0.3, 0.9]);
   return pieces;
 })();
 

@@ -167,7 +167,7 @@
       "fort": {
         "name": "Games",
         "icon": "🎮",
-        "title": "Defend the fort"
+        "title": "Game modes"
       }
     },
     "modal": {
@@ -225,7 +225,8 @@
       "rule_waves": "3 waves, each larger and more aggressive.",
       "rule_fire": "Space (or the red button) fires a broadside from both sides: turn sideways to hit.",
       "rule_hp": "You have 10 health points. Keep moving to dodge cannonballs.",
-      "start": "⚔️ Start the defense"
+      "start": "⚔️ Start the defense",
+      "race_pick": "Pick a difficulty"
     },
     "hint": {
       "move": "Use WASD or the arrow keys to sail",
@@ -280,6 +281,16 @@
       "missing": "file unavailable",
       "credits": "Music by",
       "via": "via"
+    },
+    "start": {
+      "title": "Facundo Mozo's Portfolio",
+      "subtitle": "Sail between islands to discover my work, or play for a while.",
+      "sail": "Sail",
+      "sail_desc": "Explore the islands at your own pace",
+      "play": "Play",
+      "play_desc": "Combat or a race against the clock",
+      "choose": "Pick a game mode",
+      "back": "Back"
     }
   },
   "site": {
@@ -292,7 +303,9 @@
       "expertise": "expertise",
       "work": "work",
       "experience": "experience",
-      "contact": "contact"
+      "contact": "contact",
+      "next": "Go to the next section: {section}",
+      "top": "Back to top"
     },
     "social": {
       "github": "GitHub profile",
@@ -358,7 +371,7 @@
       "details": "View details",
       "visit": "Visit site",
       "preview": "Screenshot of {name}",
-      "live": "LIVE MONITORING · WELL #14-B"
+      "live": "LIVE MONITORING · TENLEK"
     },
     "experience": {
       "title": "Professional Experience",
@@ -374,8 +387,19 @@
       "error_fallback": "If it keeps failing, email me directly at {email}."
     },
     "footer": {
-      "built": "Designed and built by Facundo Mozo",
-      "back_to_top": "Back to top"
+      "built": "Designed and built by Facundo Mozo"
+    },
+    "palette": {
+      "legend": "// color palette",
+      "cube": "Cube {n} of 3",
+      "unlocked": "You unlocked the color palettes! Pick one below the cubes.",
+      "applied": "{name} palette applied",
+      "names": {
+        "violet": "Violet",
+        "matrix": "Matrix",
+        "sunset": "Sunset",
+        "ocean": "Ocean"
+      }
     }
   }
 }
