@@ -16,7 +16,7 @@ export const ContactForm = ({ send }) => {
     <form onSubmit={onSubmit} aria-labelledby={titleId} className='bg-surface-card border border-border-subtle p-6 sm:p-8 flex flex-col gap-5'>
       <h3 id={titleId} className='font-display text-headline-md text-text-primary'>{t('site.contact.form_title')}</h3>
 
-      <label className='font-mono text-code-badge uppercase text-text-secondary'>
+      <label className='font-sans text-body-sm font-medium text-text-secondary'>
         {t('contact.name_label')}
         <input
           type='text'
@@ -30,7 +30,7 @@ export const ContactForm = ({ send }) => {
           className='site-field normal-case font-sans text-body-md'
         />
       </label>
-      <label className='font-mono text-code-badge uppercase text-text-secondary'>
+      <label className='font-sans text-body-sm font-medium text-text-secondary'>
         {t('contact.email_label')}
         <input
           type='email'
@@ -47,7 +47,7 @@ export const ContactForm = ({ send }) => {
           className='site-field normal-case font-sans text-body-md'
         />
       </label>
-      <label className='font-mono text-code-badge uppercase text-text-secondary'>
+      <label className='font-sans text-body-sm font-medium text-text-secondary'>
         {t('contact.message_label')}
         <textarea
           name='message'
@@ -67,7 +67,7 @@ export const ContactForm = ({ send }) => {
           disabled={sending}
           aria-busy={sending}
           data-magnetic
-          className='inline-flex items-center gap-2 px-6 py-3 bg-primary-container text-white font-mono text-code-badge font-bold uppercase tracking-wider hover:bg-inverse-primary transition-colors disabled:opacity-70 disabled:cursor-wait'
+          className='inline-flex items-center gap-2 px-6 py-3 bg-primary-container text-white font-sans text-body-sm font-semibold hover:bg-inverse-primary transition-colors disabled:opacity-70 disabled:cursor-wait'
         >
           <Icon name='mail' className='w-4 h-4' />
           {sending ? t('contact.sending_btn') : t('contact.send_btn')}

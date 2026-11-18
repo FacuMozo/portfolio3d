@@ -12,7 +12,7 @@ import { SECTION_IDS } from '../sections'
 const NAV_ID = 'site-nav';
 
 const socialIcon = { GitHub: 'github', LinkedIn: 'linkedin' };
-const ghostBtn = 'inline-flex items-center gap-1.5 h-9 px-2.5 sm:px-3 border border-border-prominent text-text-primary font-mono text-code-badge uppercase hover:border-accent-cyan hover:text-accent-cyan transition-colors';
+const ghostBtn = 'inline-flex items-center gap-1.5 h-9 px-2.5 sm:px-3 border border-border-prominent text-text-primary font-sans text-body-sm font-semibold hover:border-accent-cyan hover:text-accent-cyan transition-colors';
 
 const Header = () => {
   const t = useT();
@@ -105,7 +105,7 @@ const Header = () => {
             onPointerEnter={prefetchOcean}
             onFocus={prefetchOcean}
             data-magnetic
-            className='inline-flex items-center gap-1.5 h-9 px-2.5 sm:px-3 bg-primary-container text-white font-mono text-code-badge font-bold uppercase hover:bg-inverse-primary transition-colors'
+            className='inline-flex items-center gap-1.5 h-9 px-2.5 sm:px-3 bg-accent-cyan text-surface-lowest font-sans text-body-sm font-semibold hover:bg-white transition-colors'
           >
             <Icon name='wave' className='w-4 h-4' />
             <span className='sr-only sm:not-sr-only'>{t('site.ocean.short')}</span>

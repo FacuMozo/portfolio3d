@@ -85,16 +85,16 @@ const FeaturedProject = ({ project }) => {
       <div className='grid grid-cols-1 md:grid-cols-2 gap-6 items-center'>
         <div className='space-y-4'>
           <h3 className='font-display text-headline-lg text-text-primary'>{data?.name}</h3>
-          <p className='text-body-sm text-text-secondary leading-relaxed'>{data?.description}</p>
-          <ul className='flex flex-wrap gap-1.5 font-mono text-code-badge text-accent-cyan pt-1'>
+          <p className='text-body-md text-text-secondary leading-relaxed'>{data?.description}</p>
+          <ul className='flex flex-wrap gap-1.5 font-mono text-code-badge text-on-surface pt-1'>
             {project.stack.map((tech) => (
-              <li key={tech} className='tech-chip bg-surface-high border border-transparent px-2 py-1'>{tech}</li>
+              <li key={tech} className='bg-surface-high px-2 py-1'>{tech}</li>
             ))}
           </ul>
           <a
             href={`#project-${projectKey(project)}`}
             data-magnetic
-            className='inline-flex items-center gap-2 px-6 py-2.5 bg-primary-container text-white font-mono text-code-badge font-bold uppercase tracking-wider hover:bg-inverse-primary transition-colors'
+            className='inline-flex items-center gap-2 px-6 py-2.5 bg-primary-container text-white font-sans text-body-sm font-semibold hover:bg-inverse-primary transition-colors'
           >
             {t('site.work.details')}
             <Icon name='arrowRight' className='w-4 h-4' />
@@ -149,11 +149,11 @@ const ProjectCard = ({ project }) => {
           </span>
         </div>
 
-        <p className='order-3 px-6 sm:px-8 pt-3 pb-6 text-body-sm text-text-secondary leading-relaxed flex-1'>{data?.description}</p>
+        <p className='order-3 px-6 sm:px-8 pt-3 pb-6 text-body-md text-text-secondary leading-relaxed flex-1'>{data?.description}</p>
 
         <ul className='order-4 mx-6 sm:mx-8 py-4 border-t border-border-subtle flex flex-wrap items-center gap-2 font-mono text-code-badge text-text-secondary'>
-          {project.stack.map((tech, i) => (
-            <li key={tech} className={`tech-chip relative z-[2] px-2 py-0.5 border border-transparent ${i === 0 ? style.text : ''}`}>{tech}</li>
+          {project.stack.map((tech) => (
+            <li key={tech} className='relative z-[2] px-2 py-0.5'>{tech}</li>
           ))}
         </ul>
       </article>

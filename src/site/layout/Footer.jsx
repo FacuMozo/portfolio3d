@@ -19,7 +19,7 @@ export const OceanPromo = () => {
           onPointerEnter={prefetchOcean}
           onFocus={prefetchOcean}
           data-magnetic
-          className='shrink-0 self-start md:self-auto inline-flex items-center gap-2 px-6 py-3 bg-accent-cyan text-surface-lowest font-mono text-code-badge font-bold uppercase tracking-wider hover:bg-white transition-colors'
+          className='shrink-0 self-start md:self-auto inline-flex items-center gap-2 px-6 py-3 bg-accent-cyan text-surface-lowest font-sans text-body-sm font-semibold hover:bg-white transition-colors'
         >
           <Icon name='wave' className='w-4 h-4' />
           {t('site.ocean.cta')}

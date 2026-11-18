@@ -33,7 +33,7 @@ export default {
         },
         "border-subtle": "#282830",
         "border-prominent": "#3F3F4D",
-        "text-primary": "#FFFFFF",
+        "text-primary": "#EDEDF0",
         "text-secondary": "#A6A6B0",
         // Stitch used #60606B (≈3.3:1 on the page background): raised to pass WCAG AA (≥4.5:1).
         "text-muted": "#8B8B96",

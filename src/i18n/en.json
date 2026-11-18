@@ -295,7 +295,6 @@
   },
   "site": {
     "skip": "Skip to content",
-    "available": "Available for new challenges",
     "nav": {
       "label": "Sections",
       "menu": "Menu",
@@ -323,13 +322,7 @@
       "role": "Full-Stack & Mobile Developer",
       "degree": "Systems Engineer (UNICEN)",
       "summary": "3 years building production web and mobile applications for energy, industrial manufacturing and healthcare, focused on real-time performance and end-to-end ownership.",
-      "domains_label": "// specialties & key domains",
-      "domains": [
-        "Oil & Gas · real-time",
-        "Health & wearables",
-        "Computer vision",
-        "Data engineering & ML"
-      ],
+      "stack_label": "// core stack",
       "cta_work": "See projects",
       "cta_contact": "Get in touch"
     },
@@ -339,17 +332,17 @@
       "mobile": {
         "line1": "Mobile",
         "line2": "Engineering",
-        "body": "iOS/Android apps with React Native, Expo and TypeScript: touch canvas at a stable 60 FPS, step-by-step flows, wearable integrations (Withings, Fitbit) and cross-platform releases."
+        "body": "iOS and Android apps with React Native and TypeScript, from the first screen to store release: smooth interfaces, integrations with devices and external services, and a single maintainable codebase."
       },
       "frontend": {
         "line1": "Frontend",
         "line2": "Architecture",
-        "body": "Web interfaces with React and TypeScript for real-time monitoring: time series with ECharts, state architecture at scale (Redux Toolkit, Redux Saga, React Query, Zustand) and a focus on performance."
+        "body": "Web applications with React and TypeScript built to scale: clear state architecture, real-time data visualization and a focus on performance."
       },
       "backend": {
         "line1": "Backend &",
         "line2": "Data",
-        "body": "RESTful APIs with Spring Boot (Java), Node.js and Python; integrations with WITSML, EDI and AWS Cognito; ETL pipelines and machine learning models (LightGBM, XGBoost, RF-DETR)."
+        "body": "APIs and services with Java, Node.js and Python: integrations with external systems, authentication and data processing, all the way to ETL pipelines and machine learning models."
       },
       "profile_note": "// Systems Engineer · UNICEN"
     },

@@ -206,16 +206,6 @@ html.theme-site {
   box-shadow: 0 16px 36px -8px rgb(var(--c-primary) / 0.25), 0 0 0 1px rgb(var(--c-primary) / 0.35);
 }
 
-.tech-chip {
-  transition: border-color 0.25s, color 0.25s, background-color 0.25s;
-}
-
-.tech-chip:hover {
-  border-color: rgb(var(--c-accent) / 0.8);
-  color: #fff;
-  background-color: rgb(var(--c-primary) / 0.18);
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .project-card,
   .featured-card {
@@ -261,7 +251,7 @@ html.theme-site {
   margin-block-start: 0.5rem;
   padding: 0.625rem 0.75rem;
   background-color: #0e0e10;
-  border: 1px solid #3f3f4d;
+  border: 1px solid #6b6b78; /* ≥3:1 on the field background (WCAG 1.4.11) */
   color: #fff;
   font: inherit;
   transition: border-color 0.2s;
@@ -272,7 +262,7 @@ html.theme-site {
 }
 
 .site-field:hover {
-  border-color: #60606b;
+  border-color: #8b8b96;
 }
 
 .site-field:focus-visible {
@@ -414,7 +404,7 @@ textarea.site-field {
   border-radius: 9999px;
   background: radial-gradient(circle at 38% 38%, rgb(255 255 255 / 0.7), transparent 28%),
     radial-gradient(circle, #ffdd99, rgb(var(--c-accent-3)) 55%, transparent 72%);
-  filter: drop-shadow(0 0 12px rgb(var(--c-accent-3) / 0.8));
+  filter: drop-shadow(0 0 22px rgb(var(--c-accent-3) / 0.8));
   pointer-events: none;
 }
 
@@ -428,6 +418,27 @@ textarea.site-field {
 }
 
 .hero-dot--alt { background: rgb(var(--c-accent) / 0.45); }
+
+/* Layout: wide strip (mobile/tablet, above the text) → taller box beside the text (desktop),
+   where the cubes get bigger. Percentages are relative to .hero-cubes. */
+.hero-cube--0 { left: 26.7%; top: 10%; width: 12.5%; }
+.hero-cube--1 { left: 41.7%; top: 21%; width: 16.7%; }
+.hero-cube--2 { left: 58.3%; top: 30%; width: 10.8%; }
+.hero-dot--0 { left: 20%; top: 55%; }
+.hero-dot--1 { left: 23.3%; top: 60%; }
+.hero-dot--2 { left: 80%; top: 50%; }
+.hero-dot--3 { left: 76.7%; top: 57.5%; }
+
+@media (min-width: 1024px) {
+  .hero-sun { left: 72%; top: 16%; inline-size: 7%; }
+  .hero-cube--0 { left: 8%; top: 12%; width: 24%; }
+  .hero-cube--1 { left: 33%; top: 28%; width: 32%; }
+  .hero-cube--2 { left: 66%; top: 44%; width: 21%; }
+  .hero-dot--0 { left: 5%; top: 66%; }
+  .hero-dot--1 { left: 9%; top: 72%; }
+  .hero-dot--2 { left: 92%; top: 30%; }
+  .hero-dot--3 { left: 88%; top: 36%; }
+}
 
 .hero-cube {
   position: absolute;
@@ -446,8 +457,8 @@ textarea.site-field {
   --lit: var(--c-accent);
 }
 
-.hero-cube--1 { --lit: var(--c-accent-2); }
-.hero-cube--2 { --lit: var(--c-accent-3); }
+.hero-cube--1 { --lit: var(--c-accent-2); --float-dur: 7s; --float-delay: -2.5s; }
+.hero-cube--2 { --lit: var(--c-accent-3); --float-dur: 5.5s; --float-delay: -4s; }
 
 .hero-cube svg {
   display: block;
@@ -471,6 +482,40 @@ textarea.site-field {
   opacity: 0.4;
   transform: translateX(var(--sx, 0px));
   transition: transform 0.18s ease-out;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Idle motion: cubes bob slowly (shadow shrinks as they rise) and the sun twinkles
+   between ~50% and ~120% of its brightness. Each cube has its own rhythm. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-cube__body {
+    animation: cube-float var(--float-dur, 6s) ease-in-out var(--float-delay, 0s) infinite alternate;
+  }
+
+  .hero-cube__shadow {
+    animation: cube-shadow var(--float-dur, 6s) ease-in-out var(--float-delay, 0s) infinite alternate;
+  }
+
+  @keyframes cube-float {
+    from { transform: translateY(-7px); }
+    to { transform: translateY(5px); }
+  }
+
+  @keyframes cube-shadow {
+    from { scale: 0.8; opacity: 0.25; }
+    to { scale: 1.05; opacity: 0.45; }
+  }
+
+  /* One slow pulse per cycle: dim (60%) ↔ full (100%), with a wide glow. */
+  .hero-sun {
+    animation: sun-twinkle 4.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes sun-twinkle {
+    from { filter: brightness(0.6) drop-shadow(0 0 10px rgb(var(--c-accent-3) / 0.45)); }
+    to { filter: brightness(1) drop-shadow(0 0 30px rgb(var(--c-accent-3) / 0.9)); }
+  }
 }
 
 .hero-cube[aria-pressed="true"] {

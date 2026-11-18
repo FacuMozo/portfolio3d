@@ -47,7 +47,7 @@ const Expertise = () => {
   const t = useT();
   return (
     <section id='expertise' tabIndex={-1} aria-labelledby='expertise-title' className='w-full max-w-7xl mx-auto px-4 sm:px-margin py-space-3xl'>
-      <div className='text-center mb-16'>
+      <div className='mb-16'>
         <h2 id='expertise-title' className='font-display text-headline-xl text-text-primary'>{t('site.expertise.title')}</h2>
         <p className='font-mono text-code-snippet text-text-muted mt-2'>{t('site.expertise.subtitle')}</p>
       </div>
@@ -68,15 +68,13 @@ const Expertise = () => {
                     <span className='block'>{t(`site.expertise.${id}.line2`)}</span>
                   </h3>
                 </div>
-                <p aria-hidden='true' className='font-mono text-code-snippet text-text-muted mb-2'>&lt;p&gt;</p>
-                <p className='text-body-md text-text-secondary leading-relaxed pl-4 border-l border-border-prominent'>
+                <p className='text-body-md text-text-secondary leading-relaxed'>
                   {t(`site.expertise.${id}.body`)}
                 </p>
-                <p aria-hidden='true' className='font-mono text-code-snippet text-text-muted mt-2'>&lt;/p&gt;</p>
               </div>
               <ul className='mt-8 pt-4 border-t border-border-subtle flex flex-wrap gap-1.5 font-mono text-code-badge'>
-                {stack.map((tech, j) => (
-                  <li key={tech} className={`bg-surface-high px-2 py-0.5 ${j === 0 ? a.text : j === stack.length - 1 ? 'text-syntax-comment' : 'text-on-surface'}`}>
+                {stack.map((tech) => (
+                  <li key={tech} className='bg-surface-high px-2 py-0.5 text-on-surface'>
                     {tech}
                   </li>
                 ))}

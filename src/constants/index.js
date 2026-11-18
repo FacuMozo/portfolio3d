@@ -215,9 +215,12 @@ export const projects = [
 // Filter order on the professional site ("all" first).
 export const projectCategories = ['all', 'realtime', 'mobile', 'data', 'web'];
 
+// Main technologies shown in the professional site's hero (language-neutral).
+export const heroStack = ['TypeScript', 'React', 'React Native', 'Node.js', 'Spring Boot', 'Python'];
+
 // Three expertise columns of the professional site; copy in i18n `site.expertise.<id>`.
 export const expertise = [
-    { id: 'mobile', icon: 'phone', accent: 'coral', stack: ['React Native', 'Expo', 'Zustand', 'iOS / Android'] },
+    { id: 'mobile', icon: 'phone', accent: 'coral', stack: ['React Native', 'Expo', 'TypeScript', 'iOS / Android'] },
     { id: 'frontend', icon: 'hub', accent: 'cyan', stack: ['React', 'TypeScript', 'Redux Toolkit', 'ECharts'] },
     { id: 'backend', icon: 'dns', accent: 'violet', stack: ['Spring Boot', 'Node.js', 'Python', 'AWS Cognito'] },
 ];

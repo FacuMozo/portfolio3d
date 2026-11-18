@@ -10,7 +10,7 @@ const Experience = () => {
   const t = useT();
   return (
     <section id='experience' tabIndex={-1} aria-labelledby='experience-title' className='w-full max-w-5xl mx-auto px-4 sm:px-margin py-space-3xl'>
-      <div className='text-center mb-12'>
+      <div className='mb-12'>
         <h2 id='experience-title' className='font-display text-headline-xl text-text-primary'>{t('site.experience.title')}</h2>
         <p className='font-mono text-code-snippet text-text-muted mt-2'>{t('site.experience.subtitle')}</p>
       </div>
@@ -33,7 +33,7 @@ const Experience = () => {
                 </span>
               </summary>
               <div className='p-5 sm:p-6 border-t border-border-subtle'>
-                <ul className='space-y-3 text-body-sm text-text-secondary'>
+                <ul className='space-y-3 text-body-md text-text-secondary'>
                   {points.map((point) => (
                     <li key={point} className='flex items-start gap-2'>
                       <span aria-hidden='true' className='text-syntax-comment font-mono'>✓</span>
